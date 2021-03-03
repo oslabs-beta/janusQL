@@ -5,9 +5,9 @@
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node server/server.js",
-    "dev": "NODE_ENV=development concurrently \"nodemon server/server.ts\" \"webpack-dev-server --open --hot\"",
-    "build": "NODE_ENV=development webpack"
+    "start": "cross-env NODE_ENV=production node server/server.js",
+    "dev": "cross-env NODE_ENV=development concurrently \"nodemon server/server.ts\" \"webpack-dev-server --open --hot\"",
+    "build": "cross-env NODE_ENV=development webpack"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "concurrently": "^5.3.0",
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "md5": "^2.3.0",
     "pg": "^8.5.1",
