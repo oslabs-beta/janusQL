@@ -36,9 +36,12 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   devServer: {
+    historyApiFallback: true,
+    port: 8080,
     publicPath: '/build',
     proxy: {
       '/': 'http://localhost:3000',
+      secure: false
     },
     hot: true,
   },
