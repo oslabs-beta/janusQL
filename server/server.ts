@@ -11,12 +11,27 @@ app.use(express.urlencoded({ extended: true }));
 // Serves static files in our client/assets folder
 app.use(express.static('client'));
 
-// app.use('/build', express.static(path.resolve(__dirname, '../build')));
+app.use('/build', express.static(path.resolve(__dirname, '../build')));
+
 
 app.get('/', (req: any, res: any) => {
   res.sendFile(path.join(__dirname, '../client/src/index.html'));
 });
 
+//default error handler
+app.use((err, req, res, next) => {
+
+  const defaultError = {
+    log: 'default error log',
+    status: 400,
+    message: { err: 'default error message' },
+  };
+  const errorObj = Object.assign({}, defaultError, err);
+  console.log("log from default error handler: errorObj.log");
+  return res.status(errorObj.status).json(errorObj.message);
+}); 
+
+//broadcast on port 3000
 app.listen(PORT, () => { 
   console.log(`Listening on port ${PORT}...`);
 });
