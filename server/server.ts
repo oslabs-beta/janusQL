@@ -1,6 +1,5 @@
 import express from "express";
 import path from "path";
-import isomorphicfetch from "isomorphic-fetch";
 import expressGraphQL, { graphqlHTTP } from "express-graphql";
 import schema from "./schema";
 
