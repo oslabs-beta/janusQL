@@ -1,10 +1,17 @@
 import express from "express";
 import path from "path";
-// const express = require('express');
-// const path = require('path');
+import isomorphicfetch from "isomorphic-fetch";
+import expressGraphQL, { graphqlHTTP } from "express-graphql";
+import schema from "./schema";
 
 const PORT = 3000;
 const app = express();
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  graphiql: true
+  // look up node fetch
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -21,5 +28,3 @@ app.get('/', (req: any, res: any) => {
 app.listen(PORT, () => { 
   console.log(`Listening on port ${PORT}...`);
 });
-
-// module.exports = app;
