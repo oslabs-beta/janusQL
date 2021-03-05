@@ -6,8 +6,8 @@ module.exports = {
   devtool: 'inline-source-map',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/build',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/dist',
   },
 
   module: {
@@ -38,7 +38,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     port: 8080,
-    publicPath: '/build',
+    publicPath: '/dist',
     proxy: {
       '/': 'http://localhost:3000',
       secure: false
