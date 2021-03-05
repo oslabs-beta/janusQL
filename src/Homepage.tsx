@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class App extends Component {
+class Homepage extends Component {
   constructor(props: any) {
     super(props);
     this.state = {};
@@ -9,10 +9,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        WORKING right?
+        WORKING
       </div>
     );
   }
 }
 
-export default App;
+export default Homepage;
