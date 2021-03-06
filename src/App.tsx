@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import Main from './Main';
+import './styles/styles.css';
 
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
