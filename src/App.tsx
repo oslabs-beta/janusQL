@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Homepage from './Homepage';
+import Main from './Main';
 
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
 
 const App = () => {
   return (
-      <Homepage></Homepage>
+      <Main></Main>
   )
 }
 
