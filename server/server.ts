@@ -19,7 +19,7 @@ app.get('/', (req: any, res: any) => {
 });
 
 //default error handler
-app.use((err, req, res, next) => {
+app.use((err:any, req:any, res:any, next:any) => {
 
   const defaultError = {
     log: 'default error log',
