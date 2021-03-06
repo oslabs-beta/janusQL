@@ -8,12 +8,6 @@ import responseTime from "response-time";
 const PORT = 3000;
 const app = express();
 
-// app.use('/graphql', graphqlHTTP({
-//   schema: schema,
-//   graphiql: true
-//   // look up node fetch
-// }));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,10 +27,14 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // NEED TO ASK FRONT END PPL
+// expect: req.body.query, req.body.url
 app.post('/input', 
   // middleware to add to db
   // middleware to fetch from external api
+
 )
+
+
 
 app.listen(PORT, () => { 
   console.log(`Listening on port ${PORT}...`);
