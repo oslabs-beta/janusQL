@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+//NOTE CODE IS NOT YET WORKING
 //this is code from login // needs to be updated with the approprate 
 //fields for creating an account
 //username
