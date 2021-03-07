@@ -1,5 +1,14 @@
 import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+// import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link, //issue with this being same name as line
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -201,8 +210,10 @@ const Login = () => {
         </CardActions>
       </Card>
       <div>
-        <Button>
-          <Link color='black'to="./Register">Sign up</Link>
+        {/* This div is a work in progress to connet my button to the proper
+        rought for Signup */}
+     <Button>
+          <Link color='black'to="./Signup">Sign up</Link>
         </Button>
       </div>
     </form>

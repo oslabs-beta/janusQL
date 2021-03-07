@@ -1,15 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-//NOTE CODE IS NOT YET WORKING
-//this is code from login // needs to be updated with the approprate 
-//fields for creating an account
-//username
-//fullname
-//password
-//email
-
-
 //import css style library here
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -19,6 +10,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 
 //css styling imported from material-ui
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -27,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 400,
       margin: `${theme.spacing(0)} auto`
     },
-    loginBtn: {
+    createBtn: {
       marginTop: theme.spacing(2),
       flexGrow: 1
     },
@@ -43,9 +35,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 //state type definitions and initial state of state
+
 type State = {
   username: string
-  password:  string
+  fullname: string
+  password: string
+  email: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
@@ -53,7 +48,9 @@ type State = {
 
 const initialState:State = {
   username: '',
+  fullname: '',
   password: '',
+  email: '',
   isButtonDisabled: true,
   helperText: '',
   isError: false
@@ -62,12 +59,15 @@ const initialState:State = {
 //action type definitions
 type Action = { type: 'setUsername', payload: string }
   | { type: 'setPassword', payload: string }
+  | { type: 'setfullname', payload: string } 
+  | { type: 'setemail', payload: string }
   | { type: 'setIsButtonDisabled', payload: boolean }
   | { type: 'loginSuccess', payload: string }
   | { type: 'loginFailed', payload: string }
   | { type: 'setIsError', payload: boolean };
 
 //reducer definitions
+
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'setUsername': 
@@ -75,16 +75,31 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         username: action.payload
       };
+
+    case 'setfullname': 
+      return {
+        ...state,
+        fullname: action.payload
+      };
+
     case 'setPassword': 
       return {
         ...state,
         password: action.payload
       };
+
+      case 'setemail': 
+      return {
+        ...state,
+        email: action.payload
+      };
+
     case 'setIsButtonDisabled': 
       return {
         ...state,
         isButtonDisabled: action.payload
       };
+
     case 'loginSuccess': 
       return {
         ...state,
@@ -105,13 +120,13 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-// method / function definitions 
-const Login = () => {
+// methods / function definitions 
+const Signup = () => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    if (state.username.trim() && state.password.trim()) {
+    if (state.username.trim() && state.password.trim() && state.fullname.trim() && state.email.trim()) {
      dispatch({
        type: 'setIsButtonDisabled',
        payload: false
@@ -122,10 +137,10 @@ const Login = () => {
         payload: true
       });
     }
-  }, [state.username, state.password]);
+  }, [state.username, state.fullname, state.password, state.email]);
 
   const handleLogin = () => {
-    if (state.username === 'abc@email.com' && state.password === 'password') {
+    if (state.username === 'abc@email.com' && state.fullname === 'fullname' && state.password === 'password' && state.email === 'abc@email.com') {
       dispatch({
         type: 'loginSuccess',
         payload: 'Login Successfully'
@@ -153,6 +168,14 @@ const Login = () => {
       });
     };
 
+  const handleNameChange: React.ChangeEventHandler<HTMLInputElement> =
+    (event) => {
+      dispatch({
+        type: 'setfullname',
+        payload: event.target.value
+      });
+    };
+
   const handlePasswordChange: React.ChangeEventHandler<HTMLInputElement> =
     (event) => {
       dispatch({
@@ -161,10 +184,18 @@ const Login = () => {
       });
     }
 
+    const handleEmailChange: React.ChangeEventHandler<HTMLInputElement> =
+    (event) => {
+      dispatch({
+        type: 'setemail',
+        payload: event.target.value
+      });
+    }
+
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <Card className={classes.card}>
-        <CardHeader className={classes.header} title="Register for JanusQl" />
+        <CardHeader className={classes.header} title="Sign up for JanusQl" />
         <CardContent>
           <div>
             <TextField
@@ -176,6 +207,17 @@ const Login = () => {
               placeholder="Username"
               margin="normal"
               onChange={handleUsernameChange}
+              onKeyPress={handleKeyPress}
+            />
+              <TextField
+              error={state.isError}
+              fullWidth
+              id="fullname"
+              type="fullname"
+              label="Fullname"
+              placeholder="First Last"
+              margin="normal"
+              onChange={handleNameChange}
               onKeyPress={handleKeyPress}
             />
             <TextField
@@ -190,6 +232,18 @@ const Login = () => {
               onChange={handlePasswordChange}
               onKeyPress={handleKeyPress}
             />
+            <TextField
+              error={state.isError}
+              fullWidth
+              id="email"
+              type="email"
+              label="Email"
+              placeholder="Email@here.com"
+              margin="normal"
+              helperText={state.helperText}
+              onChange={handleEmailChange} 
+              onKeyPress={handleKeyPress}
+            />
           </div>
         </CardContent>
         <CardActions>
@@ -197,15 +251,15 @@ const Login = () => {
             variant="contained"
             size="large"
             color="secondary"
-            className={classes.loginBtn}
+            className={classes.createBtn}
             onClick={handleLogin}
             disabled={state.isButtonDisabled}>
-            Login
+            Register
           </Button>
         </CardActions>
       </Card>
     </form>
   );
-}
+  }
 
-export default Signup
+export default Signup;
