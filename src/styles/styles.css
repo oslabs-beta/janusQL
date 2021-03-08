@@ -19,3 +19,15 @@ body {
 .CodeMirror-wrap {
   height: 85vh;
 }
+
+input {
+  background-color: white !important;
+}
+
+.graph-container {
+  width: 66%;
+}
+
+.submit-btn {
+  margin-left: 1em;
+}

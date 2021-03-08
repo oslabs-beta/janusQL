@@ -36,7 +36,7 @@ const QueryPlayground = (props:any) => {
       />
       <Box display="flex" justifyContent="space-evenly" mt="1em">
         <Button variant="contained" color='primary'>Load Test</Button>
-        <Button variant="contained" color='secondary'>Security Test</Button>
+        <Button variant="contained" color='primary'>Security Test</Button>
       </Box>
       </Container>
     </div>

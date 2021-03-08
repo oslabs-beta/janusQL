@@ -9,18 +9,22 @@ document.body.appendChild(mainElement);
 
 const theme = createMuiTheme({
   palette: {
-    secondary: {
-      main: '#FF8E53'
-    },
     primary: {
-      main: '#FE688B'
-    }
-  }
+      main: '#FE688B',
+      contrastText: '#FFFF'
+    },
+    secondary: {
+      main: '#FF8E53',
+      contrastText: '#FFFF'
+    },
+  },
 })
 
 const App = () => {
   return (
+    <MuiThemeProvider theme={theme}>
       <Main></Main>
+    </MuiThemeProvider>
   )
 }
 
