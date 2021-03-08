@@ -31,3 +31,16 @@ input {
 .submit-btn {
   margin-left: 1em !important;
 }
+
+.playground-title {
+  color: #FE688B;
+}
+
+.graph-title {
+  color:#FF8E53; 
+}
+
+.graph-title,
+.playground-title {
+  text-align: center;
+}
