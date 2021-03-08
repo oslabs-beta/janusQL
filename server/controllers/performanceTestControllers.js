@@ -4,7 +4,6 @@ const fetch = require('node-fetch');
 const performanceTestControllers = {};
 
 performanceTestControllers.responseTime = ((req, res, next) => {
-  console.log('im in RESPONSE TIME CONTROLLERRRRRRRR');
   // const { query, url } = res.body;
   // SCRUB INPUTS RES.BODY
   
@@ -23,9 +22,8 @@ performanceTestControllers.responseTime = ((req, res, next) => {
     }
   }`;
 
-  //start timer
+  // start timer
   const start = Date.now();
-  console.log('start: ', start);
 
   // replace countries url with users url;
   fetch('http://countries.trevorblades.com/', {
@@ -45,13 +43,17 @@ performanceTestControllers.responseTime = ((req, res, next) => {
     })
     .then(() => {
       const end = Date.now();
-      console.log('end: ', end);
       const duration = end - start;
-      console.log('duration:', duration);
+      // console.log('duration:', duration);
       res.locals.responseTime = duration;
       return next();
     })
-    .catch(err => console.log('error', err)); // insert global error handler
+    .catch(err => {
+      next({
+        log: 'Express error handler caught responseTime middleware error',
+        message: {err: 'Can\'t retrieve response time'}
+      });
+    });
 });
 
 module.exports = performanceTestControllers;

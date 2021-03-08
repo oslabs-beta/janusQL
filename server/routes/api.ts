@@ -9,7 +9,6 @@ router.get('/',
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
   (req, res) => {
-    console.log('inside input route');
     return res.status(200).json(res.locals.responseTime)
   }
 )
