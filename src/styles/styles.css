@@ -6,3 +6,16 @@ body {
 .main {
   background-color: #F4F6F8;
 }
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.playground {
+  width: 33%;
+}
+
+.CodeMirror-wrap {
+  height: 80vh;
+}

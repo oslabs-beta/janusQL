@@ -19,7 +19,6 @@ class Main extends Component {
           <Switch>
             <Route path="/" exact>
               <DashboardContainer/>
-              <GraphContainer/>
             </Route>
           </Switch>
         </Router>
