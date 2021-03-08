@@ -29,5 +29,5 @@ input {
 }
 
 .submit-btn {
-  margin-left: 1em;
+  margin-left: 1em !important;
 }
