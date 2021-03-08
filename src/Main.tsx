@@ -18,7 +18,6 @@ class Main extends Component {
           <Navbar />
           <Switch>
             <Route path="/" exact>
-              <LoginContainer />
               <DashboardContainer/>
               <GraphContainer/>
             </Route>

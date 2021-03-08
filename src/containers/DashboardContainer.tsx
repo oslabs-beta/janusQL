@@ -1,9 +1,10 @@
 import React from 'react';
+import QueryPlayground from '../components/QueryPlayground';
 
 const DashboardContainer = () => {
   return (
-    <div>
-      Dashboard Container
+    <div className="dashboard-container">
+      <QueryPlayground />
     </div>
   );
 };
