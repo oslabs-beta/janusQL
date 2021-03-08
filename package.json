@@ -58,7 +58,6 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "@types/morgan": "^1.9.2",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
     "bcrypt": "^5.0.0",

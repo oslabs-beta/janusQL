@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-// const { performance, PerformanceObserver } = require("perf_hooks")
 // import fetch from "node-fetch";
 
 const performanceTestControllers = {};
