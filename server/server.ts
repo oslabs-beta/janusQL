@@ -22,7 +22,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/input', apiRouter);
 
 // default error handler
-app.use((err:any, req:any, res:any, next:any) => {
+app.use((err: any, req: any, res: any, next: any) => {
   const defaultError = {
     log: 'default error log',
     status: 400,
