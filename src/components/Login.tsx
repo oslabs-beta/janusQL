@@ -1,6 +1,8 @@
 import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 // import React from "react";
+
+//comment back in when impementing react router
 // import {
 //   BrowserRouter as Router,
 //   Switch,
@@ -16,7 +18,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-// import { Link } from '@material-ui/core';
+// import { Link } from '@material-ui/core';  //duplicate name with react router import, this link is not used.
 
 //css styles here
 const useStyles = makeStyles((theme: Theme) =>
