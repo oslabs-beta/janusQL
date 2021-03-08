@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-// const fetch = require('node-fetch');
 import fetch from "node-fetch";
 
 const performanceTestControllers = {
@@ -58,4 +57,3 @@ const performanceTestControllers = {
 };
 
 export default performanceTestControllers;
-// module.exports = performanceTestControllers;
