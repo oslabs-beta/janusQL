@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link, //issue with this being same name as line
+  Link, //issue with this being same name as line 19
   useRouteMatch,
   useParams
 } from "react-router-dom";
@@ -16,7 +16,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-import { Link } from '@material-ui/core';
+// import { Link } from '@material-ui/core';
 
 //css styles here
 const useStyles = makeStyles((theme: Theme) =>
@@ -209,13 +209,10 @@ const Login = () => {
           </Button>
         </CardActions>
       </Card>
-      <div>
-        {/* This div is a work in progress to connet my button to the proper
-        rought for Signup */}
-     <Button>
-          <Link color='black'to="./Signup">Sign up</Link>
+      <Button onClick={()=>alert('This will send you to create a new account')} style={{fontSize: 12}} href="Signup" color="primary">
+         Sign up
         </Button>
-      </div>
+      
     </form>
   );
 }
