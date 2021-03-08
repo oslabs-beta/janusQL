@@ -1,12 +1,11 @@
 import express, { Request, Response } from "express";
 import path from "path";
-import responseTime from "response-time";
 import apiRouter from './routes/api';
-// import schema from "./schema";
 
 const PORT = 3000;
 const app = express();
 
+// parse requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,12 +21,20 @@ app.get('/', (req: Request, res: Response) => {
 // route handler
 app.use('/input', apiRouter);
 
-// this is using responseTime module to test our OWN server, not the actual test
-app.use(responseTime( (req: Request, res: Response, time: any) => {
-  console.log(`${req.method} ${req.url} ${time}`);
-}));
+// default error handler
+app.use((err:any, req:any, res:any, next:any) => {
+  const defaultError = {
+    log: 'default error log',
+    status: 400,
+    message: { err: 'default error message' },
+  };
+  const errorObj = { ...defaultError, err} ;
+  return res.status(errorObj.status).json(errorObj.message);
+});
 
-
+// broadcast on port 3000
 app.listen(PORT, () => { 
   console.log(`Listening on port ${PORT}...`);
 });
+
+module.exports = app;
