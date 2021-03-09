@@ -18,6 +18,16 @@ module.exports = {
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg|ico|jpeg)$/,
+        use: {
+          loader: 'url-loader',
+        },
+    },
     ],
   },
   devServer: {
