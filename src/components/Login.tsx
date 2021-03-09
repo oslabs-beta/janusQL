@@ -3,14 +3,14 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 // import React from "react";
 
 //comment back in when impementing react router
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-//   Link, //issue with this being same name as line 19
-//   useRouteMatch,
-//   useParams
-// } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link, 
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -18,7 +18,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-// import { Link } from '@material-ui/core';  //duplicate name with react router import, this link is not used.
+
 
 //css styles here
 const useStyles = makeStyles((theme: Theme) =>
@@ -200,19 +200,20 @@ const Login = () => {
           </div>
         </CardContent>
         <CardActions>
-          <Button
+        <Button
             variant="contained"
             size="large"
             color="secondary"
             className={classes.loginBtn}
             onClick={handleLogin}
             disabled={state.isButtonDisabled}>
-            Login
+            Register
           </Button>
+           
         </CardActions>
       </Card>
-      <Button onClick={()=>alert('This will send you to create a new account')} style={{fontSize: 12}} href="Signup" color="primary">
-         Sign up
+      <Button
+     <Link to="/Signup"> Signup</Link>
         </Button>
       
     </form>
