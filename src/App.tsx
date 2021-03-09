@@ -17,17 +17,17 @@ document.body.appendChild(mainElement);
 //login is a place holder to see the render of the login page
 const App = () => {
   return (
-    <main className="entryContainer">
       <Router>
-        <Switch>
-          <Route path="./components/Signup" />
-            <Route path="./components/Login" />
+        <div>  
+          <Switch>
+          <Route path="/Signup" component={Signup} />
+          <Route path="/Login" component={Login} />
        
         </Switch>
+        </div>
+      
       </Router>
      
-    </main>
-      
   )
 }
 

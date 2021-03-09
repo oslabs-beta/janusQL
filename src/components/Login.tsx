@@ -212,9 +212,8 @@ const Login = () => {
            
         </CardActions>
       </Card>
-      <Button
      <Link to="/Signup"> Signup</Link>
-        </Button>
+
       
     </form>
   );
