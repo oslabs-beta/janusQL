@@ -1,5 +1,6 @@
-import express, {Request, Response} from 'express';
-import path from 'path';
+import express, { Request, Response } from "express";
+import path from "path";
+import apiRouter from './routes/api';
 
 const PORT = 3000;
 const app = express();
@@ -17,6 +18,9 @@ app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
+// route handler
+app.use('/input', apiRouter);
+
 // default error handler
 app.use((err:any, req:any, res:any, next:any) => {
   const defaultError = {
@@ -27,8 +31,10 @@ app.use((err:any, req:any, res:any, next:any) => {
   const errorObj = { ...defaultError, err} ;
   return res.status(errorObj.status).json(errorObj.message);
 });
+
 // broadcast on port 3000
 app.listen(PORT, () => { 
   console.log(`Listening on port ${PORT}...`);
 });
+
 module.exports = app;
