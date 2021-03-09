@@ -4,14 +4,31 @@ import Homepage from './Homepage';
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Main from './Main';
+import './styles/styles.css';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
 
-//login is a place holder to see the render of the login page
+// custom MUI theme
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#FE688B',
+      contrastText: '#FFFF'
+    },
+    secondary: {
+      main: '#FF8E53',
+      contrastText: '#FFFF'
+    },
+  },
+})
+
 const App = () => {
   return (
-      <Login></Login>
+    <MuiThemeProvider theme={theme}>
+      <Main></Main>
+    </MuiThemeProvider>
   )
 }
 
