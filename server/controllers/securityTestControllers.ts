@@ -30,7 +30,7 @@ const securityTestController = {
       body: JSON.stringify({ query: queryTester })
     }
     
-    fetch('https://countries-274616.ew.r.appspot.com//', options)
+    fetch('https://countries-274616.ew.r.appspot.com', options)
     .then(result => result.text())
     .then(result => {
       res.locals.dos = result
