@@ -38,8 +38,8 @@ const securityTestController = {
     })
     .catch(err => {
       next({
-        log: 'Express error handler caught responseTime middleware error',
-        message: {err: 'Can\'t retrieve response time'}
+        log: 'Express error handler caught dos middleware error',
+        message: {err: 'error in dos fetch request'}
       });
     });
   }),
