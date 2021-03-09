@@ -10,6 +10,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
 
+// custom MUI theme
 const theme = createMuiTheme({
   palette: {
     primary: {
