@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import Homepage from './Homepage';
+import Login from './components/Login'
+import Signup from './components/Signup'
 import Main from './Main';
 import './styles/styles.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
