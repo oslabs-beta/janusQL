@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/monokai.css';
 import 'codemirror/mode/javascript/javascript';
@@ -7,17 +7,18 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import PerformanceContext from '../context/PerformanceContext';
 
 
-const QueryPlayground = (props:any) => {
+const QueryPlayground: React.FunctionComponent = () => {
 
-  const { value } = props;
+  // Pull out responseTime & setResponseTime state from Performance Context
+  const { responseTime, setResponseTime } = useContext(PerformanceContext);
 
+  // TODO : TS
   function handleChange (data:any, value:any) {
     console.log('grab code mirror data')
   }
-
-  const [responseTime, setResponseTime] = useState([] as any);
 
   console.log(responseTime)
 
@@ -26,12 +27,14 @@ const QueryPlayground = (props:any) => {
     fetch('http://localhost:3000/input')
       .then((res) => res.json())
       .then((data) => {
+
+      // TODO : TS
       setResponseTime((responseTime: any) => [
         ...responseTime,
         data
       ]);
       })
-    .catch(err => console.log('Handle Submit: Post Blogs: ERROR: ', err))
+    .catch(err => console.log('Handle Submit: Get ResponseTime: ERROR: ', err))
   }
 
   const handleReset = () => {
@@ -44,7 +47,7 @@ const QueryPlayground = (props:any) => {
       <h1 className="playground-title">Query</h1>
       <CodeMirror
         onBeforeChange = {handleChange} 
-        value={value}
+        // value={value}
         className="code-mirror"
         options={{
           autoCloseBrackets: true,
