@@ -16,7 +16,7 @@ const QueryPlayground: React.FunctionComponent = () => {
   // Pull out responseTime & setResponseTime state from Performance Context
   const { responseTime, setResponseTime } = useContext(PerformanceContext);
   const [query, setQuery] = useState('');
-  const [endpoint, setEndpoint] = useState('');
+  const [url, setUrl] = useState('');
 
   console.log(responseTime)
 
@@ -33,12 +33,12 @@ const QueryPlayground: React.FunctionComponent = () => {
     //   ]);
     //   })
     // .catch(err => console.log('Handle Submit: Get ResponseTime: ERROR: ', err))
-    fetch('http://localhost:3000/input', {
+    fetch('http://countries.trevorblades.com/', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
       },
-      body: JSON.stringify({query: query, endpoint: endpoint}),
+      body: JSON.stringify({query: query}),
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
@@ -46,11 +46,12 @@ const QueryPlayground: React.FunctionComponent = () => {
   }
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEndpoint(`${e.target.value}`)
+    setUrl(`${e.target.value}`)
   }
 
   const handleQueryChange = (editor:any, data:any, value:any) => {
     setQuery(value)
+    console.log(query)
   }
 
   const handleReset = () => {
@@ -62,10 +63,10 @@ const QueryPlayground: React.FunctionComponent = () => {
       <Container maxWidth='sm'>
       <h1 className="playground-title">Query</h1>
       <Box display='flex' width='100%' justifyContent='space-between'>
-          <TextField fullWidth variant='outlined' onChange={handleUrlChange} color='secondary' label='Enter GraphQL Endpoint' value={endpoint}></TextField>
+          <TextField fullWidth variant='outlined' onChange={handleUrlChange} color='secondary' label='Enter GraphQL Endpoint' value={url}></TextField>
         </Box>
       <CodeMirror
-        onBeforeChange = {handleQueryChange} 
+        onBeforeChange = {handleQueryChange}
         value={query}
         className="code-mirror"
         options={{
