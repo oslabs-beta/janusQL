@@ -15,6 +15,13 @@ router.get('/perf',
   }
 )
 
+router.get('/load',
+  performanceTestControllers.loadTesting,
+  (req: Request, res: Response) => {
+    return res.status(200).json(res.locals.loadTestCounter)
+  }
+)
+
 router.get('/dos', 
 securityTestController.dos, 
 (req, res) => {
