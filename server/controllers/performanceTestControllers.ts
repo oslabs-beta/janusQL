@@ -6,12 +6,15 @@ import fetch from "node-fetch";
 
 const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction) => {
-    const { query, url } = req.body;
+    const { url, query } = req.body;
+    console.log('req.body: !!!!!!!', req.body)
     // SCRUB INPUTS RES.BODY
   
     // we are defining the query here for testing sake, user's will provide us the query in the electron
     const inputQuery = query;
-
+    console.log('inputQuery', inputQuery);
+    console.log('url', url);
+    
     // dummy API URL
     const urlTester = 'http://countries.trevorblades.com/';
     
@@ -57,7 +60,6 @@ const performanceTestControllers = {
         // console.log('duration:', duration);
         // store response time in locals
         res.locals.responseTime = duration;
-        
         return next();
       })
       .catch(err => {
