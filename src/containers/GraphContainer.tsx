@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -9,6 +9,7 @@ import Graph from '../components/Graph';
 import SmallGraph from '../components/SmallGraph';
 
 const GraphContainer = () => {
+
   return (
     <div className='graph-container'>
       <Container>
@@ -27,7 +28,6 @@ const GraphContainer = () => {
             </Grid>
             <Grid item>
               <Paper style={{height:400, width:500}}>
-              <Graph className='graph'/>
               </Paper>
             </Grid>
           </Box>
