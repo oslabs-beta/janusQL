@@ -39,6 +39,7 @@ const performanceTestControllers = {
       })
       .then(data => {
         console.log('data returned:', data)
+        res.locals.responseTimeData = data;
       })
       .then(() => {
         const end = Date.now();
