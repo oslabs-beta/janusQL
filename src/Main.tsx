@@ -16,22 +16,13 @@ class Main extends Component {
   render() {
     return (
       <Router>
-      
         <div>
-    
-        {/* Iterates through children routes, 
-        and will render first route 
-        route that matches the URL */}
-        <Switch>
-          <Route path='/' component={Login} />
-          
-          <Route path='/Signup' component={Signup} />
-  
-          <Route path='/Navbar' component={Navbar} />
-    
+          <Switch>
+            <Route exact path='/' component={Login} />
+            <Route path='/Signup' component={Signup} />
+            <Route path='/Navbar' component={Navbar} />
           </Switch>
         </div>
-    
       </Router>
     );
   }

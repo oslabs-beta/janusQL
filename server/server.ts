@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import apiRouter from './routes/api';
+import loginRouter from './routes/login';
 
 const PORT = 3000;
 const app = express();
@@ -20,6 +21,9 @@ app.get('/', (req: Request, res: Response) => {
 
 // route handler
 app.use('/input', apiRouter);
+
+app.use('/login', loginRouter);
+
 
 // default error handler
 app.use((err: any, req: any, res: any, next: any) => {

@@ -134,18 +134,29 @@ const Login = () => {
   }, [state.username, state.password]);
 
   const handleLogin = () => {
-    if (state.username === 'abc@email.com' && state.password === 'password') {
-      dispatch({
-        type: 'loginSuccess',
-        payload: 'Login Successfully'
-      });
-    } else {
-      dispatch({
-        type: 'loginFailed',
-        payload: 'Incorrect username or password'
-      });
-    }
+    //fetch here.
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: queryTester
+      })
+    })
+      .then(res => {
+        return res.text();
+      })
+
+
+    // } else {
+    //   dispatch({
+    //     type: 'loginFailed',
+    //     payload: 'Incorrect username or password'
+    //   });
+    // }
   };
+
 
 //this needs attention - depricated
   const handleKeyPress = (event: React.KeyboardEvent) => {
