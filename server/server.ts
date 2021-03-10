@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import apiRouter from './routes/api';
+import userRouter from './routes/userApi';
 
 const PORT = 3000;
 const app = express();
@@ -18,16 +19,17 @@ app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// route handler
+// route handler for external user's API queries
 app.use('/input', apiRouter);
 
-
+// route handler for queries related to user SQL db
+app.use('/userDB', userRouter);
 
 // default error handler
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: any, req: Request, res: Response, next: any) => {
   const defaultError = {
     log: 'default error log',
-    status: 400,
+    status: 500,
     message: { err: 'default error message' },
   };
   const errorObj = { ...defaultError, err} ;
