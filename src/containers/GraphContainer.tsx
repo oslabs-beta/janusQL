@@ -14,11 +14,6 @@ const GraphContainer:React.FunctionComponent = () => {
     <div className='graph-container'>
       <Container>
         <h1 className="graph-title">Metrics</h1>
-        <Box display='flex' width='100%' justifyContent='space-between'>
-          <TextField fullWidth variant='outlined' color='secondary' label='Enter GraphQL Endpoint'></TextField>
-          <Button className='submit-btn' variant='contained' color='secondary'>Submit</Button>
-        </Box>
-
         <Grid className='grid' container spacing={1} justify='center'>
           <Box display='flex' width='100%' justifyContent='space-between' marginTop={5}>
             <Grid item>
