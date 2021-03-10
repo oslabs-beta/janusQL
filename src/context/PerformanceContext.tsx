@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 interface PerformanceContextState {
   responseTime: Array<number>,
   setResponseTime: Dispatch<SetStateAction<Array<number>>>
-};
+}
 
 // initialize a Performance Context
 const PerformanceContext = createContext<any>(undefined);

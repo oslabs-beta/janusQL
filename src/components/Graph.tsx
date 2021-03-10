@@ -1,34 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Line } from 'react-chartjs-2';
 import PerformanceContext from '../context/PerformanceContext'
 
-const Graph = (props:any) => {
+const Graph: React.FunctionComponent = () => {
 
-  const [chartData, setChartData] = useState({})
+  const { responseTime } = useContext(PerformanceContext)
   
-  const chart = () => {
-    setChartData({
-      labels: ['query', 'query', 'query', 'query', 'query'],
+  const chart = {
+      labels: ['query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query'],
       datasets: [
         {
           label: 'Response Time (ms)',
-          data: [32, 45, 12, 76, 69],
+          data: responseTime,
           backgroundColor: [
             'rgba(75,192,192,0.6)'
           ],
           borderWidth:4
         }
       ]
-    })
-  }
-
-  useEffect(() => {
-    chart()
-  }, []);
+    }
 
   return (
     <div>
-      <Line data={chartData}></Line>
+      <Line data={chart}></Line>
     </div>
   );
 };

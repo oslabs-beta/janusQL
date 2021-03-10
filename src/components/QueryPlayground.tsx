@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/monokai.css';
 import 'codemirror/mode/javascript/javascript';
@@ -59,7 +59,7 @@ const QueryPlayground: React.FunctionComponent = () => {
         }}
       />
       <Box display="flex" justifyContent="space-evenly" mt="1em">
-        <Button variant="contained" color='primary' onClick={handleSubmit}>Load Test</Button>
+        <Button variant="contained" color='primary' onClick={handleSubmit}>Submit</Button>
         <Button variant="contained" color='primary'>Security Test</Button>
         <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
       </Box>

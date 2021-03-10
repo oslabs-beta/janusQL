@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Graph from '../components/Graph';
 import SmallGraph from '../components/SmallGraph';
 
-const GraphContainer = () => {
+const GraphContainer:React.FunctionComponent = () => {
 
   return (
     <div className='graph-container'>
