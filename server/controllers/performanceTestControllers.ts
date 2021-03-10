@@ -75,7 +75,9 @@ const performanceTestControllers = {
     let counter = 0;
     const start = Date.now();
 
+    //need to fix the start time, cannot be the start time in line 76 cus start time changes
     while ((Date.now() - start) < 1000) {
+
       let result = await fetch('http://countries.trevorblades.com/', {
         method: 'POST',
         headers: {
@@ -123,6 +125,48 @@ const performanceTestControllers = {
     //     });
     // }
   },
+  avgThroughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // const { query, url } = res.body;
+    const queryTester = `query {
+      country(code: "BR") {
+        name
+        native
+        capital
+        emoji
+        currency
+        languages {
+          code
+          name
+        }
+      }
+    }`;
+
+    // start timer
+    let counter = 0;
+    let sum = 0;
+
+    while (counter < 10) {
+      const start = Date.now();
+      let result = await fetch('http://countries.trevorblades.com/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: queryTester
+        })
+      })
+      const duration = Date.now() - start;
+      console.log(duration);
+      sum += duration;
+      counter++;
+    }
+    console.log('sum:', sum, 'counter:', counter);
+    const avg = sum / counter;
+    res.locals.avg = avg;
+    console.log('avg:', avg, 'res.locals.avg: ', res.locals.avg);
+    return next();
+  }
 };
 
 export default performanceTestControllers;

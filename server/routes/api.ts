@@ -15,8 +15,9 @@ router.get('/perf',
   }
 )
 
+// TESTING PURPOSES, COMBINE MIDDLEWARE LATER
 router.get('/load',
-  performanceTestControllers.loadTesting,
+  performanceTestControllers.avgThroughput,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.loadTestCounter)
   }
