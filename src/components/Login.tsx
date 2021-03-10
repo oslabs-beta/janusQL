@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, Component } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 // import React from "react";
 
@@ -11,6 +11,8 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+
+
 
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -212,8 +214,8 @@ const Login = () => {
            
         </CardActions>
       </Card>
-     <Link to="/Signup"> Signup</Link>
-
+     <Link to="/Signup">Signup</Link>
+   
       
     </form>
   );

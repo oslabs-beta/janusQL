@@ -1,0 +1,33 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.main {
+  background-color: #F4F6F8;
+}
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.playground {
+  width: 33%;
+}
+
+.CodeMirror-wrap {
+  height: 85vh;
+}
+
+/* input {
+  background-color: white !important;
+} */
+
+.graph-container {
+  width: 66%;
+}
+
+.submit-btn {
+  margin-left: 1em;
+}

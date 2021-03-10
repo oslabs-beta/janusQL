@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 //state type definitions and initial state of state
-
 type State = {
   username: string
   fullname: string
@@ -195,14 +194,14 @@ const Signup = () => {
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <Card className={classes.card}>
-        <CardHeader className={classes.header} title="Sign up for JanusQl" />
+        <CardHeader className={classes.header} title="Sign up for JanusQL" />
         <CardContent>
           <div>
             <TextField
               error={state.isError}
               fullWidth
               id="username"
-              type="email"
+              type="username"
               label="Username"
               placeholder="Username"
               margin="normal"

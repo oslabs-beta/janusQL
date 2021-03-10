@@ -4,6 +4,8 @@ import LoginContainer from './containers/LoginContainer';
 import GraphContainer from './containers/GraphContainer';
 import DashboardContainer from './containers/DashboardContainer';
 import Navbar from './components/Navbar';
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 class Main extends Component {
   constructor(props: any) {
@@ -13,16 +15,20 @@ class Main extends Component {
 
   render() {
     return (
-      <div className="main">
-        <Router>
-          <Navbar />
-          <Switch>
-            <Route path="/" exact>
-              <LoginContainer />
-            </Route>
-          </Switch>
-        </Router>
+      <Router>
+      
+      <div>
+    
+      <Switch>
+      <Route path='/' component={Login} />
+      <Route path='/Signup' component={Signup} />
+      
+      </Switch>
+      <Route path='/Navbar' component={Navbar} />
+ 
       </div>
+    
+      </Router>
     );
   }
 }

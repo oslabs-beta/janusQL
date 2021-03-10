@@ -4,30 +4,31 @@ import Homepage from './Homepage';
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Main from './Main';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link, 
-} from "react-router-dom";
+import './styles/styles.css';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
 
-//login is a place holder to see the render of the login page
+// custom MUI theme
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#FE688B',
+      contrastText: '#FFFF'
+    },
+    secondary: {
+      main: '#FF8E53',
+      contrastText: '#FFFF'
+    },
+  },
+})
+
 const App = () => {
   return (
-      <Router>
-        <div>  
-          <Switch>
-          <Route path="/Signup" component={Signup} />
-          <Route path="/Login" component={Login} />
-       
-        </Switch>
-        </div>
-      
-      </Router>
-     
+    <MuiThemeProvider theme={theme}>
+      <Main></Main>
+    </MuiThemeProvider>
   )
 }
 
