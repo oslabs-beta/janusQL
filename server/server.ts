@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import apiRouter from './routes/api';
 import userRouter from './routes/userApi';
@@ -26,7 +26,7 @@ app.use('/input', apiRouter);
 app.use('/userDB', userRouter);
 
 // default error handler
-app.use((err: any, req: Request, res: Response, next: any) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const defaultError = {
     log: 'default error log',
     status: 500,
