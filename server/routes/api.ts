@@ -5,11 +5,11 @@ import securityTestController from "../controllers/securityTestControllers";
 const router = express.Router();
 
 // expect: req.body.query, req.body.url
-router.get('/perf', 
+router.get('/perf',
   // middleware to add to db
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
-  (req, res) => {
+  (req: Request, res: Response) => {
     // tell frontend the data from query is stored in responseTimeData, response time is stored in responseTime
     return res.status(200).json(res.locals)
   }

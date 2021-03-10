@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import apiRouter from './routes/api';
 
@@ -22,10 +22,10 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/input', apiRouter);
 
 // default error handler
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const defaultError = {
     log: 'default error log',
-    status: 400,
+    status: 500,
     message: { err: 'default error message' },
   };
   const errorObj = { ...defaultError, err} ;

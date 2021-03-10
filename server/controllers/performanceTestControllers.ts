@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
 
 const performanceTestControllers = {
-  responseTime: ((req: Request, res: Response, next: any) => {
+  responseTime: ((req: Request, res: Response, next: NextFunction) => {
     // const { query, url } = res.body;
     // SCRUB INPUTS RES.BODY
   
