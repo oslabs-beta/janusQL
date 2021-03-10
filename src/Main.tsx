@@ -17,16 +17,20 @@ class Main extends Component {
     return (
       <Router>
       
-      <div>
+        <div>
     
-      <Switch>
-      <Route path='/' component={Login} />
-      <Route path='/Signup' component={Signup} />
-      
-      </Switch>
-      <Route path='/Navbar' component={Navbar} />
- 
-      </div>
+        {/* Iterates through children routes, 
+        and will render first route 
+        route that matches the URL */}
+        <Switch>
+          <Route path='/' component={Login} />
+          
+          <Route path='/Signup' component={Signup} />
+  
+          <Route path='/Navbar' component={Navbar} />
+    
+          </Switch>
+        </div>
     
       </Router>
     );
@@ -34,3 +38,12 @@ class Main extends Component {
 }
 
 export default Main;
+
+{/* <Router>
+<Navbar />
+<Switch>
+  <Route path="/" exact>
+    <DashboardContainer/>
+  </Route>
+</Switch>
+</Router> */}
