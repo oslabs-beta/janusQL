@@ -16,11 +16,15 @@ class Main extends Component {
   render() {
     return (
       <Router>
+        <Navbar />  
         <div>
           <Switch>
             <Route exact path='/' component={Login} />
             <Route path='/Signup' component={Signup} />
             <Route path='/Navbar' component={Navbar} />
+            <Route path="/Graphs" exact>
+              <DashboardContainer/>
+            </Route>
           </Switch>
         </div>
       </Router>
@@ -31,10 +35,7 @@ class Main extends Component {
 export default Main;
 
 {/* <Router>
-<Navbar />
 <Switch>
-  <Route path="/" exact>
-    <DashboardContainer/>
-  </Route>
+
 </Switch>
-</Router> */
+</Router> */}

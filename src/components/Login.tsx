@@ -58,7 +58,8 @@ type State = {
   password:  string
   isButtonDisabled: boolean
   helperText: string
-  isError: boolean
+  isError: boolean,
+  loginRedirect: boolean
 };
 
 const initialState:State = {
@@ -66,7 +67,8 @@ const initialState:State = {
   password: '',
   isButtonDisabled: true,
   helperText: '',
-  isError: false
+  isError: false,
+  loginRedirect: false,
 };
 
 //action types
@@ -75,6 +77,7 @@ type Action = { type: 'setUsername', payload: string }
   | { type: 'setIsButtonDisabled', payload: boolean }
   | { type: 'loginSuccess', payload: string }
   | { type: 'loginFailed', payload: string }
+  | { type: 'loginRedirect', payload: boolean}
   | { type: 'setIsError', payload: boolean };
 
   //reducers
@@ -84,6 +87,11 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         username: action.payload
+      };
+      case 'loginRedirect': 
+      return {
+        ...state,
+        loginRedirect: action.payload
       };
     case 'setPassword': 
       return {
@@ -135,7 +143,6 @@ const Login = () => {
   }, [state.username, state.password]);  //username and password dispatched to state?
 
   const handleLogin = () => {
-    //fetch here.
     const { username, password } = state; 
     const credentials = { username, password }
 
@@ -155,7 +162,15 @@ const Login = () => {
       console.log("all is still well in the React world")
       if(result[0].username && result[0].password) {
         console.log("conditional checks out")
-        return <Redirect to="/Signup" />
+        dispatch({
+          type: 'loginRedirect',
+          payload: true
+        })
+      } else {
+        dispatch({
+          type: 'loginFailed',
+          payload: 'login credentials not found'
+        })
       }
     })
     .catch(err => console.log("error in front on DB credential check", err))
@@ -185,7 +200,14 @@ const Login = () => {
       });
     }
 
+  //logic for re-routing on successful login
+  const { loginRedirect } = state;
+  if(loginRedirect) {
+    return <Redirect to='/Graphs' />
+  }
+
   return (
+
     <form className={classes.container} noValidate autoComplete="off">
       <Card className={classes.card}>
         <CardHeader className={classes.header} title="Login to JanusQL" />
