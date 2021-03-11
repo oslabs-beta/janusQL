@@ -3,7 +3,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 //TODO: fix linting error
@@ -46,7 +45,6 @@ function Navbar() {
               JanusQL
             </Typography>
           </Box>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
     </div>

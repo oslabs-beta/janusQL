@@ -9,7 +9,6 @@ body {
 
 .dashboard-container {
   display: flex;
-  height: 100vh;
 }
 
 .playground {
@@ -17,7 +16,8 @@ body {
 }
 
 .CodeMirror-wrap {
-  height: 85vh;
+  height: 37vh;
+  margin-top:1em;
 }
 
 /* input {
@@ -29,5 +29,33 @@ body {
 }
 
 .submit-btn {
-  margin-left: 1em;
+  margin-left: 1em !important;
+}
+
+.playground-title {
+  color: #FE688B;
+}
+
+.graph-title {
+  color:#FF8E53; 
+}
+
+.graph-title,
+.playground-title {
+  text-align: center;
+}
+
+.MuiGrid-item {
+  width: 100%;
+}
+
+.MuiBox-root-7 .MuiFormControl-fullWidth {
+  margin-left: 29px;
+}
+
+.avg-load-time {
+  font-family: 'Helvetica Neue';
+  font-size: 12px;
+  color: #666;
+  text-align:center;
 }

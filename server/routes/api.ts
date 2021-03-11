@@ -11,7 +11,6 @@ router.post('/responsetime',
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
   (req: Request, res: Response) => {
-    console.log('inside api.ts');
     return res.status(200).json(res.locals)
   }
 )
