@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import apiRouter from './routes/api';
-import loginRouter from './routes/login';
+import userRouter from './routes/userApi';
 
 const PORT = 3000;
 const app = express();
@@ -19,17 +19,17 @@ app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
 
-// route handler
+// route handler for external user's API queries
 app.use('/input', apiRouter);
 
-app.use('/login', loginRouter);
-
+// route handler for queries related to user SQL db
+app.use('/user', userRouter);
 
 // default error handler
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const defaultError = {
     log: 'default error log',
-    status: 400,
+    status: 500,
     message: { err: 'default error message' },
   };
   const errorObj = { ...defaultError, err} ;
