@@ -14,7 +14,7 @@ import PerformanceContext from '../context/PerformanceContext';
 const QueryPlayground: React.FunctionComponent = () => {
 
   // Pull out responseTime & setResponseTime state from Performance Context
-  const { title, setTitle, queryResponse, setQueryResponse, avgLoadTimes, setAvgLoadTimes, setLoadTimes, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
+  const { dos, setDos, title, setTitle, queryResponse, setQueryResponse, avgLoadTimes, setAvgLoadTimes, setLoadTimes, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState('');
 
@@ -80,6 +80,22 @@ const QueryPlayground: React.FunctionComponent = () => {
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
 
+    // fetch load input data
+    const handleDos = () => {
+      fetch('http://localhost:3000/input/dos', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'Application/JSON',
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+            setDos('Pass');
+            setQueryResponse(data);
+        })
+        .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
+    }
+
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setUrl(`${e.target.value}`)
   }
@@ -95,6 +111,8 @@ const QueryPlayground: React.FunctionComponent = () => {
     setLoadTimes([]);
     setAvgLoadTimes(0);
     setTitle([]);
+    setDos('');
+    setQueryResponse('');
   }
   
   return (
@@ -136,7 +154,7 @@ const QueryPlayground: React.FunctionComponent = () => {
           <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
         </Box>
         <Box display="flex" justifyContent="space-evenly" mt="1em">
-          <Button variant="contained" color='primary'>Dos Test</Button>
+          <Button variant="contained" color='primary' onClick={handleDos}>Dos Test</Button>
           <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
         </Box>
       </Container>

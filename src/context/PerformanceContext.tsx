@@ -14,7 +14,9 @@ interface PerformanceContextState {
   queryResponse: string,
   setQueryResponse: Dispatch<SetStateAction<string>>,
   title: Array<string>,
-  setTitle: Dispatch<SetStateAction<Array<string>>>
+  setTitle: Dispatch<SetStateAction<Array<string>>>,
+  dos: string,
+  setDos: Dispatch<SetStateAction<string>>,
 }
 
 // initialize a Performance Context
@@ -30,6 +32,7 @@ const PerformanceContextProvider: React.FunctionComponent = ({children}: any) =>
   const [avgLoadTimes, setAvgLoadTimes] = useState<number>(0);
   const [queryResponse, setQueryResponse] = useState<string>('');
   const [title, setTitle] = useState<Array<string>>([]);
+  const [dos, setDos] = useState<string>('');
 
   // state declaration
   const PerformanceState: PerformanceContextState = {
@@ -44,7 +47,9 @@ const PerformanceContextProvider: React.FunctionComponent = ({children}: any) =>
     queryResponse,
     setQueryResponse,
     title,
-    setTitle
+    setTitle,
+    dos,
+    setDos
   };
 
   return (
