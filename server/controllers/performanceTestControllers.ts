@@ -108,7 +108,7 @@ const performanceTestControllers = {
     // console.log(res.locals.throughputCounter);
     return next();
   },
-  // computing avg response time of 100 requests
+  // computing avg response time of 50/100 requests
   loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
     const urlTester = 'http://countries.trevorblades.com/';
@@ -131,7 +131,7 @@ const performanceTestControllers = {
     let sum = 0;
     let storage = [];
 
-    while (counter < 100) {
+    while (counter < 50) {
       const start = Date.now();
       let result = await fetch(url, {
         method: 'POST',

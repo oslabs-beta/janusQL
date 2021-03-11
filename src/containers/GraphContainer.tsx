@@ -7,6 +7,7 @@ import ResponseTime from '../components/Performance/ResponseTime';
 import SmallGraph from '../components/Performance/Status';
 import Throughput from '../components/Performance/Throughput';
 import Load from '../components/Performance/Load';
+import AvgLoadTime from '../components/Performance/AvgLoadTime'
 
 const GraphContainer:React.FunctionComponent = () => {
 
@@ -35,6 +36,7 @@ const GraphContainer:React.FunctionComponent = () => {
             </Grid>
             <Grid item>
               <Paper style={{height:200, width:500}}>
+                <AvgLoadTime></AvgLoadTime>
               </Paper>
             </Grid>
           </Box>

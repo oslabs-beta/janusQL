@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 
 const securityTestController = {
   dos: ((req: Request, res: Response, next: any) => {
-    
+    const { url } = req.body;
     //nested query which client should reject.
     const queryTester = `
     query {
@@ -29,11 +29,11 @@ const securityTestController = {
       },
       body: JSON.stringify({ query: queryTester })
     }
-    
-    fetch('https://countries-274616.ew.r.appspot.com', options)
+    // 'https://countries-274616.ew.r.appspot.com'
+    fetch(`${url}`, options)
     .then(result => result.text())
-    .then(result => {
-      res.locals.dos = result
+    .then(() => {
+      res.locals.dos = queryTester;
       return next();
     })
     .catch(err => {

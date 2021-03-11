@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useState } from 'react';
+;import React, { ChangeEvent, useContext, useState } from 'react';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/monokai.css';
 import 'codemirror/mode/javascript/javascript';
@@ -14,12 +14,13 @@ import PerformanceContext from '../context/PerformanceContext';
 const QueryPlayground: React.FunctionComponent = () => {
 
   // Pull out responseTime & setResponseTime state from Performance Context
-  const { avgLoadTimes, setAvgLoadTimes, setLoadTimes, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
+  const { queryResponse, setQueryResponse, avgLoadTimes, setAvgLoadTimes, setLoadTimes, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState('');
 
   console.log(responseTime)
   console.log(avgLoadTimes)
+  console.log(queryResponse)
 
   // fetch query input data
   const handleSubmit = () => {
@@ -36,6 +37,7 @@ const QueryPlayground: React.FunctionComponent = () => {
           ...responseTime,
           data.responseTime
         ])
+        setQueryResponse(data.responseTimeData);
       })
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
@@ -92,32 +94,45 @@ const QueryPlayground: React.FunctionComponent = () => {
   return (
     <div className="playground">
       <Container maxWidth='sm'>
-      <h1 className="playground-title">Query</h1>
-      <Box display='flex' width='100%' justifyContent='space-between'>
-        <TextField fullWidth variant='outlined' onChange={handleUrlChange} color='secondary' label='Enter GraphQL Endpoint' value={url}></TextField>
-      </Box>
-      <CodeMirror
-        onBeforeChange = {handleQueryChange}
-        value={query}
-        className="code-mirror"
-        options={{
-          autoCloseBrackets: true,
-          tabSize: 2,
-          lineWrapping: true,
-          lint: true,
-          mode: 'javascript',
-          lineNumbers: true
-        }}
-      />
-      <Box display="flex" justifyContent="space-evenly" mt="1em">
-        <Button variant="contained" color='primary' onClick={handleSubmit}>Query</Button>
-        <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
-        <Button variant="contained" color='primary' onClick={handleLoad}>Load Test</Button>
-      </Box>
-      <Box display="flex" justifyContent="space-evenly" mt="1em">
-        <Button variant="contained" color='primary'>Security Test</Button>
-        <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
-      </Box>
+        <h1 className="playground-title">Query</h1>
+        <Box display='flex' width='100%' justifyContent='space-between'>
+          <TextField fullWidth variant='outlined' onChange={handleUrlChange} color='secondary' label='Enter GraphQL Endpoint' value={url}></TextField>
+        </Box>
+        <CodeMirror
+          onBeforeChange = {handleQueryChange}
+          value={query}
+          className="code-mirror"
+          options={{
+            autoCloseBrackets: true,
+            tabSize: 2,
+            lineWrapping: true,
+            lint: true,
+            mode: 'javascript',
+            lineNumbers: true
+          }}
+        />
+        <CodeMirror
+          value={JSON.stringify(queryResponse)}
+          className="code-mirror"
+          options={{
+            autoCloseBrackets: true,
+            tabSize: 2,
+            lineWrapping: true,
+            lint: true,
+            mode: 'javascript',
+            lineNumbers: true,
+            readOnly: true
+          }}
+        />
+        <Box display="flex" justifyContent="space-evenly" mt="1em">
+          <Button variant="contained" color='primary' onClick={handleSubmit}>Query</Button>
+          <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
+          <Button variant="contained" color='primary' onClick={handleLoad}>Load Test</Button>
+        </Box>
+        <Box display="flex" justifyContent="space-evenly" mt="1em">
+          <Button variant="contained" color='primary'>Security Test</Button>
+          <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
+        </Box>
       </Container>
     </div>
   );

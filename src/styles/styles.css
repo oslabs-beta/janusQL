@@ -17,7 +17,8 @@ body {
 }
 
 .CodeMirror-wrap {
-  height: 85vh;
+  height: 40vh;
+  margin-top:1em;
 }
 
 input {
