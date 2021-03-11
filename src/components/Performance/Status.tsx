@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Status = () => {
+const Status: React.FunctionComponent = () => {
 
   return (
     <div>

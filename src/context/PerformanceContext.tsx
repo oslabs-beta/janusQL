@@ -7,6 +7,10 @@ interface PerformanceContextState {
   setResponseTime: Dispatch<SetStateAction<Array<number>>>
   throughput:number,
   setThroughput: Dispatch<SetStateAction<number>>
+  loadTimes: Array<number>,
+  setLoadTimes: Dispatch<SetStateAction<Array<number>>>
+  avgLoadTimes: number,
+  setAvgLoadTimes: Dispatch<SetStateAction<number>>
 }
 
 // initialize a Performance Context
@@ -18,13 +22,19 @@ const PerformanceContextProvider: React.FunctionComponent = ({children}: any) =>
   // declare hooks as initial state
   const [responseTime, setResponseTime] = useState<Array<number>>([]);
   const [throughput, setThroughput] = useState<number>(0);
+  const [loadTimes, setLoadTimes] = useState<Array<number>>([]);
+  const [avgLoadTimes, setAvgLoadTimes] = useState<number>(0);
 
   // state declaration
   const PerformanceState: PerformanceContextState = {
     responseTime,
     setResponseTime,
     throughput,
-    setThroughput
+    setThroughput,
+    loadTimes,
+    setLoadTimes,
+    avgLoadTimes,
+    setAvgLoadTimes
   };
 
   return (

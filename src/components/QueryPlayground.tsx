@@ -14,11 +14,12 @@ import PerformanceContext from '../context/PerformanceContext';
 const QueryPlayground: React.FunctionComponent = () => {
 
   // Pull out responseTime & setResponseTime state from Performance Context
-  const { throughput, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
+  const { avgLoadTimes, setAvgLoadTimes, setLoadTimes, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState('');
 
   console.log(responseTime)
+  console.log(avgLoadTimes)
 
   // fetch query input data
   const handleSubmit = () => {
@@ -55,6 +56,23 @@ const QueryPlayground: React.FunctionComponent = () => {
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
 
+  // fetch load input data
+  const handleLoad = () => {
+    fetch('http://localhost:3000/input/load', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify({query: query, url: url}),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+          setLoadTimes(data.storage)
+          setAvgLoadTimes(data.avg)
+      })
+      .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
+  }
+
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setUrl(`${e.target.value}`)
   }
@@ -67,6 +85,8 @@ const QueryPlayground: React.FunctionComponent = () => {
   const handleReset = () => {
     setResponseTime([]);
     setThroughput(0);
+    setLoadTimes([]);
+    setAvgLoadTimes(0);
   }
   
   return (
@@ -74,8 +94,8 @@ const QueryPlayground: React.FunctionComponent = () => {
       <Container maxWidth='sm'>
       <h1 className="playground-title">Query</h1>
       <Box display='flex' width='100%' justifyContent='space-between'>
-          <TextField fullWidth variant='outlined' onChange={handleUrlChange} color='secondary' label='Enter GraphQL Endpoint' value={url}></TextField>
-        </Box>
+        <TextField fullWidth variant='outlined' onChange={handleUrlChange} color='secondary' label='Enter GraphQL Endpoint' value={url}></TextField>
+      </Box>
       <CodeMirror
         onBeforeChange = {handleQueryChange}
         value={query}
@@ -92,6 +112,9 @@ const QueryPlayground: React.FunctionComponent = () => {
       <Box display="flex" justifyContent="space-evenly" mt="1em">
         <Button variant="contained" color='primary' onClick={handleSubmit}>Query</Button>
         <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
+        <Button variant="contained" color='primary' onClick={handleLoad}>Load Test</Button>
+      </Box>
+      <Box display="flex" justifyContent="space-evenly" mt="1em">
         <Button variant="contained" color='primary'>Security Test</Button>
         <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
       </Box>

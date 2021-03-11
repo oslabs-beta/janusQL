@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import { Bar } from 'react-chartjs-2';
 import PerformanceContext from '../../context/PerformanceContext'
 
-const ResponseTime: React.FunctionComponent = () => {
+const LoadTimes: React.FunctionComponent = () => {
 
-  const { responseTime } = useContext(PerformanceContext)
+  const { loadTimes } = useContext(PerformanceContext)
   
   const chart = {
-      labels: ['query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query'],
+      labels: ['query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query'],
       datasets: [
         {
           label: 'Response Time (ms)',
-          data: responseTime,
+          data: loadTimes,
           backgroundColor: [
             'rgba(75,192,192,0.6)'
           ],
@@ -27,4 +27,4 @@ const ResponseTime: React.FunctionComponent = () => {
   );
 };
 
-export default ResponseTime;
+export default LoadTimes;
