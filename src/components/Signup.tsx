@@ -201,7 +201,7 @@ const Signup = () => {
               error={state.isError}
               fullWidth
               id="username"
-              type="email"
+              type="username"
               label="Username"
               placeholder="Username"
               margin="normal"

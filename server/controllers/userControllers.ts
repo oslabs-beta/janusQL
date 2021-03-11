@@ -47,6 +47,26 @@ const userControllers = {
           }
         });
       });
+  },
+
+  getUser: (req: Request, res: Response, next: NextFunction) => {
+    //query DB for credentials passed on request object
+    const { username, password } = req.body;
+    const params = [username, password];
+    // const params: any = [];
+
+    const queryString = `SELECT username, password FROM users_table WHERE username= $1 and password= $2`;
+    // const queryString = `SELECT * FROM users_table`;
+    
+    db.query(queryString, params)
+    .then(data =>{
+      res.locals.credentials = data.rows;
+      return next();
+    })
+    .catch(err => {
+      console.log(err) 
+      return next(err)
+    })
   }
 }  
 

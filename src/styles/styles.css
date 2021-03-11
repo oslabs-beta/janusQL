@@ -20,9 +20,9 @@ body {
   margin-top:1em;
 }
 
-input {
+/* input {
   background-color: white !important;
-}
+} */
 
 .graph-container {
   width: 66%;
@@ -58,4 +58,8 @@ input {
   font-size: 12px;
   color: #666;
   text-align:center;
+}
+
+.dashboard-container {
+  background-color: #f4f4f4;
 }
