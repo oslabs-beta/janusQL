@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ResponseTime from '../components/Performance/ResponseTime';
 import SmallGraph from '../components/Performance/Status';
+import Throughput from '../components/Performance/Throughput'
 
 const GraphContainer:React.FunctionComponent = () => {
 
@@ -21,6 +22,7 @@ const GraphContainer:React.FunctionComponent = () => {
             </Grid>
             <Grid item>
               <Paper style={{height:400, width:500}}>
+                <Throughput></Throughput>
               </Paper>
             </Grid>
           </Box>

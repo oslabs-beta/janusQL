@@ -100,12 +100,12 @@ const performanceTestControllers = {
           query: query
         })
       })
-      console.log(`finished fetching, result is: ${result.text()}`)
+      // console.log(`finished fetching, result is: ${result.text()}`)
       counter++;
     }
-    console.log(counter);
+    // console.log(counter);
     res.locals.throughputCounter = counter;
-    console.log(res.locals.throughputCounter);
+    // console.log(res.locals.throughputCounter);
     return next();
   },
   // computing avg response time of 100 requests

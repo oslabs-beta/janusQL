@@ -14,13 +14,13 @@ import PerformanceContext from '../context/PerformanceContext';
 const QueryPlayground: React.FunctionComponent = () => {
 
   // Pull out responseTime & setResponseTime state from Performance Context
-  const { responseTime, setResponseTime } = useContext(PerformanceContext);
+  const { throughput, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState('');
 
   console.log(responseTime)
 
-  // fetch input data
+  // fetch query input data
   const handleSubmit = () => {
     fetch('http://localhost:3000/input/responsetime', {
       method: 'POST',
@@ -33,10 +33,25 @@ const QueryPlayground: React.FunctionComponent = () => {
       .then((data) => {
         setResponseTime((responseTime: any) => [
           ...responseTime,
-          data
-        ]);
+          data.responseTime
+        ])
       })
-      .then((data) => console.log(data))
+      .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
+  }
+
+  // fetch throughput input data
+  const handleThroughput = () => {
+    fetch('http://localhost:3000/input/throughput', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify({query: query, url: url}),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setThroughput(data)
+      })
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
 
@@ -50,7 +65,8 @@ const QueryPlayground: React.FunctionComponent = () => {
   }
 
   const handleReset = () => {
-    setResponseTime([])
+    setResponseTime([]);
+    setThroughput(0);
   }
   
   return (
@@ -74,7 +90,8 @@ const QueryPlayground: React.FunctionComponent = () => {
         }}
       />
       <Box display="flex" justifyContent="space-evenly" mt="1em">
-        <Button variant="contained" color='primary' onClick={handleSubmit}>Submit</Button>
+        <Button variant="contained" color='primary' onClick={handleSubmit}>Query</Button>
+        <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
         <Button variant="contained" color='primary'>Security Test</Button>
         <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
       </Box>
