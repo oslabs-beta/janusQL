@@ -32,7 +32,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     status: 500,
     message: { err: 'default error message' },
   };
-  const errorObj = { ...defaultError, err} ;
+  const errorObj = Object.assign({}, defaultError, err);
+  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

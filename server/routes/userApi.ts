@@ -7,6 +7,7 @@ const userRouter = express.Router();
 userRouter.post('/',
   userControllers.addUser, 
   (req: Request, res: Response) => {
+    console.log('inside user route');
     return res.status(200).send('User successfully added to db');
   }
 )
