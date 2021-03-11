@@ -5,6 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 //comment back in when impementing react router
 import {
   BrowserRouter as Router,
+  Redirect,
   Switch,
   Route,
   Link, 
@@ -131,32 +132,35 @@ const Login = () => {
         payload: true
       });
     }
-  }, [state.username, state.password]);
+  }, [state.username, state.password]);  //username and password dispatched to state?
 
   const handleLogin = () => {
     //fetch here.
-    fetch('http://localhost:3000/login', {
+    const { username, password } = state; 
+    const credentials = { username, password }
+
+    const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        query: queryTester
-      })
+      body: JSON.stringify(credentials) // do we even need to stringify this?
+    }
+
+    console.log("hath we arrived?");
+    fetch('http://localhost:3000/user/login', options)
+    //we need access to the status code on result object
+    .then(result => result.json())
+    .then(result => {
+      console.log("all is still well in the React world")
+      if(result[0].username && result[0].password) {
+        console.log("conditional checks out")
+        return <Redirect to="/Signup" />
+      }
     })
-      .then(res => {
-        return res.text();
-      })
-
-
-    // } else {
-    //   dispatch({
-    //     type: 'loginFailed',
-    //     payload: 'Incorrect username or password'
-    //   });
-    // }
+    .catch(err => console.log("error in front on DB credential check", err))
+     
   };
-
 
 //this needs attention - depricated
   const handleKeyPress = (event: React.KeyboardEvent) => {
@@ -226,8 +230,7 @@ const Login = () => {
         </CardActions>
       </Card>
      <Link to="/Signup">Signup</Link>
-   
-      
+  
     </form>
   );
 }

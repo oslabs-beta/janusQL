@@ -1,14 +1,26 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
 
+// url: string
+// query: string
+
 const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction) => {
-    // const { query, url } = res.body;
+    const { url, query } = req.body;
+    console.log('req.body: !!!!!!!', req.body)
     // SCRUB INPUTS RES.BODY
   
     // we are defining the query here for testing sake, user's will provide us the query in the electron
+    const inputQuery = query;
+    console.log('inputQuery', inputQuery);
+    console.log('url', url);
+    
+    // dummy API URL
+    const urlTester = 'http://countries.trevorblades.com/';
+    
+    // dummy query to test
     const queryTester = `query {
-      country(code: "BR") {
+      country(code: 'BR') {
         name
         native
         capital
@@ -25,13 +37,13 @@ const performanceTestControllers = {
     const start = Date.now();
 
     // replace countries url with users url;
-    fetch('http://countries.trevorblades.com/', {
+    fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: queryTester
+        query: inputQuery
       })
     })
       .then(res => {
@@ -39,12 +51,14 @@ const performanceTestControllers = {
       })
       .then(data => {
         console.log('data returned:', data)
+        // store query results in locals
         res.locals.responseTimeData = data;
       })
       .then(() => {
         const end = Date.now();
         const duration = end - start;
         // console.log('duration:', duration);
+        // store response time in locals
         res.locals.responseTime = duration;
         return next();
       })
@@ -55,6 +69,7 @@ const performanceTestControllers = {
         });
       });
   }),
+
   loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     // const { query, url } = res.body;
     
@@ -77,7 +92,7 @@ const performanceTestControllers = {
 
     //need to fix the start time, cannot be the start time in line 76 cus start time changes
     while ((Date.now() - start) < 1000) {
-
+      console.log('start time in loop', start);
       let result = await fetch('http://countries.trevorblades.com/', {
         method: 'POST',
         headers: {
@@ -94,37 +109,8 @@ const performanceTestControllers = {
     res.locals.loadTimeCounter = counter;
     console.log(res.locals.loadTimeCounter);
     return next();
-
-    // while ((Date.now() - start) < 1000){
-    //   // console.log(Date.now() - start);
-    //   fetch('http://countries.trevorblades.com/', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       query: queryTester
-    //     })
-    //   })
-    //     .then(res => {
-    //       counter++;
-    //       return res.text();
-    //     })
-    //     .then(() => {
-    //       // console.log('data returned:', data);
-    //       counter++;
-    //       // console.log('INSIDE .THEN STATEMENTTTTTT', counter);
-    //       res.locals.loadTestCounter = counter;
-    //       // console.log(res.locals.loadTestCounter);
-    //     })
-    //     .catch(err => {
-    //       next({
-    //         log: 'Express error handler caught loadTesting middleware error',
-    //         message: {err: 'Can\'t retrieve load testing limit'}
-    //       });
-    //     });
-    // }
   },
+
   avgThroughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     // const { query, url } = res.body;
     const queryTester = `query {

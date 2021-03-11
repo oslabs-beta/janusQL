@@ -5,8 +5,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/logo.svg';
 import Box from '@material-ui/core/Box';
+//TODO: fix linting error
+import Logo from '../assets/logo.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

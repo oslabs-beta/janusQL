@@ -4,29 +4,39 @@ import securityTestController from "../controllers/securityTestControllers";
 
 const router = express.Router();
 
-// expect: req.body.query, req.body.url
-router.get('/perf',
+// receives API URL and query string from client
+// calculate response time of query and returns the query result and respone time
+router.post('/responsetime',
   // middleware to add to db
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
   (req: Request, res: Response) => {
-    // tell frontend the data from query is stored in responseTimeData, response time is stored in responseTime
+    console.log('inside api.ts');
     return res.status(200).json(res.locals)
   }
 )
 
-// TESTING PURPOSES, COMBINE MIDDLEWARE LATER
-router.get('/load',
-  performanceTestControllers.avgThroughput,
+router.get('/dos', 
+  securityTestController.dos, 
+  (req: Request, res: Response) => {
+    return res.status(200).json(res.locals.dos);
+  }
+)
+
+// calculate num of completed requests in 1 sec
+router.post('/load',
+  performanceTestControllers.loadTesting,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.loadTestCounter)
   }
 )
 
-router.get('/dos', 
-securityTestController.dos, 
-(req, res) => {
-  return res.status(200).json(res.locals.dos);
-})
+// calculate avg response time of 10 requests
+router.post('/avgthroughput',
+  performanceTestControllers.avgThroughput,
+  (req: Request, res: Response) => {
+    return res.status(200).json(res.locals.loadTestCounter)
+  }
+)
 
 export default router;
