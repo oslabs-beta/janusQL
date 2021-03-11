@@ -136,7 +136,7 @@ const QueryPlayground: React.FunctionComponent = () => {
           <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
         </Box>
         <Box display="flex" justifyContent="space-evenly" mt="1em">
-          <Button variant="contained" color='primary'>Security Test</Button>
+          <Button variant="contained" color='primary'>Dos Test</Button>
           <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
         </Box>
       </Container>
