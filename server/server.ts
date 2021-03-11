@@ -23,7 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/input', apiRouter);
 
 // route handler for queries related to user SQL db
-app.use('/userDB', userRouter);
+app.use('/user', userRouter);
 
 // default error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
