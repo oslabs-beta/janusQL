@@ -59,3 +59,7 @@ body {
   color: #666;
   text-align:center;
 }
+
+.dashboard-container {
+  background-color: #f4f4f4;
+}
