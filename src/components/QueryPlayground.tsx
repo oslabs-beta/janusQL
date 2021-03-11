@@ -41,11 +41,7 @@ const QueryPlayground: React.FunctionComponent = () => {
       body: JSON.stringify({query: query, url: url}),
     })
       .then((res) => res.json())
-      .then((data) => {setResponseTime((responseTime: any) => [
-            ...responseTime,
-            data.responseTime
-          ]);
-      })
+      .then((data) => console.log(data))
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
 

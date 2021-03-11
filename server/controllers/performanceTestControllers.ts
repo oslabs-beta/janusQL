@@ -18,7 +18,7 @@ const performanceTestControllers = {
     
     // dummy query to test
     const queryTester = `query {
-      country(code: 'BR') {
+      country(code: "BR") {
         name
         native
         capital
