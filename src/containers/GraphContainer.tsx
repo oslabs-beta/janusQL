@@ -4,7 +4,6 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ResponseTime from '../components/Performance/ResponseTime';
-import SmallGraph from '../components/Performance/Status';
 import Throughput from '../components/Performance/Throughput';
 import Load from '../components/Performance/Load';
 import AvgLoadTime from '../components/Performance/AvgLoadTime'
@@ -16,36 +15,30 @@ const GraphContainer:React.FunctionComponent = () => {
       <Container>
         <h1 className="graph-title">Metrics</h1>
         <Grid className='grid' container spacing={1} justify='center'>
-          <Box display='flex' width='100%' justifyContent='space-between' marginTop={5}>
+          <Box display='flex' width='80%' justifyContent='space-between' marginTop={5}>
             <Grid item>
-              <Paper style={{height:400, width:500}}>
+              <Paper>
                 <ResponseTime className='graph'/>
               </Paper>
             </Grid>
+          </Box>
+          <Box display='flex' width='80%' justifyContent='space-between' marginTop={5}>
             <Grid item>
-              <Paper style={{height:400, width:500}}>
-                <Load></Load>
+              <Paper>
+                <Load className='graph'/>
               </Paper>
             </Grid>
           </Box>
-          <Box display='flex' width='100%' justifyContent='space-between' marginTop={5}>
+          <Box display='flex' width='80%' justifyContent='space-between' marginTop={5}>
             <Grid item>
-              <Paper style={{height:200, width:500}}>
+              <Paper>
+              <AvgLoadTime></AvgLoadTime>
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Paper>
               <Throughput></Throughput>
               </Paper>
-            </Grid>
-            <Grid item>
-              <Paper style={{height:200, width:500}}>
-                <AvgLoadTime></AvgLoadTime>
-              </Paper>
-            </Grid>
-          </Box>
-          <Box display='flex' width='100%' justifyContent='space-between' marginTop={5}>
-            <Grid item>
-              <Paper style={{height:200, width:500}}><SmallGraph className='small-graph'/></Paper>
-            </Grid>
-            <Grid item>
-              <Paper style={{height:200, width:500}}><SmallGraph className='small-graph'/></Paper>
             </Grid>
           </Box>
         </Grid>

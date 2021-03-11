@@ -14,13 +14,14 @@ import PerformanceContext from '../context/PerformanceContext';
 const QueryPlayground: React.FunctionComponent = () => {
 
   // Pull out responseTime & setResponseTime state from Performance Context
-  const { queryResponse, setQueryResponse, avgLoadTimes, setAvgLoadTimes, setLoadTimes, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
+  const { title, setTitle, queryResponse, setQueryResponse, avgLoadTimes, setAvgLoadTimes, setLoadTimes, setThroughput, responseTime, setResponseTime } = useContext(PerformanceContext);
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState('');
 
   console.log(responseTime)
   console.log(avgLoadTimes)
   console.log(queryResponse)
+  console.log(title);
 
   // fetch query input data
   const handleSubmit = () => {
@@ -37,7 +38,11 @@ const QueryPlayground: React.FunctionComponent = () => {
           ...responseTime,
           data.responseTime
         ])
-        setQueryResponse(data.responseTimeData);
+        setQueryResponse(data.responseTimeData, null, 2);
+        setTitle((title:any) => [
+          ...title,
+          'query'
+        ])
       })
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
@@ -89,6 +94,7 @@ const QueryPlayground: React.FunctionComponent = () => {
     setThroughput(0);
     setLoadTimes([]);
     setAvgLoadTimes(0);
+    setTitle([]);
   }
   
   return (
@@ -112,7 +118,7 @@ const QueryPlayground: React.FunctionComponent = () => {
           }}
         />
         <CodeMirror
-          value={JSON.stringify(queryResponse)}
+          value={queryResponse}
           className="code-mirror"
           options={{
             autoCloseBrackets: true,
@@ -126,8 +132,8 @@ const QueryPlayground: React.FunctionComponent = () => {
         />
         <Box display="flex" justifyContent="space-evenly" mt="1em">
           <Button variant="contained" color='primary' onClick={handleSubmit}>Query</Button>
-          <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
           <Button variant="contained" color='primary' onClick={handleLoad}>Load Test</Button>
+          <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
         </Box>
         <Box display="flex" justifyContent="space-evenly" mt="1em">
           <Button variant="contained" color='primary'>Security Test</Button>

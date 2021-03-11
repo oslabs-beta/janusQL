@@ -9,7 +9,6 @@ body {
 
 .dashboard-container {
   display: flex;
-  height: 100vh;
 }
 
 .playground {
@@ -17,7 +16,7 @@ body {
 }
 
 .CodeMirror-wrap {
-  height: 40vh;
+  height: 37vh;
   margin-top:1em;
 }
 
@@ -44,4 +43,12 @@ input {
 .graph-title,
 .playground-title {
   text-align: center;
+}
+
+.MuiGrid-item {
+  width: 100%;
+}
+
+.MuiBox-root-7 .MuiFormControl-fullWidth {
+  margin-left: 29px;
 }

@@ -4,10 +4,10 @@ import PerformanceContext from '../../context/PerformanceContext'
 
 const ResponseTime: React.FunctionComponent = () => {
 
-  const { responseTime } = useContext(PerformanceContext)
+  const { responseTime, title } = useContext(PerformanceContext)
   
   const chart = {
-      labels: ['query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query'],
+      labels: title,
       datasets: [
         {
           label: 'Response Time (ms)',
@@ -15,14 +15,34 @@ const ResponseTime: React.FunctionComponent = () => {
           backgroundColor: [
             'rgba(75,192,192,0.6)'
           ],
-          borderWidth:4
+          borderWidth:4,
         }
       ]
     }
 
+    const options = {
+      title: {
+        display: true,
+        text: 'Query Response Time',
+        fontSize: 25,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+              gridLines: {
+                display: false
+              }
+            }
+          ]
+        }
+      }
+    }
+
   return (
     <div>
-      <Line data={chart}></Line>
+      <Line data={chart} options={options}></Line>
     </div>
   );
 };

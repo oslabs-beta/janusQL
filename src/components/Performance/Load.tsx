@@ -5,24 +5,47 @@ import PerformanceContext from '../../context/PerformanceContext'
 const LoadTimes: React.FunctionComponent = () => {
 
   const { loadTimes } = useContext(PerformanceContext)
+
+  const label = [];
+  for (let i=0; i<=50; i+=1) {
+    label.push('query')
+  }
   
   const chart = {
-      labels: ['query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query','query', 'query', 'query', 'query', 'query'],
+      labels: label,
       datasets: [
         {
           label: 'Response Time (ms)',
           data: loadTimes,
-          backgroundColor: [
-            'rgba(75,192,192,0.6)'
-          ],
+          backgroundColor: 'rgba(75,192,192,0.6)',
           borderWidth:4
         }
       ]
     }
 
+    const options = {
+      title: {
+        display: true,
+        text: 'Load Test Response Time',
+        fontSize: 25,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              },
+              gridLines: {
+                display: false
+              }
+            }
+          ]
+        }
+      }
+    }
+
   return (
     <div>
-      <Bar data={chart}></Bar>
+      <Bar data={chart} options={options}></Bar>
     </div>
   );
 };
