@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Line } from 'react-chartjs-2';
-import PerformanceContext from '../context/PerformanceContext'
+import PerformanceContext from '../../context/PerformanceContext'
 
-const Graph: React.FunctionComponent = () => {
+const ResponseTime: React.FunctionComponent = () => {
 
   const { responseTime } = useContext(PerformanceContext)
   
@@ -27,4 +27,4 @@ const Graph: React.FunctionComponent = () => {
   );
 };
 
-export default Graph;
+export default ResponseTime;

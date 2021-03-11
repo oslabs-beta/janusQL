@@ -7,7 +7,6 @@ import fetch from "node-fetch";
 const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction) => {
     const { query, url } = req.body;
-    console.log(req.body.query)
     // SCRUB INPUTS RES.BODY
   
     // we are defining the query here for testing sake, user's will provide us the query in the electron

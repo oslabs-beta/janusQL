@@ -22,17 +22,6 @@ const QueryPlayground: React.FunctionComponent = () => {
 
   // fetch input data
   const handleSubmit = () => {
-    // fetch('http://localhost:3000/input')
-    //   .then((res) => res.json())
-    //   .then((data) => {
-
-    //   // TODO : TS
-    //   setResponseTime((responseTime: any) => [
-    //     ...responseTime,
-    //     data
-    //   ]);
-    //   })
-    // .catch(err => console.log('Handle Submit: Get ResponseTime: ERROR: ', err))
     fetch('http://localhost:3000/input/responsetime', {
       method: 'POST',
       headers: {
@@ -41,6 +30,12 @@ const QueryPlayground: React.FunctionComponent = () => {
       body: JSON.stringify({query: query, url: url}),
     })
       .then((res) => res.json())
+      .then((data) => {
+        setResponseTime((responseTime: any) => [
+          ...responseTime,
+          data
+        ]);
+      })
       .then((data) => console.log(data))
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
