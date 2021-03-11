@@ -4,7 +4,7 @@ import userControllers from "../controllers/userControllers";
 const userRouter = express.Router();
 
 // add new user to db and returns a successful message
-userRouter.post('/Register',
+userRouter.post('/register',
   userControllers.addUser, 
   (req: Request, res: Response) => {
     // console.log('inside user route');
