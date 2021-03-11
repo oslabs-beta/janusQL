@@ -7,7 +7,7 @@ import fetch from "node-fetch";
 const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction) => {
     const { url, query } = req.body;
-    console.log('req.body: !!!!!!!', req.body)
+
     // SCRUB INPUTS RES.BODY
   
     // we are defining the query here for testing sake, user's will provide us the query in the electron
@@ -71,7 +71,9 @@ const performanceTestControllers = {
   }),
 
   loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // const { query, url } = res.body;
+    const { query, url } = req.body;
+
+    const urlTester = 'http://countries.trevorblades.com/';
     
     const queryTester = `query {
       country(code: "BR") {
@@ -90,10 +92,10 @@ const performanceTestControllers = {
     let counter = 0;
     const start = Date.now();
 
-    //need to fix the start time, cannot be the start time in line 76 cus start time changes
+    
     while ((Date.now() - start) < 1000) {
       console.log('start time in loop', start);
-      let result = await fetch('http://countries.trevorblades.com/', {
+      let result = await fetch(urlTester, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -112,7 +114,8 @@ const performanceTestControllers = {
   },
 
   avgThroughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // const { query, url } = res.body;
+    const { query, url } = req.body;
+    const urlTester = 'http://countries.trevorblades.com/';
     const queryTester = `query {
       country(code: "BR") {
         name
@@ -133,13 +136,13 @@ const performanceTestControllers = {
 
     while (counter < 10) {
       const start = Date.now();
-      let result = await fetch('http://countries.trevorblades.com/', {
+      let result = await fetch(urlTester, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: queryTester
+          query: query
         })
       })
       const duration = Date.now() - start;
