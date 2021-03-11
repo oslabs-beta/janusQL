@@ -7,11 +7,11 @@ import fetch from "node-fetch";
 const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction) => {
     const { query, url } = req.body;
-    console.log(req.body)
+    console.log(req.body.query)
     // SCRUB INPUTS RES.BODY
   
     // we are defining the query here for testing sake, user's will provide us the query in the electron
-    const inputQuery = query.json();
+    const inputQuery = query
 
     // dummy API URL
     const urlTester = 'http://countries.trevorblades.com/';
@@ -35,7 +35,7 @@ const performanceTestControllers = {
     const start = Date.now();
 
     // replace countries url with users url;
-    fetch(url, {
+    fetch(`${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

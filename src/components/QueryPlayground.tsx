@@ -33,15 +33,19 @@ const QueryPlayground: React.FunctionComponent = () => {
     //   ]);
     //   })
     // .catch(err => console.log('Handle Submit: Get ResponseTime: ERROR: ', err))
-    fetch('http://countries.trevorblades.com/', {
+    fetch('http://localhost:3000/input/responsetime', {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
       },
-      body: JSON.stringify({query: query}),
+      body: JSON.stringify({query: query, url: url}),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {setResponseTime((responseTime: any) => [
+            ...responseTime,
+            data.responseTime
+          ]);
+      })
       .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
   }
 
