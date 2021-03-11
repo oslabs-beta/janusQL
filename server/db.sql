@@ -5,5 +5,5 @@ CREATE TABLE users_table(
   username varchar UNIQUE NOT NULL,
   fullname varchar NOT NULL,
   "password" varchar NOT NULL,
-  email varchar UNIQUE NOT NULL,
+  email varchar UNIQUE NOT NULL
 )

@@ -7,13 +7,13 @@ const userRouter = express.Router();
 userRouter.post('/Register',
   userControllers.addUser, 
   (req: Request, res: Response) => {
-    console.log("userController resolved");
+    console.log('inside user route');
     return res.status(200).send('User successfully added to db');
   }
 )
 
 userRouter.post('/login', 
-  userControllers.getUser,
+  userControllers.addUser,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.credentials);
   }
