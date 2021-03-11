@@ -1,6 +1,16 @@
 import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+  Route,
+  Link, 
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+
 //import css style library here
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -43,6 +53,7 @@ type State = {
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
+  signupRedirect: boolean
 };
 
 const initialState:State = {
@@ -52,7 +63,8 @@ const initialState:State = {
   email: '',
   isButtonDisabled: true,
   helperText: '',
-  isError: false
+  isError: false,
+  signupRedirect: false
 };
 
 //action type definitions
@@ -63,7 +75,8 @@ type Action = { type: 'setUsername', payload: string }
   | { type: 'setIsButtonDisabled', payload: boolean }
   | { type: 'loginSuccess', payload: string }
   | { type: 'loginFailed', payload: string }
-  | { type: 'setIsError', payload: boolean };
+  | { type: 'setIsError', payload: boolean }
+  | { type: 'signupRedirect', payload: boolean};
 
 //reducer definitions
 
@@ -111,10 +124,17 @@ const reducer = (state: State, action: Action): State => {
         helperText: action.payload,
         isError: true
       };
+
     case 'setIsError': 
       return {
         ...state,
         isError: action.payload
+      };
+
+    case 'signupRedirect':
+      return { 
+        ...state,
+      signupRedirect: action.payload
       };
   }
 }
@@ -138,24 +158,43 @@ const Signup = () => {
     }
   }, [state.username, state.fullname, state.password, state.email]);
 
-  const handleLogin = () => {
-    if (state.username === 'abc@email.com' && state.fullname === 'fullname' && state.password === 'password' && state.email === 'abc@email.com') {
-      dispatch({
-        type: 'loginSuccess',
-        payload: 'Login Successfully'
-      });
-    } else {
-      dispatch({
-        type: 'loginFailed',
-        payload: 'Incorrect username or password'
-      });
+  
+  const handleSignup = () => {
+   
+     const { username, fullname, password, email } = state;
+     const userData = {
+       username,
+       fullname,
+       password,
+       email
+     }
+     const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData) // do we even need to stringify this?
     }
+
+     fetch('http://localhost:3000/user/register', options)
+    //  .then(result => result.json())
+     .then(result => {
+       if (result.status === 200) {
+         dispatch({type: 'signupRedirect', payload: true})
+        }
+      })
+     .catch(err => console.log(err))
+     
+      // dispatch({
+      //   type: 'loginFailed',
+      //   payload: 'Incorrect username or password'
+      // });
   };
 
 //this needs attention - depricated
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.keyCode === 13 || event.which === 13) {
-      state.isButtonDisabled || handleLogin();
+      state.isButtonDisabled || handleSignup();
     }
   };
 
@@ -189,6 +228,11 @@ const Signup = () => {
         type: 'setemail',
         payload: event.target.value
       });
+    }
+
+    const { signupRedirect } = state;
+    if (signupRedirect) {
+      return <Redirect to='/Graphs' />
     }
 
   return (
@@ -251,7 +295,7 @@ const Signup = () => {
             size="large"
             color="secondary"
             className={classes.createBtn}
-            onClick={handleLogin}
+            onClick={handleSignup}
             disabled={state.isButtonDisabled}>
             Register
           </Button>
