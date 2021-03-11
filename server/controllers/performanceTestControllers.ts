@@ -41,7 +41,7 @@ const performanceTestControllers = {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        query: inputQuery
+        query: query
       })
     })
       .then(res => {
@@ -58,7 +58,6 @@ const performanceTestControllers = {
         // console.log('duration:', duration);
         // store response time in locals
         res.locals.responseTime = duration;
-        
         return next();
       })
       .catch(err => {
@@ -68,9 +67,11 @@ const performanceTestControllers = {
         });
       });
   }),
+  // testing num of completed requests in 1 sec
+  throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { query, url } = req.body;
 
-  loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // const { query, url } = res.body;
+    const urlTester = 'http://countries.trevorblades.com/';
     
     const queryTester = `query {
       country(code: "BR") {
@@ -89,29 +90,29 @@ const performanceTestControllers = {
     let counter = 0;
     const start = Date.now();
 
-    //need to fix the start time, cannot be the start time in line 76 cus start time changes
     while ((Date.now() - start) < 1000) {
       console.log('start time in loop', start);
-      let result = await fetch('http://countries.trevorblades.com/', {
+      let result = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: queryTester
+          query: query
         })
       })
       console.log(`finished fetching, result is: ${result.text()}`)
       counter++;
     }
     console.log(counter);
-    res.locals.loadTimeCounter = counter;
-    console.log(res.locals.loadTimeCounter);
+    res.locals.throughputCounter = counter;
+    console.log(res.locals.throughputCounter);
     return next();
   },
-
-  avgThroughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // const { query, url } = res.body;
+  // computing avg response time of 100 requests
+  loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { query, url } = req.body;
+    const urlTester = 'http://countries.trevorblades.com/';
     const queryTester = `query {
       country(code: "BR") {
         name
@@ -129,23 +130,27 @@ const performanceTestControllers = {
     // start timer
     let counter = 0;
     let sum = 0;
+    let storage = [];
 
-    while (counter < 10) {
+    while (counter < 100) {
       const start = Date.now();
-      let result = await fetch('http://countries.trevorblades.com/', {
+      let result = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: queryTester
+          query: query
         })
       })
       const duration = Date.now() - start;
-      console.log(duration);
+      // console.log(duration);
+      storage.push(duration);
       sum += duration;
       counter++;
     }
+    console.log(storage);
+    res.locals.storage = storage;
     console.log('sum:', sum, 'counter:', counter);
     const avg = sum / counter;
     res.locals.avg = avg;
