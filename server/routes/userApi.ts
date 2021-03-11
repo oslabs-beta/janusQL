@@ -14,7 +14,7 @@ userRouter.post('/Register',
 )
 
 userRouter.post('/login', 
-  userControllers.addUser,
+  userControllers.getUser,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.credentials);
   }
