@@ -9,6 +9,7 @@ const userControllers = {
     
     // extract user info from req body
     const { username, fullname, password, email } = req.body;
+    console.log('req body', req.body);
 
     // store username, password, fullname, email into an array for the db query later
     const params = [username, fullname, password, email];
@@ -17,13 +18,19 @@ const userControllers = {
 
     // ensure inputs are valid
     if (!username || !fullname || !password || !email){
-      return next('Missing username, fullname, password, and/or email in the userControllers.addUser middleware');
+      console.log('missing items err');
+      return next({
+        log: 'Missing username, fullname, password, and/or email in the userControllers.addUser middleware',
+        message: {
+          err: 'userController.addUser: ERROR: Check server logs for details'
+        }
+      });
     }
     // inputs exist, inputs are strings, inputs don't have script tags
     // trim the whitespace -> have questions LMAO
 
     // create a SQL query string
-    const queryString = 'INSERT INTO users_table ( username, password, email, fullname ) VALUES ($1, $2, $3, $4)';
+    const queryString = 'INSERT INTO users_table (username, password, email, fullname) VALUES $1, $2, $3, $4';
     
     db.query(queryString, params, (err: any, res: Response) => {
       if (err) {
@@ -34,7 +41,7 @@ const userControllers = {
           }
         });
       } else {
-        console.log(res);
+        console.log('response', res);
         return next();
       }
     })
