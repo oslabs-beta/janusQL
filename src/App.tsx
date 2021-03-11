@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import Homepage from './Homepage';
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Main from './Main';
 import './styles/styles.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { PerformanceContextProvider } from '../src/context/PerformanceContext';
 
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
@@ -26,9 +26,11 @@ const theme = createMuiTheme({
 
 const App = () => {
   return (
-    <MuiThemeProvider theme={theme}>
-      <Main></Main>
-    </MuiThemeProvider>
+    <PerformanceContextProvider>
+      <MuiThemeProvider theme={theme}>
+        <Main></Main>
+      </MuiThemeProvider>
+    </PerformanceContextProvider>
   )
 }
 

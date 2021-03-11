@@ -6,21 +6,18 @@ import fetch from "node-fetch";
 
 const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction) => {
-    const { url, query } = req.body;
-
+    const { query, url } = req.body;
     // SCRUB INPUTS RES.BODY
   
     // we are defining the query here for testing sake, user's will provide us the query in the electron
-    const inputQuery = query;
-    console.log('inputQuery', inputQuery);
-    console.log('url', url);
-    
+    const inputQuery = query
+
     // dummy API URL
     const urlTester = 'http://countries.trevorblades.com/';
     
     // dummy query to test
     const queryTester = `query {
-      country(code: 'BR') {
+      country(code: "BR") {
         name
         native
         capital
@@ -37,7 +34,7 @@ const performanceTestControllers = {
     const start = Date.now();
 
     // replace countries url with users url;
-    fetch(url, {
+    fetch(`${url}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,15 +100,15 @@ const performanceTestControllers = {
           query: query
         })
       })
-      console.log(`finished fetching, result is: ${result.text()}`)
+      // console.log(`finished fetching, result is: ${result.text()}`)
       counter++;
     }
-    console.log(counter);
+    // console.log(counter);
     res.locals.throughputCounter = counter;
-    console.log(res.locals.throughputCounter);
+    // console.log(res.locals.throughputCounter);
     return next();
   },
-  // computing avg response time of 100 requests
+  // computing avg response time of 50/100 requests
   loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
     const urlTester = 'http://countries.trevorblades.com/';
@@ -134,7 +131,7 @@ const performanceTestControllers = {
     let sum = 0;
     let storage = [];
 
-    while (counter < 100) {
+    while (counter < 50) {
       const start = Date.now();
       let result = await fetch(url, {
         method: 'POST',
