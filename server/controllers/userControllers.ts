@@ -1,8 +1,6 @@
-// import in db
 import { Request, Response, NextFunction } from "express";
 import db from '../models/userModel';
 
-// create a controller obj
 const userControllers = {
   // add user to db
   addUser: (req: Request, res: Response, next: NextFunction) => {
