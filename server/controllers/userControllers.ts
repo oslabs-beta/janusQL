@@ -7,7 +7,6 @@ const userControllers = {
     
     // extract user info from req body
     const { username, fullname, password, email } = req.body;
-    console.log('req body', req.body);
 
     // store required fields into an array for the db query later
     const params = [username, fullname, password, email];
