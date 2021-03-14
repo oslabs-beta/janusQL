@@ -6,7 +6,9 @@ import Grid from '@material-ui/core/Grid';
 import ResponseTime from '../components/Performance/ResponseTime';
 import Throughput from '../components/Performance/Throughput';
 import Load from '../components/Performance/Load';
-import AvgLoadTime from '../components/Performance/AvgLoadTime'
+import AvgLoadTime from '../components/Performance/AvgLoadTime';
+import Dos from '../components/Security/Dos';
+
 
 const GraphContainer:React.FunctionComponent = () => {
 
@@ -41,6 +43,13 @@ const GraphContainer:React.FunctionComponent = () => {
               </Paper>
             </Grid>
           </Box>
+          <Box display='flex' width='80%' justifyContent='space-between' marginTop={5}>
+          <Grid item>
+              <Paper>
+              <Dos></Dos>
+              </Paper>
+            </Grid>
+            </Box>
         </Grid>
 
       </Container>
