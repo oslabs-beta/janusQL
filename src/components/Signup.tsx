@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     createBtn: {
       marginTop: theme.spacing(2),
-      flexGrow: 1
+      flexGrow: 1,
     },
     header: {
       textAlign: 'center',
-      background: '#212121',
+      background: 'linear-gradient(45deg, #FE688B 30%, #FF8E53 90%)',
       color: '#fff'
     },
     card: {
