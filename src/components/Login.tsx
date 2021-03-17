@@ -21,7 +21,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
-// import { Link } from '@material-ui/core'
 import { red, grey } from '@material-ui/core/colors';
 
 
@@ -48,9 +47,6 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       background: 'linear-gradient(45deg, #FE688B 30%, #FF8E53 90%)',
       color: '#fff'
-    },
-    link: {
-      color:'primary'
     },
     card: {
       marginTop: theme.spacing(10)
@@ -253,18 +249,14 @@ const Login = () => {
             onClick={handleLogin}
             disabled={state.isButtonDisabled}>
             Register
-          </Button>
-           
+          </Button>   
         </CardActions>
-        
-      </Card>
-      <Button color="primary" to="/Signup">
-      Signup
+        </Card>
+
+      <Button>
+      <Link color="primary" to="/Signup">Signup</Link>
     </Button>
-    
-     
-    
-      </form>
+    </form>
   );
 }
 
