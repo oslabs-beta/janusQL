@@ -21,6 +21,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
+import { red, grey } from '@material-ui/core/colors';
+
 
 
 //css styles here
@@ -36,14 +38,14 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(2),
       flexGrow: 1
     },
-    //added sign up button
+    // added sign up button
     signUp: {
       marginTop: theme.spacing(2),
       flexGrow: 1
     },
     header: {
       textAlign: 'center',
-      background: '#212121',
+      background: 'linear-gradient(45deg, #FE688B 30%, #FF8E53 90%)',
       color: '#fff'
     },
     card: {
@@ -247,12 +249,13 @@ const Login = () => {
             onClick={handleLogin}
             disabled={state.isButtonDisabled}>
             Register
-          </Button>
-           
+          </Button>   
         </CardActions>
-      </Card>
-     <Link to="/Signup">Signup</Link>
-  
+        </Card>
+
+      <Button>
+      <Link color="primary" to="/Signup">Signup</Link>
+    </Button>
     </form>
   );
 }
