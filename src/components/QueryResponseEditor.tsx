@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-import { Box, Button } from '@material-ui/core/';
+import { Box } from '@material-ui/core/';
+import PerformanceContext from '../context/PerformanceContext';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/monokai.css';
 import 'codemirror/mode/javascript/javascript';
@@ -15,30 +16,30 @@ import "codemirror-graphql/lint";
 import "codemirror-graphql/mode";
 import "codemirror/addon/lint/lint.css";
 
-const QueryEditor = () => {
+const QueryResponseEditor = () => {
 
-  const gQLoptions = {
+  const { queryResponse } = useContext(PerformanceContext);
+
+  const resOptions = {
     mode: "graphql",
     scrollbarStyle: "native",
     theme: "monokai",
     lineNumbers: true,
+    lineWrapping: true,
     lint: true,
     hintOptions: true,
     matchBrackets: true,
     autoCloseBrackets: true,
     indentUnit: 2,
     tabSize: 2,
+    readOnly: true
   }
-
+    
   return (
     <Box>
-      <CodeMirror className='code-mirror' options={gQLoptions} />
-      <Box display='flex' justifyContent='space-between' mt='1em'>
-        <Button variant='contained' color='primary'>Reset</Button>
-        <Button variant='contained' color='primary'>Submit</Button>
-      </Box>
+      <CodeMirror className='code-mirror' options={resOptions} value={queryResponse}/>
     </Box>
   );
 };
 
-export default QueryEditor;
+export default QueryResponseEditor;

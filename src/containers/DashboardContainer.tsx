@@ -4,6 +4,7 @@ import { Box, Paper } from '@material-ui/core/';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import GraphQLInput from '../components/GraphQLInput';
 import QueryEditor from '../components/QueryEditor';
+import QueryResponseEditor from '../components/QueryResponseEditor';
 
 const DashboardContainer = () => {
 
@@ -20,6 +21,7 @@ const DashboardContainer = () => {
       paper: {
         padding: theme.spacing(2),
         width: "100%",
+        background: 'grey',
       },
       urlBox: {
         margin: 10,
@@ -38,7 +40,7 @@ const DashboardContainer = () => {
           <QueryEditor></QueryEditor>
         </Paper>
         <Paper className={classes.paper}>
-          <CodeMirror></CodeMirror>
+          <QueryResponseEditor></QueryResponseEditor>
         </Paper>
         <Paper className={classes.paper}>
         </Paper>
