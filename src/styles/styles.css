@@ -63,3 +63,11 @@ body {
 .dashboard-container {
   background-color: #f4f4f4;
 }
+
+.CodeMirror-wrap {
+  height: 75vh !important;
+}
+
+.CodeMirror {
+  height: 85vh !important;
+}

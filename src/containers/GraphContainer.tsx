@@ -13,7 +13,6 @@ import Dos from '../components/Security/Dos';
 const GraphContainer:React.FunctionComponent = () => {
 
   return (
-    <div className='graph-container'>
       <Container>
         <h1 className="graph-title">Metrics</h1>
         <Grid className='grid' container spacing={1} justify='center'>
@@ -53,7 +52,6 @@ const GraphContainer:React.FunctionComponent = () => {
         </Grid>
 
       </Container>
-    </div>
   );
 };
 
