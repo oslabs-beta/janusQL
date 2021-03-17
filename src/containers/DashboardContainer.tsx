@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Box, Paper } from '@material-ui/core/';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
 import GraphQLInput from '../components/GraphQLInput';
 import QueryEditor from '../components/QueryEditor';
 import QueryResponseEditor from '../components/QueryResponseEditor';

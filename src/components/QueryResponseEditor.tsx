@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-import { Box } from '@material-ui/core/';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Box, Paper, Typography } from '@material-ui/core/';
 import PerformanceContext from '../context/PerformanceContext';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/monokai.css';
@@ -20,6 +21,22 @@ const QueryResponseEditor = () => {
 
   const { queryResponse } = useContext(PerformanceContext);
 
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        flexGrow: 1,
+      },
+      typ: {
+        textAlign: "center",
+        background: "#FE688B",
+        color: "#FFFF",
+        padding: "0.5em"
+      }
+    }),
+  );
+
+  const classes = useStyles();
+
   const resOptions = {
     mode: "graphql",
     scrollbarStyle: "native",
@@ -37,6 +54,9 @@ const QueryResponseEditor = () => {
     
   return (
     <Box>
+      <Paper>
+        <Typography className={classes.typ}>Response</Typography>
+      </Paper>
       <CodeMirror className='code-mirror' options={resOptions} value={queryResponse}/>
     </Box>
   );

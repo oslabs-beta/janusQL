@@ -1,6 +1,7 @@
 import React from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-import { Box, Button } from '@material-ui/core/';
+import { Box, Button, Paper, Typography } from '@material-ui/core/';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import '../../node_modules/codemirror/lib/codemirror.css';
 import '../../node_modules/codemirror/theme/monokai.css';
 import 'codemirror/mode/javascript/javascript';
@@ -17,6 +18,22 @@ import "codemirror/addon/lint/lint.css";
 
 const QueryEditor = () => {
 
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        flexGrow: 1,
+      },
+      typ: {
+        textAlign: "center",
+        background: "#FE688B",
+        color: "#FFFF",
+        padding: "0.5em"
+      }
+    }),
+  );
+
+  const classes = useStyles();
+
   const gQLoptions = {
     mode: "graphql",
     scrollbarStyle: "native",
@@ -32,6 +49,9 @@ const QueryEditor = () => {
 
   return (
     <Box>
+      <Paper>
+        <Typography className={classes.typ}>Workspace</Typography>
+      </Paper>
       <CodeMirror className='code-mirror' options={gQLoptions} />
       <Box display='flex' justifyContent='space-between' mt='1em'>
         <Button variant='contained' color='primary'>Reset</Button>
