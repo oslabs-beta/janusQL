@@ -28,7 +28,7 @@ const QueryResponseEditor = () => {
       },
       typ: {
         textAlign: "center",
-        background: "#FE688B",
+        background: "linear-gradient(45deg, #FE688B 30%, #FF8E53 90%)",
         color: "#FFFF",
         padding: "0.5em"
       }
