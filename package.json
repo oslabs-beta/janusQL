@@ -12,7 +12,7 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "dev": "cross-env NODE_ENV=development nodemon server/server.ts",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "Janus",
