@@ -38,7 +38,7 @@ const QueryPlayground: React.FunctionComponent = () => {
           ...responseTime,
           data.responseTime
         ])
-        setQueryResponse(data.responseTimeData, null, 2);
+        setQueryResponse(null, data.responseTimeData, data.responseTimeData);
         setTitle((title:any) => [
           ...title,
           'query'

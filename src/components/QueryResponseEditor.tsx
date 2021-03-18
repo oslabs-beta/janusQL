@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Box, Paper, Typography } from '@material-ui/core/';
 import PerformanceContext from '../context/PerformanceContext';
@@ -39,25 +39,24 @@ const QueryResponseEditor = () => {
 
   const resOptions = {
     mode: "graphql",
-    scrollbarStyle: "native",
     theme: "monokai",
     lineNumbers: true,
     lineWrapping: true,
-    lint: true,
-    hintOptions: true,
-    matchBrackets: true,
     autoCloseBrackets: true,
     indentUnit: 2,
     tabSize: 2,
-    readOnly: true
+    readOnly: true,
+    cursorScrollMargin: 48,
+    styleActiveLine: true,
   }
+
     
   return (
     <Box>
       <Paper>
         <Typography className={classes.typ}>Response</Typography>
       </Paper>
-      <CodeMirror className='code-mirror' options={resOptions} value={queryResponse}/>
+      <CodeMirror className='code-mirror' options={resOptions} value={JSON.stringify(queryResponse, null, 2)}/>
     </Box>
   );
 };

@@ -71,3 +71,11 @@ body {
   width: 800px;
   height: 400px;
 }
+
+.CodeMirror-wrap pre {
+  word-break: break-word !important;
+}
+
+.cm-invalidchar {
+  color: #a9b1abf4;
+}

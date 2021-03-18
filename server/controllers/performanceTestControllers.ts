@@ -44,7 +44,7 @@ const performanceTestControllers = {
       })
     })
       .then(res => {
-        return res.text();
+        return res.json();
       })
       .then(data => {
         console.log('data returned:', data)
