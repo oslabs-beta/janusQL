@@ -93,9 +93,110 @@ describe('response time test block', () => {
 })
 
 // testing throughput time
-// describe('throughput test block', () => {
+describe('throughput test block', () => {
+  // expect response body to have throughputCounter property
+  it('response body should have a throughputCounter property', (done) => {
+    return req
+      .post('/input/throughput')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response).toHaveProperty('throughputCounter');
+        done();
+      })
+      .catch(err => done(err));
+  });
 
-// })
+  // expect throughputCounter to be a number
+  it('throughputCounter should be a number', (done) => {
+    return req
+      .post('/input/throughput')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(typeof response.body.throughputCounter).toBe('number');
+        done();
+      })
+      .catch(err => done(err));
+  })
+  // expect throughputCounter to be a positive number
+  it('thoughputCounter should be a positive number', (done) => {
+    return req
+      .post('/input/throughput')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response.body.throughputCounter).toBeGreaterThan(0);
+        done();
+      })
+      .catch(err => done(err));
+  })
+})
 
 // testing loadtesting 
-// .toHaveBeenCalledTimes(number)
+describe('loadtesting test block', () => {
+  // does response obj has a storage property?
+  it('expect response obj to have a storage property', (done) => {
+    return req
+      .post('/input/load')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response.body).toHaveProperty('storage');
+        done();
+      })
+      .catch(err => done(err))
+  });
+
+  // does response obj has an avg property?
+  it('expect response obj to have an avg property', (done) => {
+    return req
+      .post('/input/load')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response.body).toHaveProperty('avg');
+        done();
+      })
+      .catch(err => done(err))
+  });
+
+  // is avg a number?
+  it('avg load time should be a number', (done) => {
+    return req
+      .post('/input/load')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(typeof response.body.avg).toBe('number');
+        done();
+      })
+      .catch(err => done(err))
+  })
+
+  // is avg a positive number?
+  it('avg load time should be a positive number', (done) => {
+    return req
+      .post('/input/load')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response.body.avg).toBeGreaterThan(0);
+        done();
+      })
+      .catch(err => done(err))
+  })
+
+  // is the avg less than 500ms?
+  it('avg load time should be a less than a second', (done) => {
+    return req
+      .post('/input/load')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response.body.avg).toBeLessThan(500);
+        done();
+      })
+      .catch(err => done(err))
+  })
+})

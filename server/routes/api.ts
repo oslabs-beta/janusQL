@@ -6,14 +6,14 @@ const router = express.Router();
 
 // receives API URL and query string from client
 // calculate response time of query and returns the query result and respone time
-router.post('/responsetime',
-  // middleware to add to db
-  // middleware to fetch from external api
-  performanceTestControllers.responseTime,
-  (req: Request, res: Response) => {
-    return res.status(200).json(res.locals)
-  }
-)
+// router.post('/responsetime',
+//   // middleware to add to db
+//   // middleware to fetch from external api
+//   performanceTestControllers.responseTime,
+//   (req: Request, res: Response) => {
+//     return res.status(200).json(res.locals)
+//   }
+// )
 
 router.get('/dos', 
   securityTestController.dos, 
@@ -23,14 +23,14 @@ router.get('/dos',
 )
 
 // calculate num of completed requests in 1 sec
-// router.post('/throughput',
-//   performanceTestControllers.throughput,
-//   (req: Request, res: Response) => {
-//     return res.status(200).json(res.locals.throughputCounter)
-//   }
-// )
+router.post('/throughput',
+  performanceTestControllers.throughput,
+  (req: Request, res: Response) => {
+    return res.status(200).json(res.locals.throughputCounter)
+  }
+)
 
-// // calculate avg response time of 100 requests
+// calculate avg response time of 50 requests
 // router.post('/load',
 //   performanceTestControllers.loadTesting,
 //   (req: Request, res: Response) => {
