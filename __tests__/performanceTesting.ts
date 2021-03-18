@@ -90,21 +90,6 @@ describe('response time test block', () => {
       })
       .catch(err => done(err))
   })
-
-  // is responseTimeData an array? - idk how to test for this
-  // it('responseTimeData should be an array', (done) => {
-  //   return req
-  //     .post('/input/responsetime')
-  //     .send({ query: queryTester, url: urlTester })
-  //     .expect(200)
-  //     .then(response => {
-  //       const arrOfResponseTimes = response.body.responseTimeData.json()
-  //       expect(Array.isArray(arrOfResponseTimes)).toBe(true);
-  //       done();
-  //     })
-  //     .catch(err => done(err))
-  // })
-
 })
 
 // testing throughput time
