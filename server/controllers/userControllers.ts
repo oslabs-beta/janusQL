@@ -1,25 +1,18 @@
-// import in db
 import { Request, Response, NextFunction } from "express";
 import db from '../models/userModel';
 
-// create a controller obj
 const userControllers = {
   // add user to db
   addUser: (req: Request, res: Response, next: NextFunction) => {
     
     // extract user info from req body
     const { username, fullname, password, email } = req.body;
-    console.log('req body', req.body);
 
-    // store username, password, fullname, email into an array for the db query later
+    // store required fields into an array for the db query later
     const params = [username, fullname, password, email];
-    console.log('params', params);
 
-    // SCRUB USER INPUTS
-
-    // ensure inputs are valid
+    // ensure all required fields exist
     if (!username || !fullname || !password || !email) {
-      console.log('missing items err');
       return next({
         log: 'Missing username, fullname, password, and/or email in the userControllers.addUser middleware',
         message: {
@@ -37,7 +30,10 @@ const userControllers = {
         return next();
       })
       .catch((err) => {
+<<<<<<< HEAD
         console.log(err)
+=======
+>>>>>>> 50c94a85537a6009354296c670fb7a617781f8b2
         return next({
           log: 'error inserting username, fullname, password, email',
           message: {
