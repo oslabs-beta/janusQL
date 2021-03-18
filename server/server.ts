@@ -40,7 +40,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // broadcast on port 3000
-if( !isTest){
+if(!isTest){
   app.listen(PORT, () => { 
     console.log(`Listening on port ${PORT}...`);
   });

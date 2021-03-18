@@ -23,8 +23,9 @@ const queryTester = `query {
   }
 }`;
 
+// testing response time
 describe('response time test block', () => {
-  // testing response time
+  // test if response obj has a responseTime property
   it('expect response obj to have a responseTime property', (done) => {
     return req
       .post('/input/responsetime')
@@ -36,37 +37,50 @@ describe('response time test block', () => {
       })
       .catch(err => done(err))
   });
+
+  // test if response obj has a responseTimeData property
+  it('expect response obj to have a responseTimeData property', (done) => {
+    return req
+      .post('/input/responsetime')
+      .send({ query: queryTester, url: urlTester })
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then(response => {
+        expect(response.body).toHaveProperty('responseTimeData');
+        done();
+      })
+      .catch(err => done(err))
+  });
+
+  // is the response time a positive number?
+  // it('response time should be a positive number', (done) => {
+  //   return req
+  //     .post('/input/responsetime')
+  //     .send({ query: queryTester, url: urlTester })
+  //     .expect(200)
+  //     .then(response => {
+  //       expect(response.body).toHaveProperty('responseTimeData');
+  //       done();
+  //     })
+  //     .catch(err => done(err))
+  // })
+
+  // is the response time less than 1 sec?
+  // it('response time should be a ', (done) => {
+  //   return req
+  //     .post('/input/responsetime')
+  //     .send({ query: queryTester, url: urlTester })
+  //     .expect(200)
+  //     .then(response => {
+  //       expect(response.body).toHaveProperty('responseTimeData');
+  //       done();
+  //     })
+  //     .catch(err => done(err))
+  // })
+
 })
 
-// describe('test block', () => {
-//   it('test route', async (done) => {
-//     const res = await supertest(app).get('/').expect(200);
-//     done();
-//   });
-// });
+// testing throughput time
+// describe('throughput test block', () => {
 
-// is the response time a positive number?
-// test('expect response time to be a positive number', () => {
-//     const responseObj = performanceTestControllers.responseTime(url, query);
-//     expect(responseObj.lo).to.responseTimeBeGreaterThan(0);
-// });
-
-// is the response time less than 1 sec?
-// test('expect respres.locals.onse time to be less than 1 sec', () => {
-//   const responseObj = performanceTestControllers.responseTime(url, query);
-//   expect()
-// })
-
-// describe('POST /input/responsetime', () => {
-//   it ('responseTime and responseTimeData should exist in res.body', done => {
-//     return supertest(server)
-//       .post('/input/responsetime')
-//       .send({url: urlTester, query: queryTester})
-//       .expect('Content-Type', /json/)
-//       .expect(200)
-//       .then(res => {
-//         res.body.should.have.property('responseTime', 'responseTimeData')
-//         done();
-//       })
-//   })
 // })
