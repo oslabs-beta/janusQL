@@ -53,7 +53,7 @@ describe('response time test block', () => {
   });
 
   // is the response time a number?
-  if('response time should be a number', (done) => {
+  it('response time should be a number', (done) => {
     return req
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
