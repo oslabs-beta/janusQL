@@ -1,17 +1,9 @@
 import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Redirect } from "react-router-dom";
+import { Action, signupState } from '../types/reducerPattern';
 
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Switch,
-  Route,
-  Link, 
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
-
-//import css style library here
+// Material ui imports
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,7 +11,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 
-//css styling imported from material-ui
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,19 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-//state type definitions and initial state of state
-type State = {
-  username: string
-  fullname: string
-  password: string
-  email: string
-  isButtonDisabled: boolean
-  helperText: string
-  isError: boolean
-  signupRedirect: boolean
-};
 
-const initialState:State = {
+const initialState:signupState = {
   username: '',
   fullname: '',
   password: '',
@@ -64,23 +44,13 @@ const initialState:State = {
   isButtonDisabled: true,
   helperText: '',
   isError: false,
-  signupRedirect: false
+  signupRedirect: false,
+  reducerError: ''
 };
 
-//action type definitions
-type Action = { type: 'setUsername', payload: string }
-  | { type: 'setPassword', payload: string }
-  | { type: 'setfullname', payload: string } 
-  | { type: 'setemail', payload: string }
-  | { type: 'setIsButtonDisabled', payload: boolean }
-  | { type: 'loginSuccess', payload: string }
-  | { type: 'loginFailed', payload: string }
-  | { type: 'setIsError', payload: boolean }
-  | { type: 'signupRedirect', payload: boolean};
 
-//reducer definitions
-
-const reducer = (state: State, action: Action): State => {
+//reducers
+const reducer = (state: signupState, action: Action): signupState => {
   switch (action.type) {
     case 'setUsername': 
       return {
@@ -136,14 +106,23 @@ const reducer = (state: State, action: Action): State => {
         ...state,
       signupRedirect: action.payload
       };
+
+    default:
+      return {
+        ...state,
+        reducerError: 'default reducer case invoked'
+    };
   }
 }
 
 // methods / function definitions 
-const Signup = () => {
+const Signup = (): JSX.Element => {
   const classes = useStyles();
+
+  // Hook for reducer state management pattern
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Disable registration button until user enters all credentials
   useEffect(() => {
     if (state.username.trim() && state.password.trim() && state.fullname.trim() && state.email.trim()) {
      dispatch({
@@ -158,7 +137,7 @@ const Signup = () => {
     }
   }, [state.username, state.fullname, state.password, state.email]);
 
-  
+  // Post to DB
   const handleSignup = () => {
    
      const { username, fullname, password, email } = state;
@@ -168,27 +147,30 @@ const Signup = () => {
        password,
        email
      }
+
      const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userData) // do we even need to stringify this?
+      body: JSON.stringify(userData)
     }
 
      fetch('http://localhost:3000/user/register', options)
-    //  .then(result => result.json())
      .then(result => {
-       if (result.status === 200) {
-         dispatch({type: 'signupRedirect', payload: true})
-        }
+
+        // Log user in on successful signup
+        if (result.status === 200) {
+          dispatch({type: 'signupRedirect', payload: true})
+         }
       })
-     .catch(err => console.log(err))
-     
-      // dispatch({
-      //   type: 'loginFailed',
-      //   payload: 'Incorrect username or password'
-      // });
+     .catch(err => {
+       console.log(err)
+       dispatch({
+         type: 'loginFailed',
+         payload: 'Error signing up'
+       });
+     })
   };
 
 //this needs attention - depricated
@@ -230,6 +212,7 @@ const Signup = () => {
       });
     }
 
+    // Log user in on successful signup
     const { signupRedirect } = state;
     if (signupRedirect) {
       return <Redirect to='/Graphs' />
