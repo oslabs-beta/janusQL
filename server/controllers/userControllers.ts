@@ -27,8 +27,6 @@ const userControllers = {
         }
       });
     }
-    // inputs exist, inputs are strings, inputs don't have script tags
-    // trim the whitespace -> have questions LMAO
 
     // create a SQL query string
     const queryString = 'INSERT INTO users_table (username, fullname, "password", email) VALUES ($1, $2, $3, $4)';
@@ -39,7 +37,7 @@ const userControllers = {
         return next();
       })
       .catch((err) => {
-        // console.log(err)
+        console.log(err)
         return next({
           log: 'error inserting username, fullname, password, email',
           message: {
@@ -53,10 +51,7 @@ const userControllers = {
     //query DB for credentials passed on request object
     const { username, password } = req.body;
     const params = [username, password];
-    // const params: any = [];
-
     const queryString = `SELECT username, password FROM users_table WHERE username= $1 and password= $2`;
-    // const queryString = `SELECT * FROM users_table`;
     
     db.query(queryString, params)
     .then(data =>{

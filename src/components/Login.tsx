@@ -1,20 +1,9 @@
-import React, { useReducer, useEffect, Component } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-// import React from "react";
+import { Action, loginState } from '../types/reducerPattern';
+import { Redirect, Link } from "react-router-dom";
 
-//comment back in when impementing react router
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Switch,
-  Route,
-  Link, 
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
-
-
-
+// material ui imports
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -52,36 +41,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-//state type and initial state
-type State = {
-  username: string
-  password:  string
-  isButtonDisabled: boolean
-  helperText: string
-  isError: boolean,
-  loginRedirect: boolean
-};
 
-const initialState:State = {
+
+const initialState:loginState = {
   username: '',
   password: '',
   isButtonDisabled: true,
   helperText: '',
   isError: false,
   loginRedirect: false,
+  reducerError: ''
 };
 
-//action types
-type Action = { type: 'setUsername', payload: string }
-  | { type: 'setPassword', payload: string }
-  | { type: 'setIsButtonDisabled', payload: boolean }
-  | { type: 'loginSuccess', payload: string }
-  | { type: 'loginFailed', payload: string }
-  | { type: 'loginRedirect', payload: boolean}
-  | { type: 'setIsError', payload: boolean };
-
-  //reducers
-const reducer = (state: State, action: Action): State => {
+// reducers
+const reducer = (state: loginState, action: Action): loginState => {
   switch (action.type) {
     case 'setUsername': 
       return {
@@ -120,14 +93,22 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         isError: action.payload
       };
+    default:
+      return {
+        ...state,
+        reducerError: 'default reducer case invoked'
+      };
   }
 }
 
 //methods
-const Login = () => {
+const Login = (): JSX.Element => {
   const classes = useStyles();
+
+  // Hook for reducer state management pattern
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // Disable login button if user hasn't entered credentials
   useEffect(() => {
     if (state.username.trim() && state.password.trim()) {
      dispatch({
@@ -140,7 +121,7 @@ const Login = () => {
         payload: true
       });
     }
-  }, [state.username, state.password]);  //username and password dispatched to state?
+  }, [state.username, state.password]);
 
   const handleLogin = () => {
     const { username, password } = state; 
@@ -151,17 +132,15 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(credentials) // do we even need to stringify this?
+      body: JSON.stringify(credentials)
     }
 
-    console.log("hath we arrived?");
     fetch('http://localhost:3000/user/login', options)
-    //we need access to the status code on result object
     .then(result => result.json())
     .then(result => {
-      console.log("all is still well in the React world")
+
+      // If the database returns credentials, log the user in
       if(result[0].username && result[0].password) {
-        console.log("conditional checks out")
         dispatch({
           type: 'loginRedirect',
           payload: true
@@ -169,11 +148,11 @@ const Login = () => {
       } else {
         dispatch({
           type: 'loginFailed',
-          payload: 'login credentials not found'
+          payload: 'Invalid username or password'
         })
       }
     })
-    .catch(err => console.log("error in front on DB credential check", err))
+    .catch(err => console.log("error in fetch on DB credential check", err))
      
   };
 
@@ -200,7 +179,7 @@ const Login = () => {
       });
     }
 
-  //logic for re-routing on successful login
+  // Redirect user on successful login
   const { loginRedirect } = state;
   if(loginRedirect) {
     return <Redirect to='/Graphs' />
