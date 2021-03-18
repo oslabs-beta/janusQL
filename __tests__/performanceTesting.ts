@@ -25,7 +25,7 @@ const queryTester = `query {
 
 // testing response time
 describe('response time test block', () => {
-  // test if response obj has a responseTime property
+  // does response obj has a responseTime property?
   it('expect response obj to have a responseTime property', (done) => {
     return req
       .post('/input/responsetime')
@@ -38,41 +38,68 @@ describe('response time test block', () => {
       .catch(err => done(err))
   });
 
-  // test if response obj has a responseTimeData property
-  it('expect response obj to have a responseTimeData property', (done) => {
+  // does response obj has a responseTime property?
+  it('expect response obj to have a responseTime property', (done) => {
     return req
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
       .expect('Content-Type', /json/)
       .expect(200)
       .then(response => {
-        expect(response.body).toHaveProperty('responseTimeData');
+        expect(response.body).toHaveProperty('responseTime');
         done();
       })
       .catch(err => done(err))
   });
 
-  // is the response time a positive number?
-  // it('response time should be a positive number', (done) => {
-  //   return req
-  //     .post('/input/responsetime')
-  //     .send({ query: queryTester, url: urlTester })
-  //     .expect(200)
-  //     .then(response => {
-  //       expect(response.body).toHaveProperty('responseTimeData');
-  //       done();
-  //     })
-  //     .catch(err => done(err))
-  // })
+  // is the response time a number?
+  if('response time should be a number', (done) => {
+    return req
+      .post('/input/responsetime')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(typeof response.body.responseTime).toBe('number');
+        done();
+      })
+      .catch(err => done(err))
+  })
 
-  // is the response time less than 1 sec?
-  // it('response time should be a ', (done) => {
+  // is the response time a positive number?
+  it('response time should be a positive number', (done) => {
+    return req
+      .post('/input/responsetime')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response.body.responseTime).toBeGreaterThan(0);
+        done();
+      })
+      .catch(err => done(err))
+  })
+
+  // is the response time less than 500ms?
+  it('response time should be a less than a second', (done) => {
+    return req
+      .post('/input/responsetime')
+      .send({ query: queryTester, url: urlTester })
+      .expect(200)
+      .then(response => {
+        expect(response.body.responseTime).toBeLessThan(500);
+        done();
+      })
+      .catch(err => done(err))
+  })
+
+  // is responseTimeData an array? - idk how to test for this
+  // it('responseTimeData should be an array', (done) => {
   //   return req
   //     .post('/input/responsetime')
   //     .send({ query: queryTester, url: urlTester })
   //     .expect(200)
   //     .then(response => {
-  //       expect(response.body).toHaveProperty('responseTimeData');
+  //       const arrOfResponseTimes = response.body.responseTimeData.json()
+  //       expect(Array.isArray(arrOfResponseTimes)).toBe(true);
   //       done();
   //     })
   //     .catch(err => done(err))
@@ -84,3 +111,6 @@ describe('response time test block', () => {
 // describe('throughput test block', () => {
 
 // })
+
+// testing loadtesting 
+// .toHaveBeenCalledTimes(number)
