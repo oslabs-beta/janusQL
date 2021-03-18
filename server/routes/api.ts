@@ -23,19 +23,19 @@ router.get('/dos',
 )
 
 // calculate num of completed requests in 1 sec
-router.post('/throughput',
-  performanceTestControllers.throughput,
-  (req: Request, res: Response) => {
-    return res.status(200).json(res.locals.throughputCounter)
-  }
-)
+// router.post('/throughput',
+//   performanceTestControllers.throughput,
+//   (req: Request, res: Response) => {
+//     return res.status(200).json(res.locals.throughputCounter)
+//   }
+// )
 
-// calculate avg response time of 100 requests
-router.post('/load',
-  performanceTestControllers.loadTesting,
-  (req: Request, res: Response) => {
-    return res.status(200).json(res.locals)
-  }
-)
+// // calculate avg response time of 100 requests
+// router.post('/load',
+//   performanceTestControllers.loadTesting,
+//   (req: Request, res: Response) => {
+//     return res.status(200).json(res.locals)
+//   }
+// )
 
 export default router;

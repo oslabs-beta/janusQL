@@ -3,6 +3,8 @@ import path from "path";
 import apiRouter from './routes/api';
 import userRouter from './routes/userApi';
 
+const isTest = process.env.NODE_ENV === 'test';
+
 const PORT = 3000;
 const app = express();
 
@@ -38,8 +40,13 @@ app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
 });
 
 // broadcast on port 3000
-app.listen(PORT, () => { 
-  console.log(`Listening on port ${PORT}...`);
-});
+if(!isTest){
+  app.listen(PORT, () => { 
+    console.log(`Listening on port ${PORT}...`);
+  });
+}
+else {
+  console.log('Testing ....');
+}
 
-module.exports = app;
+export default app;
