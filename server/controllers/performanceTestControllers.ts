@@ -1,24 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
 
-// dummy API URL
-const urlTester = 'http://countries.trevorblades.com/';
-    
-// dummy query to test
-const queryTester = `query {
-  country(code: "BR") {
-    name
-    native
-    capital
-    emoji
-    currency
-    languages {
-      code
-      name
-    }
-  }
-}`;
-
 const performanceTestControllers = {
 
   // testing the response time of a query to an external API request
