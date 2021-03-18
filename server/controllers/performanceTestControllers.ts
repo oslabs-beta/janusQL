@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
 
+const isTest = process.env.NODE_ENV === 'test';
+let numOfRequests: number;
+
 const performanceTestControllers = {
 
   // testing the response time of a query to an external API request
@@ -67,8 +70,15 @@ const performanceTestControllers = {
     let counter = 0;
     let sum = 0;
     const storage = [];
+    
+    // for testing purposes
+    if (isTest) {
+      numOfRequests = 2;
+    } else {
+      numOfRequests = 50;
+    }
 
-    while (counter < 50) {
+    while (counter < numOfRequests) {
       const start = Date.now();
       const result = await fetch(url, {
         method: 'POST',
