@@ -30,10 +30,6 @@ const userControllers = {
         return next();
       })
       .catch((err) => {
-<<<<<<< HEAD
-        console.log(err)
-=======
->>>>>>> 50c94a85537a6009354296c670fb7a617781f8b2
         return next({
           log: 'error inserting username, fullname, password, email',
           message: {
