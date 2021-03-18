@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction, Errback } from "express";
 import path from "path";
 import apiRouter from './routes/api';
 import userRouter from './routes/userApi';
@@ -24,11 +24,11 @@ app.get('/', (req: Request, res: Response) => {
 // route handler for external user's API queries
 app.use('/input', apiRouter);
 
-// route handler for queries related to user SQL db
+// route handler for queries related to user table in SQL db
 app.use('/user', userRouter);
 
 // default error handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
   const defaultError = {
     log: 'default error log',
     status: 500,
