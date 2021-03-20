@@ -1,11 +1,10 @@
 # janusQL
 <p align="center">
--insert the tech we used- React Electron Node Typescript Stars <br><br>
-<img width="500" src=https://user-images.githubusercontent.com/75049208/111885551-c002d980-8985-11eb-8fe6-3ef531221527.png>
+  <img width="500" src=https://user-images.githubusercontent.com/75049208/111885551-c002d980-8985-11eb-8fe6-3ef531221527.png> <br>
+  insert the tech we used - React Electron Node Typescript Stars
 </p>
 
 ## **Description**
-A tool for GraphQL API security and performance testing. 
 JanusQL is an easy-to-use Electron powered GUI for GraphQL API security and performance testing. It allows users to test the performance of their GraphQL API by displaying a query's response time, throughput, andd loadcapacity. It can also test if their GraphQL API is protected against DDOS attacks.
 
 Users can keep track of all analytics ran while exploring the API by sending it different kinds of data to see what values are returned.
@@ -25,22 +24,19 @@ Sign up for an account, or if already registered, log into the application using
 After logging in, you'll see three sections - an area to input the URI of the GraphQL API along with a code editor, another code editor, and the analytics sections
 
 **Testing response time, throughput, or load.** <br>
-Enter the URL of the GraphQL API.
-*insert photo/gif*
-
-Type in the query you want to test.
+Enter the URL of the GraphQL API and type in the query you want to test. <br>
 *insert photo/gif*
 
 **Response Time** <br>
-Click on the query button to get the response time plotted on the graph. Click on the query button again to plot more response times on the graph.
+Click on the query button to get the response time plotted on the graph. Click on the query button again to plot more response times on the graph. <br>
 *insert photo of graph*
 
 **Throughput Testing** <br>
-Click on the throughput button to find out how many responses we can get back within a second.
+Click on the throughput button to find out how many responses we can get back within a second. <br>
 *insert photo of throughput section and arrow pointing to it*
 
 **Load Testing** <br>
-Click on the load button to find out how long it takes to query this query 50 times.
+Click on the load button to find out how long it takes to query this query 50 times. <br>
 *insert photo*
 
 **Testing the security of your GraphQL API** <br>
@@ -49,12 +45,12 @@ Enter the URL of the GraphQL API. You don't need to enter a query string. If a q
 ## **Tech Stack**
 Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Webpack, Electron, Material UI, Jest, Supertest, Enzyme
 
-## **Read More**
+### **Read More**
 Medium article
 
-## Co-Creators:
-Adrian Inza-Cruz @ainzacruz  
-Kim Chiu @kimchiuu  
-Lucas Mobley @lucasmobley  
-Phillip Kekoa Bannister @phillipkb  
-Tammy Le @letammy979  
+### **Co-Creators:** <br>
+Adrian Inza-Cruz @ainzacruz | 
+Kim Chiu @kimchiuu | 
+Lucas Mobley @lucasmobley | 
+Phillip Kekoa Bannister @phillipkb | 
+Tammy Le @letammy979 | 
