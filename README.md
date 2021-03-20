@@ -53,8 +53,8 @@ Javascript, Typescript, React (Context, Hooks, Router), Express, Webpack, Electr
 Medium article
 
 Co-Creators:
-Adrian Inza-Cruz @ainzacruz | 
-Kim Chiu @kimchiuu | 
-Lucas Mobley @lucasmobley | 
-Phillip Kekoa Bannister @phillipkb | 
-Tammy Le @letammy979 | 
+Adrian Inza-Cruz @ainzacruz 
+Kim Chiu @kimchiuu 
+Lucas Mobley @lucasmobley 
+Phillip Kekoa Bannister @phillipkb 
+Tammy Le @letammy979 
