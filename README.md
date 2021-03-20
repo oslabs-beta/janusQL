@@ -53,8 +53,8 @@ Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Web
 Medium article
 
 Co-Creators:
-Adrian Inza-Cruz @ainzacruz | 
-Kim Chiu @kimchiuu | 
-Lucas Mobley @lucasmobley | 
-Phillip Kekoa Bannister @phillipkb | 
-Tammy Le @letammy979 | 
+Adrian Inza-Cruz @ainzacruz  
+Kim Chiu @kimchiuu  
+Lucas Mobley @lucasmobley  
+Phillip Kekoa Bannister @phillipkb  
+Tammy Le @letammy979  
