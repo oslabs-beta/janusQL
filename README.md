@@ -52,7 +52,7 @@ Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Web
 ## **Read More**
 Medium article
 
-Co-Creators:
+## Co-Creators:
 Adrian Inza-Cruz @ainzacruz  
 Kim Chiu @kimchiuu  
 Lucas Mobley @lucasmobley  
