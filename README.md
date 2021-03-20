@@ -1,8 +1,9 @@
-# janusQL
 <p align="center">
   <img width="500" src=https://user-images.githubusercontent.com/75049208/111885551-c002d980-8985-11eb-8fe6-3ef531221527.png> <br>
   insert the tech we used - React Electron Node Typescript Stars
 </p>
+
+<h1 align="center">JanusQL</h1>
 
 # **Description**
 JanusQL is an easy-to-use Electron powered GUI for GraphQL API security and performance testing. It allows users to test the performance of their GraphQL API by displaying a query's response time, throughput, andd loadcapacity. It can also test if their GraphQL API is protected against DDOS attacks.
@@ -49,8 +50,8 @@ Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Web
 Medium article
 
 ## **Co-Creators:** <br>
-Adrian Inza-Cruz @ainzacruz | 
-Kim Chiu @kimchiuu | 
-Lucas Mobley @lucasmobley | 
-Phillip Kekoa Bannister @phillipkb | 
-Tammy Le @letammy979 | 
+Adrian Inza-Cruz @ainzacruz <br> 
+Kim Chiu @kimchiuu <br>
+Lucas Mobley @lucasmobley <br>
+Phillip Kekoa Bannister @phillipkb <br>
+Tammy Le @letammy979 
