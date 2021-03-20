@@ -46,7 +46,7 @@ Enter the URL of the GraphQL API. You don't need to enter a query string. If a q
 # **Tech Stack**
 Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Webpack, Electron, Material UI, Jest, Supertest, Enzyme
 
-## **Read More**
+# **Read More**
 Medium article
 
 ## **Co-Creators:** <br>
