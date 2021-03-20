@@ -50,8 +50,8 @@ Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Web
 Medium article
 
 ## **Co-Creators:** <br>
-Adrian Inza-Cruz @ainzacruz <br> 
-Kim Chiu @kimchiuu <br>
-Lucas Mobley @lucasmobley <br>
-Phillip Kekoa Bannister @phillipkb <br>
-Tammy Le @letammy979 
+Adrian Inza-Cruz - [@ainzacruz](https://github.com/ainzacruz) | [LinkedIn](https://www.linkedin.com/in/adrian-inza-cruz/)<br>
+Kim Chiu - [@kimchiuu](https://github.com/kimchiuu) | [LinkedIn](https://www.linkedin.com/in/kimchiuu/)<br> 
+Lucas Mobley - [@lucasmobley](https://github.com/lucasmobley) | [LinkedIn](https://www.linkedin.com/in/lucasmobley/)<br>
+Phillip Kekoa Bannister - [@phillipkb](https://github.com/phillipkb) | [LinkedIn](https://www.linkedin.com/in/phillipkekoabannister/)<br>
+Tammy Le - [@letammy979](https://github.com/letammy979) | [LinkedIn](https://www.linkedin.com/in/letammy/)
