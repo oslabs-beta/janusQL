@@ -21,14 +21,14 @@ Now, let's generate some tests!
 # **How to use**
 Sign up for an account, or if already registered, log into the application using your credentials. 
 
-### **Viewing Analytics Information**
+## **Viewing Analytics Information**
 After logging in, you'll see three sections - an area to input the URI of the GraphQL API along with a code editor, another code editor, and the analytics sections.
 
-##### **Testing response time, throughput, or load** <br>
+### **Testing response time, throughput, or load** <br>
 Enter the URL of the GraphQL API and type in the query you want to test. <br>
 *insert photo/gif*
 
-####### Response Time <br>
+### Response Time <br>
 Click on the query button to get the response time plotted on the graph. Click on the query button again to plot more response times on the graph. <br>
 *insert photo of graph*
 
