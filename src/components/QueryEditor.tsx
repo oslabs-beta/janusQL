@@ -23,18 +23,16 @@ const QueryEditor = () => {
 
   const {
     url,
-    setUrl,
     dos, 
     setDos, 
-    title, 
     setTitle, 
     queryResponse, 
     setQueryResponse, 
-    avgLoadTimes, 
+    avgLoadTimes,
+    setBytes, 
     setAvgLoadTimes, 
     setLoadTimes, 
     setThroughput, 
-    responseTime, 
     setResponseTime 
   } = useContext(PerformanceContext);
 
@@ -78,7 +76,6 @@ const QueryEditor = () => {
   }
 
   const handleQuerySubmit = () => {
-    console.log(url)
     fetch('http://localhost:3000/input/responsetime', {
       method: 'POST',
       headers: {
@@ -91,6 +88,10 @@ const QueryEditor = () => {
         setResponseTime((responseTime: any) => [
           ...responseTime,
           data.responseTime
+        ])
+        setBytes((bytes:any ) => [
+          ...bytes,
+          data.bytes
         ])
         setQueryResponse(data.responseTimeData, null, 2);
         console.log(queryResponse)

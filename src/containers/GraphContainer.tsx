@@ -3,7 +3,7 @@ import { Box, Paper, Grid, Typography, Tabs, Tab } from '@material-ui/core/';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Throughput from '../components/Performance/Throughput';
 import ResPanel from '../components/TabPanels/ResPanel';
-import DataPanel from '../components/TabPanels/DataPanel';
+import DataSizePanel from '../components/TabPanels/DataSizePanel';
 import Load from '../components/Performance/Load';
 import AvgLoadTime from '../components/Performance/AvgLoadTime';
 import Dos from '../components/Security/Dos';
@@ -53,7 +53,7 @@ const GraphContainer:React.FunctionComponent = () => {
             <Grid item>
               <Paper>
                 <ResPanel value={value} index={0}/>
-                <DataPanel value={value} index={1}/>
+                <DataSizePanel value={value} index={1}/>
               </Paper>
             </Grid>
           </Box>

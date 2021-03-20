@@ -50,13 +50,12 @@ const QueryResponseEditor = () => {
     styleActiveLine: true,
   }
 
-    
   return (
     <Box>
       <Paper>
         <Typography className={classes.typ}>Response</Typography>
       </Paper>
-      <CodeMirror className='code-mirror' options={resOptions} value={JSON.stringify(queryResponse, null, 2)}/>
+      <CodeMirror className='code-mirror' options={resOptions} value={queryResponse !== "" ? JSON.stringify(queryResponse, null, 2): null}/>
     </Box>
   );
 };

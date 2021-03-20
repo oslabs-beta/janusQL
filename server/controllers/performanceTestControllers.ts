@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
+import helpers from '../helper/helper'
 
 // url: string
 // query: string
@@ -50,6 +51,7 @@ const performanceTestControllers = {
         console.log('data returned:', data)
         // store query results in locals
         res.locals.responseTimeData = data;
+        res.locals.bytes = helpers.bytes(data);
       })
       .then(() => {
         const end = Date.now();
