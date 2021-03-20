@@ -28,7 +28,7 @@ After logging in, you'll see three sections - an area to input the URI of the Gr
 Enter the URL of the GraphQL API and type in the query you want to test. <br>
 *insert photo/gif*
 
-### **Response Time** <br>
+### Response Time <br>
 Click on the query button to get the response time plotted on the graph. Click on the query button again to plot more response times on the graph. <br>
 *insert photo of graph*
 
