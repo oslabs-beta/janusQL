@@ -49,7 +49,7 @@ const GraphContainer:React.FunctionComponent = () => {
         <Tab label='Security'></Tab>
         <Tab label='History'></Tab>
       </Tabs>
-        <Grid className='grid' container spacing={1} justify='center'>
+
           <Box display='flex' height='100%' width='100%' justifyContent='space-between' marginTop={2}>
             <Grid item>
               <Paper>
@@ -58,7 +58,6 @@ const GraphContainer:React.FunctionComponent = () => {
               </Paper>
             </Grid>
           </Box>
-        </Grid>
         </Box>
   );
 };

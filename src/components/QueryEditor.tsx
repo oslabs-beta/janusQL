@@ -94,6 +94,7 @@ const QueryEditor = () => {
           ...bytes,
           data.bytes
         ])
+        setThroughput(data.throughputCounter)
         setQueryResponse(data.responseTimeData, null, 2);
         console.log(queryResponse)
         setTitle((title:any) => [
