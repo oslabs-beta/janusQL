@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import bcrypt from "bcrypt";
 import db from '../models/userModel';
 
 const userControllers = {
@@ -8,8 +9,11 @@ const userControllers = {
     // extract user info from req body
     const { username, fullname, password, email } = req.body;
 
+    //bcrypt here 
+    const hashedPW = bcrypt.hash(password, 10);
+
     // store required fields into an array for the db query later
-    const params = [username, fullname, password, email];
+    const params = [username, fullname, hashedPW, email];
 
     // ensure all required fields exist
     if (!username || !fullname || !password || !email) {
