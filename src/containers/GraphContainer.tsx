@@ -45,6 +45,7 @@ const GraphContainer:React.FunctionComponent = () => {
       <Tabs className={classes.tab} value={value} onChange={handleTabChange} variant="scrollable">
         <Tab label='Response'></Tab>
         <Tab label='Data'></Tab>
+        <Tab label='Load'></Tab>
         <Tab label='Security'></Tab>
         <Tab label='History'></Tab>
       </Tabs>
@@ -57,13 +58,6 @@ const GraphContainer:React.FunctionComponent = () => {
               </Paper>
             </Grid>
           </Box>
-          {/* <Box display='flex' width='100%' justifyContent='space-between' marginTop={5}>
-          <Grid item>
-              <Paper>
-              <Dos></Dos>
-              </Paper>
-            </Grid>
-            </Box> */}
         </Grid>
         </Box>
   );

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import { Box, Button, Paper, Typography } from '@material-ui/core/';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import '../../node_modules/codemirror/lib/codemirror.css';
@@ -61,6 +61,7 @@ const QueryEditor = () => {
     hintOptions: true,
     matchBrackets: true,
     autoCloseBrackets: true,
+    autocursor: false,
     indentUnit: 2,
     tabSize: 2,
   }
@@ -113,7 +114,7 @@ const QueryEditor = () => {
       <Paper>
         <Typography className={classes.typ}>Workspace</Typography>
       </Paper>
-      <CodeMirror onChange={handleQueryChange} className='code-mirror' options={gQLoptions} value={query} />
+      <CodeMirror onChange={handleQueryChange} onBeforeChange={handleQueryChange} className='code-mirror' options={gQLoptions} value={query} />
       <Box display='flex' justifyContent='space-between' mt='1em'>
         <Button variant='contained' color='primary' onClick={handleReset}>Reset</Button>
         <Button variant='contained' color='primary' onClick={handleQuerySubmit}>Submit</Button>
