@@ -1,7 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction, Errback } from "express";
 import path from "path";
 import apiRouter from './routes/api';
 import userRouter from './routes/userApi';
+
+const isTest = process.env.NODE_ENV === 'test';
 
 const PORT = 3000;
 const app = express();
@@ -22,11 +24,11 @@ app.get('/', (req: Request, res: Response) => {
 // route handler for external user's API queries
 app.use('/input', apiRouter);
 
-// route handler for queries related to user SQL db
+// route handler for queries related to user table in SQL db
 app.use('/user', userRouter);
 
 // default error handler
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
   const defaultError = {
     log: 'default error log',
     status: 500,
@@ -38,8 +40,13 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 // broadcast on port 3000
-app.listen(PORT, () => { 
-  console.log(`Listening on port ${PORT}...`);
-});
+if(!isTest){
+  app.listen(PORT, () => { 
+    console.log(`Listening on port ${PORT}...`);
+  });
+}
+else {
+  console.log('Testing ....');
+}
 
-module.exports = app;
+export default app;

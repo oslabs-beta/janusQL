@@ -23,9 +23,14 @@ body {
   width: 66%;
 }
 
+.signup {
+  color:'black';
+}
+
 .submit-btn {
   margin-left: 1em !important;
 }
+
 
 .playground-title {
   color: #FE688B;
