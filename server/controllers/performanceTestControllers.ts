@@ -56,6 +56,7 @@ const performanceTestControllers = {
     client.get(key, (err, data) => {
       // if data exists in cache, return data
       if (data !== null) {
+        console.log('cached data', data);
         res.locals.throughputCounter = Number(data);
         return next();
       }
@@ -78,7 +79,7 @@ const performanceTestControllers = {
     }
     res.locals.throughputCounter = counter;
     // store counter in cache
-    client.set(key, counter.toString());
+    client.set(key, counter.toString(), redis.print);
     return next();
   },
   // computing avg response time of 50 requests
