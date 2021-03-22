@@ -16,7 +16,6 @@ const DashboardContainer = () => {
       box: {
         margin: 10,
         display: "flex",
-        height: "89vh",
       },
       paper: {
         padding: theme.spacing(2),

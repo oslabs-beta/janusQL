@@ -59,28 +59,28 @@ const performanceTestControllers = {
       });
   }),
   // testing number of completed requests in 1 sec
-  // throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  //   const { query, url } = req.body;
+  throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { query, url } = req.body;
 
-  //   let counter = 0;
-  //   const start = Date.now();
+    let counter = 0;
+    const start = Date.now();
 
-  //   while ((Date.now() - start) < 1000) {
-  //     console.log('start time in loop', start);
-  //     const result = await fetch(url, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         query: query
-  //       })
-  //     })
-  //     counter++;
-  //   }
-  //   res.locals.throughputCounter = counter;
-  //   return next();
-  // },
+    while ((Date.now() - start) < 1000) {
+      console.log('start time in loop', start);
+      const result = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: query
+        })
+      })
+      counter++;
+    }
+    res.locals.throughputCounter = counter;
+    return next();
+  },
   // // computing avg response time of 50 requests
   // loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   //   const { query, url } = req.body;

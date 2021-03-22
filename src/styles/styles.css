@@ -72,15 +72,31 @@ body {
   height: 80vh !important;
 }
 
-.rt-chart {
-  width: 800px;
-  height: 400px;
-}
-
 .CodeMirror-wrap pre {
   word-break: break-word !important;
 }
 
 .cm-invalidchar {
   color: #a9b1abf4;
+}
+
+@media screen and (max-width: 1440px) {
+
+  .CodeMirror {
+    height: 67vh !important;
+  }
+
+  .CodeMirror-wrap {
+    height: 65vh !important;
+  }
+
+  .res-box {
+    height: 25em;
+  }
+
+  .chartjs-render-monitor {
+    height:400px !important;
+    width:800px !important;
+  }
+
 }
