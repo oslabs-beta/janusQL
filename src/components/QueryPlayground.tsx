@@ -38,7 +38,7 @@ const QueryPlayground: React.FunctionComponent = () => {
           ...responseTime,
           data.responseTime
         ])
-        setQueryResponse(data.responseTimeData, null, 2);
+        setQueryResponse(null, data.responseTimeData, data.responseTimeData);
         setTitle((title:any) => [
           ...title,
           'query'
@@ -148,7 +148,7 @@ const QueryPlayground: React.FunctionComponent = () => {
             readOnly: true
           }}
         />
-        <Box display="flex" justifyContent="space-evenly" mt="1em">
+        {/* <Box display="flex" justifyContent="space-evenly" mt="1em">
           <Button variant="contained" color='primary' onClick={handleSubmit}>Query</Button>
           <Button variant="contained" color='primary' onClick={handleLoad}>Load Test</Button>
           <Button variant="contained" color='primary' onClick={handleThroughput}>Throughput Test</Button>
@@ -156,7 +156,7 @@ const QueryPlayground: React.FunctionComponent = () => {
         <Box display="flex" justifyContent="space-evenly" mt="1em">
           <Button variant="contained" color='primary' onClick={handleDos}>Dos Test</Button>
           <Button variant="contained" color='primary' onClick={handleReset}>Reset</Button>
-        </Box>
+        </Box> */}
       </Container>
     </div>
   );

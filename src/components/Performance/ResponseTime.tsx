@@ -24,6 +24,7 @@ const ResponseTime: React.FunctionComponent = () => {
       title: {
         display: true,
         text: 'Query Response Time',
+        responsive: false,
         fontSize: 25,
         scales: {
           yAxes: [
@@ -41,7 +42,7 @@ const ResponseTime: React.FunctionComponent = () => {
     }
 
   return (
-    <div>
+    <div className='rt-chart'>
       <Line data={chart} options={options}></Line>
     </div>
   );
