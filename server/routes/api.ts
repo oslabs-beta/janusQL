@@ -27,7 +27,7 @@ router.get('/dos',
 router.post('/throughput',
   performanceTestControllers.throughput,
   (req: Request, res: Response) => {
-    return res.status(200).json(res.locals.throughputCounter)
+    return res.status(200).json(res.locals);
   }
 )
 

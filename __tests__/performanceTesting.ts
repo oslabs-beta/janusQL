@@ -90,13 +90,14 @@ describe('response time test block', () => {
 describe('throughput test block', () => {
 
   // expect response body to have throughputCounter property
-  it('response body should have a throughputCounter property', () => {
+  it('response body should have a throughputCounter property', (done) => {
     return req
       .post('/input/throughput')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
       .then(response => {
         expect(response.body).toHaveProperty('throughputCounter');
+        done();
       })
       .catch(err => console.log(err));
   });
@@ -108,7 +109,7 @@ describe('throughput test block', () => {
       .send({ query: queryTester, url: urlTester })
       .expect(200)
       .then(response => {
-          expect(typeof response.body).toBe('number');
+          expect(typeof response.body.throughputCounter).toBe('number');
           done();
         })
       .catch(err => done(err));
@@ -120,7 +121,7 @@ describe('throughput test block', () => {
       .send({ query: queryTester, url: urlTester })
       .expect(200)
       .then(response => {
-        expect(response.body).toBeGreaterThan(0);
+        expect(response.body.throughputCounter).toBeGreaterThan(0);
         done();
       })
       .catch(err => done(err));
