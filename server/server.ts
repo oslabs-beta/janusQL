@@ -2,11 +2,20 @@ import express, { Request, Response, NextFunction, Errback } from "express";
 import path from "path";
 import apiRouter from './routes/api';
 import userRouter from './routes/userApi';
+import redis from 'redis';
 
 const isTest = process.env.NODE_ENV === 'test';
 
 const PORT = 3000;
 const app = express();
+const client = redis.createClient(6379);
+
+client.on('error', (err) => console.log(err));
+
+client.set('testKey', 'testValue', redis.print);
+client.get('testKey', redis.print);
+
+
 
 // parse requests
 app.use(express.json());
