@@ -56,8 +56,9 @@ const performanceTestControllers = {
     client.get(key, (err, data) => {
       // if data exists in cache, return data
       if (data !== null) {
-        console.log('cached data', data);
-        res.locals.throughputCounter = Number(data);
+        console.log('cached data', Number(data));
+        const num = parseInt(data);
+        res.locals.throughputCounter = num;
         return next();
       }
     });

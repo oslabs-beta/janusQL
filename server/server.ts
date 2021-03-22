@@ -10,7 +10,7 @@ const PORT = 3000;
 const app = express();
 const client = redis.createClient(6379);
 
-client.on('error', (err) => console.log(err));
+client.on('error', (err) => console.log('redis err:', err));
 
 client.set('testKey', 'testValue', redis.print);
 client.get('testKey', redis.print);
