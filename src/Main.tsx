@@ -17,7 +17,6 @@ class Main extends Component {
     return (
       <Router>
         <Navbar />  
-        <div>
           <Switch>
             <Route exact path='/' component={Login} />
             <Route path='/Signup' component={Signup} />
@@ -26,7 +25,6 @@ class Main extends Component {
               <DashboardContainer/>
             </Route>
           </Switch>
-        </div>
       </Router>
     );
   }

@@ -7,6 +7,7 @@ import './styles/styles.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { PerformanceContextProvider } from '../src/context/PerformanceContext';
 
+
 const mainElement = document.createElement('div');
 document.body.appendChild(mainElement);
 
@@ -19,7 +20,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#FF8E53',
-      contrastText: '#FFFF'
+      npmcontrastText: '#git'
     },
   },
 })

@@ -1,15 +1,51 @@
-import React, { useState } from 'react';
-import QueryPlayground from '../components/QueryPlayground';
+import React from 'react';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Box, Paper } from '@material-ui/core/';
+import GraphQLInput from '../components/GraphQLInput';
+import QueryEditor from '../components/QueryEditor';
+import QueryResponseEditor from '../components/QueryResponseEditor';
 import GraphContainer from './GraphContainer';
 
 const DashboardContainer = () => {
 
-  const [query, setQuery] = useState('');
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        flexGrow: 1,
+      },
+      box: {
+        margin: 10,
+        display: "flex",
+        height: "89vh",
+      },
+      paper: {
+        padding: theme.spacing(2),
+        width: "100%",
+        background: 'grey',
+      },
+      urlBox: {
+        margin: 10,
+        display: "flex",
+      }
+    }),
+  );
+
+  const classes = useStyles();
 
   return (
-    <div className="dashboard-container">
-      <QueryPlayground value={query} onChange={setQuery}/>
-      <GraphContainer />
+    <div>
+      <GraphQLInput></GraphQLInput>
+      <Box height="100%" className={classes.box}>
+        <Paper className={`${classes.paper} query-cm`}>
+          <QueryEditor />
+        </Paper>
+        <Paper className={classes.paper}>
+          <QueryResponseEditor />
+        </Paper>
+        <Paper className={classes.paper}>
+          <GraphContainer />
+        </Paper>
+      </Box>
     </div>
   );
 };

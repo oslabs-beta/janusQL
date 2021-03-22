@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
+import helpers from '../helper/helper'
 
 // dummy API URL
 const urlTester = 'http://countries.trevorblades.com/';
@@ -38,10 +39,11 @@ const performanceTestControllers = {
       })
     })
       .then(res => {
-        return res.text();
+        return res.json();
       })
       .then(data => {
         res.locals.responseTimeData = data;
+        res.locals.bytes = helpers.bytes(data);
       })
       .then(() => {
         const end = Date.now();

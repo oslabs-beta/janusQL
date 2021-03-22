@@ -15,11 +15,6 @@ body {
   width: 33%;
 }
 
-.CodeMirror-wrap {
-  height: 37vh;
-  margin-top:1em;
-}
-
 /* input {
   background-color: white !important;
 } */
@@ -67,4 +62,25 @@ body {
 
 .dashboard-container {
   background-color: #f4f4f4;
+}
+
+.CodeMirror-wrap {
+  height: 75vh !important;
+}
+
+.CodeMirror {
+  height: 80vh !important;
+}
+
+.rt-chart {
+  width: 800px;
+  height: 400px;
+}
+
+.CodeMirror-wrap pre {
+  word-break: break-word !important;
+}
+
+.cm-invalidchar {
+  color: #a9b1abf4;
 }
