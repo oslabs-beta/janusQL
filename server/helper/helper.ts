@@ -32,6 +32,20 @@ export default {
 
   return bytes;
 
-  }
+  },
+
+  makeFetchJSONRequest: function(url: string, query: string, method: string): any  {
+      const myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json')
+      const myRequest = new Request(`${url}`, {
+        method: `${method}`,
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default',
+        body: JSON.stringify({ queryString: query })
+      });
+    return myRequest;
+
+  },
 
 }
