@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
+import redis from 'redis';
+
+const client  = redis.createClient(6379);
+
+client.on('error', err => console.log(err));
 
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
@@ -45,6 +50,17 @@ const performanceTestControllers = {
   throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
 
+    // create a key by combining query and url
+    const key = query + url;
+    // check if url and query are in cache
+    client.get(key, (err, data) => {
+      // if data exists in cache, return data
+      if (data !== null) {
+        res.locals.throughputCounter = Number(data);
+        return next();
+      }
+    });
+
     let counter = 0;
     const start = Date.now();
 
@@ -61,6 +77,8 @@ const performanceTestControllers = {
       counter++;
     }
     res.locals.throughputCounter = counter;
+    // store counter in cache
+    client.set(key, counter.toString());
     return next();
   },
   // computing avg response time of 50 requests
