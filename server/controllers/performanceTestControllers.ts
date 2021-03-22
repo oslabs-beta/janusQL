@@ -79,6 +79,7 @@ const performanceTestControllers = {
       counter++;
     }
     res.locals.throughputCounter = counter;
+    console.log('throughput', res.locals.throughputCounter);
     // store counter in cache
     client.set(key, counter.toString(), redis.print);
     return next();
