@@ -40,24 +40,43 @@ const userControllers = {
           }
         });
       });
+
   },
 
   getUser: (req: Request, res: Response, next: NextFunction) => {
     //query DB for credentials passed on request object
     const { username, password } = req.body;
 
-    const params = [username, password];
-    const queryString = `SELECT username, password FROM users_table WHERE username= $1 and password= $2`;
+    const params = [username];
+    const queryString = `SELECT username, password FROM users_table WHERE username= $1`;
     
     db.query(queryString, params)
-    .then(data =>{
-      res.locals.credentials = data.rows;
-      return next();
-    })
-    .catch(err => {
-      console.log(err) 
-      return next(err)
-    })
+      .then(async data => {
+        const rowsObj: any = data.rows[0];
+        const userPW: string = rowsObj.password; 
+
+        const comparePassword = await bcrypt.compare(password, userPW);
+        
+        if (comparePassword !== true){
+          return next({
+            log: 'error authenticating password',
+            message: {
+              err: 'userController.getUser: ERROR: Check server logs for details'
+            }
+          });
+        }
+        
+        res.locals.credentials = data.rows;
+        return next();
+      })
+      .catch(err => {
+        return next({
+          log: 'Express error handler caught getUser middleware error',
+          message: {
+            err: 'userController.getUser: ERROR: Check server logs for details'
+          }
+        })
+      })
   }
 }  
 
