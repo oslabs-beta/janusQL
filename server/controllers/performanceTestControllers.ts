@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
+import helpers from '../helper/helper'
 
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
@@ -23,10 +24,11 @@ const performanceTestControllers = {
       })
     })
       .then(res => {
-        return res.text();
+        return res.json();
       })
       .then(data => {
         res.locals.responseTimeData = data;
+        res.locals.bytes = helpers.bytes(data);
       })
       .then(() => {
         const end = Date.now();

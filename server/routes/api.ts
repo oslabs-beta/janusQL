@@ -10,6 +10,7 @@ router.post('/responsetime',
   // middleware to add to db
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
+  performanceTestControllers.throughput,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals)
   }
