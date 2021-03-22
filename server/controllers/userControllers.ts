@@ -67,7 +67,6 @@ const userControllers = {
         }
         
         res.locals.credentials = comparePassword;
-        console.log(res.locals.credentials, typeof res.locals.credentials);
         return next();
       })
       .catch(err => {

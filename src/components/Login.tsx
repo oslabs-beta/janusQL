@@ -12,8 +12,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Button from '@material-ui/core/Button';
 import { red, grey } from '@material-ui/core/colors';
 
-
-
 //css styles here
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,8 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-
-
 const initialState:loginState = {
   username: '',
   password: '',
@@ -55,7 +51,6 @@ const initialState:loginState = {
   reducerError: ''
 };
 
-// reducers
 const reducer = (state: loginState, action: Action): loginState => {
   switch (action.type) {
     case 'setUsername': 
@@ -155,7 +150,7 @@ const Login = (): JSX.Element => {
     .catch(err => console.log("error in fetch on DB credential check", err))
   };
 
-//this needs attention - depricated
+// this needs attention - depricated
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.keyCode === 13 || event.which === 13) {
       state.isButtonDisabled || handleLogin();
@@ -180,12 +175,11 @@ const Login = (): JSX.Element => {
 
   // Redirect user on successful login
   const { loginRedirect } = state;
-  if(loginRedirect) {
-    return <Redirect to='/Graphs' />
+  if (loginRedirect) {
+    return <Redirect to='/Graphs'/>
   }
 
   return (
-
     <form className={classes.container} noValidate autoComplete="off">
       <Card className={classes.card}>
         <CardHeader className={classes.header} title="Login to JanusQL" />
