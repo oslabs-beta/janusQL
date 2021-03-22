@@ -138,24 +138,21 @@ const Login = (): JSX.Element => {
     }
 
     fetch('http://localhost:3000/user/login', options)
-    .then(result => result.json())
-    .then(result => {
-
-      // If the database returns credentials, log the user in
-      if(result[0].username && result[0].password) {
-        dispatch({
-          type: 'loginRedirect',
-          payload: true
-        })
-      } else {
-        dispatch({
-          type: 'loginFailed',
-          payload: 'Invalid username or password'
-        })
-      }
-    })
+      .then(result => result.json())
+      .then(result => {
+        if(result === true) {
+          dispatch({
+            type: 'loginRedirect',
+            payload: true
+          })
+        } else {
+          dispatch({
+            type: 'loginFailed',
+            payload: 'Invalid username or password'
+          })
+        }
+      })
     .catch(err => console.log("error in fetch on DB credential check", err))
-     
   };
 
 //this needs attention - depricated

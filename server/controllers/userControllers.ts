@@ -55,7 +55,7 @@ const userControllers = {
         const rowsObj: any = data.rows[0];
         const userPW: string = rowsObj.password; 
 
-        const comparePassword = await bcrypt.compare(password, userPW);
+        let comparePassword = await bcrypt.compare(password, userPW);
         
         if (comparePassword !== true){
           return next({
@@ -66,7 +66,8 @@ const userControllers = {
           });
         }
         
-        res.locals.credentials = data.rows;
+        res.locals.credentials = comparePassword;
+        console.log(res.locals.credentials, typeof res.locals.credentials);
         return next();
       })
       .catch(err => {
