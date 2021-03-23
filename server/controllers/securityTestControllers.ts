@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
+import { nextTick } from "node:process";
 import helpers from '../helper/helper';
 
 const securityTestController = {
   dos: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // https://api.everbase.co/graphql?apikey=your_key
     const { url } = req.body;
     
-    const getRootQueryLabel = `
+    // should we define these queries in another file and import?
+    // it would allow us to re-use them elsewhere
+    const rootLabelQuery = `
     {
       __schema{
         queryType{
@@ -15,9 +19,34 @@ const securityTestController = {
       }
     }`;
     
-    // https://api.everbase.co/graphql?apikey=your_key
+    // can these be truncated with a fragment?
+    const schemaQuery = `
+    {
+      __schema {
+        types {
+          name
+          kind
+        }
+      }
+    }`;
+
+    const typeOfTypeQuery = `
+    {
+      __schema {
+        types {
+          name
+          fields{
+            name
+            type {
+              name
+              kind
+            }
+          }
+        }
+      }
+    }`;
     
-    let fetchRequest = helpers.makeFetchJSONRequest(url, getRootQueryLabel, 'POST');
+    let fetchRequest = helpers.makeFetchJSONRequest(url, rootLabelQuery, 'POST');
 
     //label of root query is 'query' by convention only, 
     //querying it's label ensures this middleware will work on any schema.
@@ -32,9 +61,45 @@ const securityTestController = {
     .catch(err => {
       next(err);
     });
-    
-    //query all types
 
+    let i = 0;
+    const cacheOfTypes: any = {};
+
+    fetchRequest = helpers.makeFetchJSONRequest(url, schemaQuery, 'POST');
+    await fetch(fetchRequest.url, fetchRequest)
+    .then(response => response.json())
+    .then((response) => {
+      cacheOfTypes[i] = response.data.__schema.types.filter((currentValue:any) => {
+        if(currentValue.kind === 'OBJECT' 
+        && currentValue.name[0] !== '_'
+        && currentValue.name[1] !== '_'
+        && currentValue.name !== rootQuery) {
+          return currentValue;
+        }
+      },[]);
+      i += 1;
+    })
+    .catch(err => next(err))
+   
+    // fetchRequest = helpers.makeFetchJSONRequest(url, typeOfTypeQuery, 'POST');
+    // await fetch(fetchRequest.url, fetchRequest)
+    // .then(response => response.json())
+    // .then((response) => {
+    //   console.log(response.data.__schema.types[1]);
+    //   // console.log(response.data.__schema.types.name)
+
+    //   // console.log("FIELDS BELOW", response.data.__schema.types.fields);
+
+    //   // console.log("TYPES OF FIELDS BELOW========", response.data.__schema.types.fields.type);
+    // })
+
+
+    //now fetch all types in cacheOfTypes
+
+
+
+
+    //query all types
     //filter scalars / built-ins
 
     //cache result
