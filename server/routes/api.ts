@@ -28,6 +28,7 @@ router.post('/throughput',
   performanceTestControllers.throughput,
   (req: Request, res: Response) => {
     console.log('api throughput');
+    console.log('res locals', res.locals)
     return res.status(200).json(res.locals)
   }
 );

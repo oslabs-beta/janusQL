@@ -49,14 +49,13 @@ const performanceTestControllers = {
       });
   }),
   // testing number of completed requests in 1 sec
-  throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  throughput: (req: Request, res: Response, next: NextFunction) => {
     const { query, url } = req.body;
 
-    // create a key by combining query and url
-    const key = query + url;
+    // create a key by combining query and url into a stringified object
+    const key = JSON.stringify({query: url});
     // check if url and query are in cache
     client.get(key, (err, data) => {
-      console.log(data); //string
       // if data exists in cache, return data
       if (data !== null) {
         // parse the data
@@ -65,33 +64,61 @@ const performanceTestControllers = {
         const num = parseInt(data);
         res.locals.throughputCounter = num;
         return next();
+      } 
+      else {
+        async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+          let counter = 0;
+          const start = Date.now();
+
+          while ((Date.now() - start) < 1000) {
+            const result = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                query: query
+              })
+            })
+            counter++;
+          }
+          res.locals.throughputCounter = counter;
+          console.log('throughput', res.locals.throughputCounter);
+          // make an obj
+          // make a property throughput and assign it counter
+          // stringify the obj
+          // store in cache
+          // store counter in cache
+          client.set(key, counter.toString(), redis.print);
+          return next();
+        }
       }
     });
 
-    let counter = 0;
-    const start = Date.now();
+    // let counter = 0;
+    // const start = Date.now();
 
-    while ((Date.now() - start) < 1000) {
-      const result = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: query
-        })
-      })
-      counter++;
-    }
-    res.locals.throughputCounter = counter;
-    console.log('throughput', res.locals.throughputCounter);
-    // make an obj
-    // make a property throughput and assign it counter
-    // stringify the obj
-    // store in cache
-    // store counter in cache
-    client.set(key, counter.toString(), redis.print);
-    return next();
+    // while ((Date.now() - start) < 1000) {
+    //   const result = await fetch(url, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       query: query
+    //     })
+    //   })
+    //   counter++;
+    // }
+    // res.locals.throughputCounter = counter;
+    // console.log('throughput', res.locals.throughputCounter);
+    // // make an obj
+    // // make a property throughput and assign it counter
+    // // stringify the obj
+    // // store in cache
+    // // store counter in cache
+    // client.set(key, counter.toString(), redis.print);
+    // return next();
   },
   // computing avg response time of 50 requests
   loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {

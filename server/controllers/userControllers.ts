@@ -55,7 +55,7 @@ const userControllers = {
         const rowsObj: any = data.rows[0];
         const userPW: string = rowsObj.password; 
 
-        let comparePassword = await bcrypt.compare(password, userPW);
+        const comparePassword = await bcrypt.compare(password, userPW);
         
         if (comparePassword !== true){
           return next({
