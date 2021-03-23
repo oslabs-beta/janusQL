@@ -80,6 +80,14 @@ body {
   color: #a9b1abf4;
 }
 
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
 @media screen and (max-width: 1440px) {
 
   .CodeMirror {

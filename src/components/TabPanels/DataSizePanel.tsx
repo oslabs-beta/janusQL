@@ -8,22 +8,12 @@ const DataSizePanel = (props: TabPanelProps) => {
   
   const { value, index } = props;
 
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      box: {
-        transform: "translateY(10em)",
-      },
-    }),
-  );
-
-  const classes = useStyles();
-
   return (
     <div hidden={ value !== index }>
       { value === index && (
          <Box>
            <DataSize />
-         <Box className={classes.box} display='flex' width='100%' justifyContent='space-between' marginTop={2}>
+         <Box display='flex' width='100%' justifyContent='space-between' marginTop={2}>
        </Box>
      </Box>
        )}

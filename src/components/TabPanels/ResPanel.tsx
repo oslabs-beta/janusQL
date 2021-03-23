@@ -1,8 +1,8 @@
 import React from 'react';
 import ResponseTime from '../Performance/ResponseTime'
 import { Box, Paper, Grid } from '@material-ui/core/';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Throughput from '../Performance/Throughput';
+import Status from '../Performance/Status'
 
 const ResPanel = (props: TabPanelProps) => {
   
@@ -16,6 +16,7 @@ const ResPanel = (props: TabPanelProps) => {
           <Box display='flex' width='100%' justifyContent='space-between' marginTop={2}>
           <Grid item>
             <Paper>
+              <Status/>
             </Paper>
           </Grid>
           <Grid item>

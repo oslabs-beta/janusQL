@@ -22,19 +22,21 @@ const QueryEditor = () => {
   const [query, setQuery] = useState('');
 
   const {
+    status,
     url,
-    dos, 
     setDos, 
     setTitle, 
     queryResponse, 
     setQueryResponse, 
-    avgLoadTimes,
     setBytes, 
     setAvgLoadTimes, 
     setLoadTimes, 
     setThroughput, 
-    setResponseTime 
+    setResponseTime,
+    setStatus 
   } = useContext(PerformanceContext);
+
+  console.log(status);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -94,6 +96,7 @@ const QueryEditor = () => {
           ...bytes,
           data.bytes
         ])
+        setStatus(data.status)
         setThroughput(data.throughputCounter)
         setQueryResponse(data.responseTimeData, null, 2);
         console.log(queryResponse)
@@ -107,7 +110,6 @@ const QueryEditor = () => {
 
   const handleQueryChange = (editor:any, data:any, value:any) => {
     setQuery(value)
-    console.log(query)
   }
 
   return (
