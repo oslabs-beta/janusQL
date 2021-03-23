@@ -4,7 +4,7 @@ import redis from 'redis';
 
 const client  = redis.createClient(6379);
 
-client.on('error', err => console.log(err));
+client.on('error', err => console.log('redis in perf controller', err));
 
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
@@ -54,9 +54,10 @@ const performanceTestControllers = {
     const key = query + url;
     // check if url and query are in cache
     client.get(key, (err, data) => {
+      console.log(data); //string
       // if data exists in cache, return data
       if (data !== null) {
-        console.log('cached data', Number(data));
+        console.log('cached data', Number(data)); // number
         const num = parseInt(data);
         res.locals.throughputCounter = num;
         return next();
