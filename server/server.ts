@@ -8,13 +8,14 @@ const isTest = process.env.NODE_ENV === 'test';
 
 const PORT = 3000;
 const app = express();
+
+// creating a redis client
 const client = redis.createClient(6379);
 
 client.on('error', (err) => console.log('redis err:', err));
 
 client.set('testKey', 'testValue', redis.print);
 client.get('testKey', redis.print);
-
 
 // parse requests
 app.use(express.json());
