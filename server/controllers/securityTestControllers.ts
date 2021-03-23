@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
-import { nextTick } from "node:process";
 import helpers from '../helper/helper';
 
 const securityTestController = {
@@ -8,9 +7,11 @@ const securityTestController = {
     // https://api.everbase.co/graphql?apikey=your_key
     const { url } = req.body;
     
+    // For Production level code, the whitespace can be truncated for all query strings.
+
     // should we define these queries in another file and import?
     // it would allow us to re-use them elsewhere
-    const rootLabelQuery = `
+    const rootLabelQueryString = `
     {
       __schema{
         queryType{
@@ -20,7 +21,7 @@ const securityTestController = {
     }`;
     
     // can these be truncated with a fragment?
-    const schemaQuery = `
+    const schemaQueryString = `
     {
       __schema {
         types {
@@ -30,26 +31,67 @@ const securityTestController = {
       }
     }`;
 
-    const typeOfTypeQuery = `
-    {
-      __schema {
-        types {
-          name
-          fields{
+    function SchemaDepthQueryGenerator (field:string) {
+      const queryString = `{
+        __schema {
+          types {
             name
-            type {
-              name
-              kind
-            }
+             ${field}
           }
         }
-      }
-    }`;
-    
-    let fetchRequest = helpers.makeFetchJSONRequest(url, rootLabelQuery, 'POST');
+      }`;
 
-    //label of root query is 'query' by convention only, 
-    //querying it's label ensures this middleware will work on any schema.
+      return queryString
+    }
+
+    function fieldDepthQueryGenerator (depth:number) {
+
+      const initialQueryString = `
+        fields{
+          name
+          type{
+            name
+            kind
+          }
+        }`;
+
+        const depthHelper = (field?:string | null) => {
+
+          if(field) {
+
+            const addQueryDepth = `
+              fields{
+                name
+                type{
+                  name
+                  kind
+                  ${field}
+                }
+              }`;
+
+            return addQueryDepth;
+          } else {
+            return initialQueryString;
+          }
+        }
+
+        if(depth === 1) {
+          return depthHelper();
+        } else {
+          let concatQueryString = ``;
+          for(let i = 0; i < depth; i++) {
+            concatQueryString = depthHelper(concatQueryString);
+          }
+          return concatQueryString;
+        }
+    }
+
+    console.log(fieldDepthQueryGenerator(2));
+    
+    // Fetch root query label 
+    // label of root query is 'query' by convention only, 
+    // querying it's label ensures this middleware will work on any schema.
+    let fetchRequest = helpers.makeFetchJSONRequest(url, rootLabelQueryString, 'POST');
     const rootQuery = await fetch(fetchRequest.url, fetchRequest)
     .then(response => response.json())
     .then((response) => {
@@ -62,10 +104,11 @@ const securityTestController = {
       next(err);
     });
 
-    let i = 0;
     const cacheOfTypes: any = {};
+    let i = 0;
 
-    fetchRequest = helpers.makeFetchJSONRequest(url, schemaQuery, 'POST');
+    // Initial query and filter of schema
+    fetchRequest = helpers.makeFetchJSONRequest(url, schemaQueryString, 'POST');
     await fetch(fetchRequest.url, fetchRequest)
     .then(response => response.json())
     .then((response) => {
@@ -77,27 +120,32 @@ const securityTestController = {
           return currentValue;
         }
       },[]);
+
       i += 1;
     })
     .catch(err => next(err))
    
-    // fetchRequest = helpers.makeFetchJSONRequest(url, typeOfTypeQuery, 'POST');
+
+    // //Query of schema type depth
+    // const queryString = typeOfFieldsQueryGenerator(fieldDepthQueryString);
+
+    // fetchRequest = helpers.makeFetchJSONRequest(url, queryString, 'POST');
     // await fetch(fetchRequest.url, fetchRequest)
     // .then(response => response.json())
     // .then((response) => {
     //   console.log(response.data.__schema.types[1]);
-    //   // console.log(response.data.__schema.types.name)
-
-    //   // console.log("FIELDS BELOW", response.data.__schema.types.fields);
-
-    //   // console.log("TYPES OF FIELDS BELOW========", response.data.__schema.types.fields.type);
     // })
 
 
+  },
+
+};
+
+export default securityTestController;
+
+/*
+
     //now fetch all types in cacheOfTypes
-
-
-
 
     //query all types
     //filter scalars / built-ins
@@ -111,56 +159,4 @@ const securityTestController = {
     //filter
 
     //cache
-  },
-
-};
-
-export default securityTestController;
-
-/*
-// This Query will return all objects namn and kind. We can filter by kind, removing scalars
-
-// {
-//   __schema{
-//     types{
-//       name
-//       kind
-//     }
-//   }
-// }
-
-//query Root Query label
-const getRootQuery = `
-{
-  __schema{
-    queryType{
-      name
-    }
-  }
-}`;
-
-=======verbose fetch=======
-//fetch options
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ query: queryTester })
-    }
-    // 'https://countries-274616.ew.r.appspot.com'
-    fetch(`https://countries-274616.ew.r.appspot.com`, options)
-    .then(result => result.text())
-    .then(() => {
-      res.locals.dos = queryTester;
-      return next();
-    })
-    .catch(err => {
-      next({
-        log: 'Express error handler caught dos middleware error',
-        message: {err: 'error in dos fetch request'}
-      });
-    });
-
-
 */
