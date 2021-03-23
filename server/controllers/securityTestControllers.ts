@@ -86,7 +86,18 @@ const securityTestController = {
         }
     }
 
-    console.log(fieldDepthQueryGenerator(2));
+    function filterAndCache (response:any, cache:any, key:number) {
+      cache[key] = response.data.__schema.types.filter((currentValue:any) => {
+        if(currentValue.kind === 'OBJECT' 
+        && currentValue.name[0] !== '_'
+        && currentValue.name[1] !== '_'
+        && currentValue.name !== rootQuery) {
+          return currentValue;
+        }
+      },[]);
+
+      return cache;
+    }
     
     // Fetch root query label 
     // label of root query is 'query' by convention only, 
@@ -112,28 +123,22 @@ const securityTestController = {
     await fetch(fetchRequest.url, fetchRequest)
     .then(response => response.json())
     .then((response) => {
-      cacheOfTypes[i] = response.data.__schema.types.filter((currentValue:any) => {
-        if(currentValue.kind === 'OBJECT' 
-        && currentValue.name[0] !== '_'
-        && currentValue.name[1] !== '_'
-        && currentValue.name !== rootQuery) {
-          return currentValue;
-        }
-      },[]);
-
-      i += 1;
+      filterAndCache(response, cacheOfTypes, i);
+      
+      // i += 1;
     })
     .catch(err => next(err))
    
 
     // //Query of schema type depth
-    // const queryString = typeOfFieldsQueryGenerator(fieldDepthQueryString);
+    // let queryString = fieldDepthQueryGenerator(2);
+    // queryString = SchemaDepthQueryGenerator(queryString);
 
     // fetchRequest = helpers.makeFetchJSONRequest(url, queryString, 'POST');
     // await fetch(fetchRequest.url, fetchRequest)
     // .then(response => response.json())
     // .then((response) => {
-    //   console.log(response.data.__schema.types[1]);
+    //   console.log(response.data.__schema.types[1].fields);
     // })
 
 
@@ -145,9 +150,25 @@ export default securityTestController;
 
 /*
 
-    //now fetch all types in cacheOfTypes
+{
+	__schema {
+    types {
+      name
+      fields{
+        name
+        type {
+          name
+          kind
+          
+        }
+      }
+    }
+  }
+}
+
 
     //query all types
+
     //filter scalars / built-ins
 
     //cache result
