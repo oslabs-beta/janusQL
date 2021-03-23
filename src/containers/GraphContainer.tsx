@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Paper, Grid, Typography, Tabs, Tab } from '@material-ui/core/';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Throughput from '../components/Performance/Throughput';
 import ResPanel from '../components/TabPanels/ResPanel';
 import DataSizePanel from '../components/TabPanels/DataSizePanel';
-import Load from '../components/Performance/Load';
-import AvgLoadTime from '../components/Performance/AvgLoadTime';
-import Dos from '../components/Security/Dos';
+import LoadPanel from '../components/TabPanels/LoadPanel'
 
 
 const GraphContainer:React.FunctionComponent = () => {
@@ -49,12 +46,12 @@ const GraphContainer:React.FunctionComponent = () => {
         <Tab label='Security'></Tab>
         <Tab label='History'></Tab>
       </Tabs>
-
           <Box display='flex' height='100%' width='100%' justifyContent='space-between' marginTop={2}>
             <Grid item>
               <Paper>
                 <ResPanel value={value} index={0}/>
                 <DataSizePanel value={value} index={1}/>
+                <LoadPanel value={value} index={2}/>
               </Paper>
             </Grid>
           </Box>
