@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
 import helpers from '../helper/helper';
 
 const securityTestController = {
-  dos: ((req: Request, res: Response, next: any) => {
+  dos: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { url } = req.body;
     
-    const getRootQuery = `
+    const getRootQueryLabel = `
     {
       __schema{
         queryType{
@@ -15,35 +15,24 @@ const securityTestController = {
       }
     }`;
     
-    const fetchRequest = helpers.makeFetchJSONRequest(url, getRootQuery, 'POST');
     // https://api.everbase.co/graphql?apikey=your_key
-    fetch(fetchRequest)
-    .then(result => result.text())
-    .then(() => {
-      res.locals.dos = getRootQuery;
-      return next();
+    
+    let fetchRequest = helpers.makeFetchJSONRequest(url, getRootQueryLabel, 'POST');
+
+    //label of root query is 'query' by convention only, 
+    //querying it's label ensures this middleware will work on any schema.
+    const rootQuery = await fetch(fetchRequest.url, fetchRequest)
+    .then(response => response.json())
+    .then((response) => {
+      
+      // response will always have the same properties, so we can destructure label of root query
+      const { data: { __schema: { queryType: { name }}}} = response;
+      return name;
     })
     .catch(err => {
       next(err);
     });
-  
-
-    // const queryTester = `
-    // query {
-    //   Country{
-    //     borders{
-    //       officialLanguages{
-    //         countries{
-    //           borders{
-    //             name
-    //           }
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-    // `;
-  
+    
     //query all types
 
     //filter scalars / built-ins
@@ -57,7 +46,7 @@ const securityTestController = {
     //filter
 
     //cache
-  }),
+  },
 
 };
 

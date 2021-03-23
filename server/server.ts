@@ -28,14 +28,14 @@ app.use('/input', apiRouter);
 app.use('/user', userRouter);
 
 // default error handler
-app.use((err: Errback, req: Request, res: Response) => {
+app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
   const defaultError = {
     log: 'default error log',
     status: 500,
-    message: { err: 'default error message' },
+    message: { err: 'default error handler ' },
   };
   const errorObj = Object.assign({}, defaultError, err);
-  console.log(errorObj.log);
+  console.log(err);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
