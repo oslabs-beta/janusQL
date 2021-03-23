@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
 import redis from 'redis';
+import helpers from '../helper/helper'
 
 const client  = redis.createClient(6379);
 
@@ -28,10 +29,11 @@ const performanceTestControllers = {
       })
     })
       .then(res => {
-        return res.text();
+        return res.json();
       })
       .then(data => {
         res.locals.responseTimeData = data;
+        res.locals.bytes = helpers.bytes(data);
       })
       .then(() => {
         const end = Date.now();
@@ -57,6 +59,8 @@ const performanceTestControllers = {
       console.log(data); //string
       // if data exists in cache, return data
       if (data !== null) {
+        // parse the data
+        // data.throughput
         console.log('cached data', Number(data)); // number
         const num = parseInt(data);
         res.locals.throughputCounter = num;
@@ -81,6 +85,10 @@ const performanceTestControllers = {
     }
     res.locals.throughputCounter = counter;
     console.log('throughput', res.locals.throughputCounter);
+    // make an obj
+    // make a property throughput and assign it counter
+    // stringify the obj
+    // store in cache
     // store counter in cache
     client.set(key, counter.toString(), redis.print);
     return next();

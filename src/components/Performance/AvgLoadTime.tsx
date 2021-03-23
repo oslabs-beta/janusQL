@@ -26,7 +26,7 @@ const AvgLoadTime: React.FunctionComponent = () => {
               gutterBottom
               variant="h6"
             >
-              Avg Response Time / 50 Queries (m/s)
+              Avg Response Time (m/s)
             </Typography>
             <Typography
               color="textPrimary"

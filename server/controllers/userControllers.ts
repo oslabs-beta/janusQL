@@ -1,15 +1,19 @@
 import { Request, Response, NextFunction } from "express";
+import bcrypt from "bcrypt";
 import db from '../models/userModel';
 
 const userControllers = {
   // add user to db
-  addUser: (req: Request, res: Response, next: NextFunction) => {
+  addUser: async (req: Request, res: Response, next: NextFunction) => {
     
     // extract user info from req body
     const { username, fullname, password, email } = req.body;
 
+    //bcrypt here 
+    const hashPassword = await bcrypt.hash(password, 10);
+
     // store required fields into an array for the db query later
-    const params = [username, fullname, password, email];
+    const params = [username, fullname, hashPassword, email];
 
     // ensure all required fields exist
     if (!username || !fullname || !password || !email) {
@@ -26,7 +30,6 @@ const userControllers = {
 
     db.query(queryString, params)
       .then((data) => {
-        console.log(data);
         return next();
       })
       .catch((err) => {
@@ -37,23 +40,43 @@ const userControllers = {
           }
         });
       });
+
   },
 
   getUser: (req: Request, res: Response, next: NextFunction) => {
     //query DB for credentials passed on request object
     const { username, password } = req.body;
-    const params = [username, password];
-    const queryString = `SELECT username, password FROM users_table WHERE username= $1 and password= $2`;
+
+    const params = [username];
+    const queryString = `SELECT username, password FROM users_table WHERE username= $1`;
     
     db.query(queryString, params)
-    .then(data =>{
-      res.locals.credentials = data.rows;
-      return next();
-    })
-    .catch(err => {
-      console.log(err) 
-      return next(err)
-    })
+      .then(async data => {
+        const rowsObj: any = data.rows[0];
+        const userPW: string = rowsObj.password; 
+
+        let comparePassword = await bcrypt.compare(password, userPW);
+        
+        if (comparePassword !== true){
+          return next({
+            log: 'error authenticating password',
+            message: {
+              err: 'userController.getUser: ERROR: Check server logs for details'
+            }
+          });
+        }
+        
+        res.locals.credentials = comparePassword;
+        return next();
+      })
+      .catch(err => {
+        return next({
+          log: 'Express error handler caught getUser middleware error',
+          message: {
+            err: 'userController.getUser: ERROR: Check server logs for details'
+          }
+        })
+      })
   }
 }  
 

@@ -31,19 +31,6 @@ describe('response time test block', () => {
     return req
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
-      .expect(200)
-      .then(response => {
-        expect(response.body).toHaveProperty('responseTime');
-        done();
-      })
-      .catch(err => done(err))
-  });
-
-  // does response obj has a responseTime property?
-  it('expect response obj to have a responseTime property', (done) => {
-    return req
-      .post('/input/responsetime')
-      .send({ query: queryTester, url: urlTester })
       .expect('Content-Type', /json/)
       .expect(200)
       .then(response => {
@@ -80,7 +67,7 @@ describe('response time test block', () => {
   })
 
   // is the response time less than 500ms?
-  it('response time should be a less than a second', (done) => {
+  it('response time should be less than 500ms', (done) => {
     return req
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
@@ -118,7 +105,7 @@ describe('throughput test block', () => {
           expect(typeof response.body.throughputCounter).toBe('number');
           done();
         })
-        .catch(err => done(err));
+      .catch(err => done(err));
   })
   // expect throughputCounter to be a positive number
   it('thoughputCounter should be a positive number', (done) => {

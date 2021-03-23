@@ -15,11 +15,6 @@ body {
   width: 33%;
 }
 
-.CodeMirror-wrap {
-  height: 37vh;
-  margin-top:1em;
-}
-
 /* input {
   background-color: white !important;
 } */
@@ -67,4 +62,41 @@ body {
 
 .dashboard-container {
   background-color: #f4f4f4;
+}
+
+.CodeMirror-wrap {
+  height: 75vh !important;
+}
+
+.CodeMirror {
+  height: 80vh !important;
+}
+
+.CodeMirror-wrap pre {
+  word-break: break-word !important;
+}
+
+.cm-invalidchar {
+  color: #a9b1abf4;
+}
+
+@media screen and (max-width: 1440px) {
+
+  .CodeMirror {
+    height: 67vh !important;
+  }
+
+  .CodeMirror-wrap {
+    height: 65vh !important;
+  }
+
+  .res-box {
+    height: 25em;
+  }
+
+  .chartjs-render-monitor {
+    height:400px !important;
+    width:800px !important;
+  }
+
 }
