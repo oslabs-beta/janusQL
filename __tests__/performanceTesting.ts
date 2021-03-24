@@ -84,13 +84,14 @@ describe('response time test block', () => {
 describe('throughput test block', () => {
 
   // expect response body to have throughputCounter property
-  it('response body should have a throughputCounter property', () => {
+  it('response body should have a throughputCounter property', (done) => {
     return req
       .post('/input/throughput')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
       .then(response => {
         expect(response.body).toHaveProperty('throughputCounter');
+        done();
       })
       .catch(err => console.log(err));
   });

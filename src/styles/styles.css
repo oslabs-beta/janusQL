@@ -65,11 +65,11 @@ body {
 }
 
 .CodeMirror-wrap {
-  height: 75vh !important;
+  height: 70vh !important;
 }
 
 .CodeMirror {
-  height: 80vh !important;
+  height: 75vh !important;
 }
 
 .CodeMirror-wrap pre {
@@ -78,6 +78,14 @@ body {
 
 .cm-invalidchar {
   color: #a9b1abf4;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
 }
 
 @media screen and (max-width: 1440px) {

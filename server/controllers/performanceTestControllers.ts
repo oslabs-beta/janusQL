@@ -20,6 +20,7 @@ const performanceTestControllers = {
   // testing the response time of a query to an external API request
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
+    let status: number;
 
     const start = Date.now();
 
@@ -61,9 +62,11 @@ const performanceTestControllers = {
       })
     })
       .then(res => {
+        status = res.status;
         return res.json();
       })
       .then(data => {
+        res.locals.status = status;
         res.locals.responseTimeData = data;
         res.locals.bytes = helpers.bytes(data);
         client.set(key.toString(), res.locals.bytes);

@@ -4,13 +4,13 @@ import PerformanceContext from '../../context/PerformanceContext'
 
 const DataSize: React.FunctionComponent = () => {
 
-  const { bytes, setBytes, title } = useContext(PerformanceContext);
+  const { bytes, title } = useContext(PerformanceContext);
 
   const chart = {
     labels: title,
     datasets: [
       {
-        label: 'Data size (bytes)',
+        label: 'Data size (kilobytes)',
         data: bytes,
         backgroundColor: [
           'rgba(75,192,192,0.6)'
@@ -23,7 +23,7 @@ const DataSize: React.FunctionComponent = () => {
   const options = {
     title: {
       display: true,
-      text: 'Byte Size',
+      text: 'KiloByte Size',
       responsive: false,
       fontSize: 25,
       scales: {
