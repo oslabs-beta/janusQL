@@ -5,15 +5,41 @@ import helpers from '../helper/helper'
 
 const client  = redis.createClient(6379);
 
-// instantiate the first key in cache
-let key = 0;
+// cache info will persist until server is killed
+client.set('key', '0');
+client.get('key', (err, data) => {
+  console.log('helllllo', data);
+});
+
+// client.incr('key', (err, data) => {
+//   console.log('current key value', data);
+//   client.set(data.toString(), '{testName: responsetime, result: 7, queryString: query, urlString: url}', redis.print)
+// });
 
 client.on('error', err => console.log('redis in perf controller', err));
 
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
 
+let key: number;
+
+client.keys('key', redis.print);
+
 const performanceTestControllers = {
+  cacheResponseMetrics: ((req: Request, res: Response, next: NextFunction): void => {
+    // get responsetime, btyes, throughput from res.locals
+    // store it in cache
+
+    client.get('key', (err, data) => {
+      console.log('key that is inside cacheResponseMetrics woooo', data);
+    });
+
+    client.incr('key', (err, data) => {
+      client.set(data.toString(), JSON.stringify(res.locals));
+    })
+
+  }),
+
 
   // testing the response time of a query to an external API request
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
@@ -35,9 +61,20 @@ const performanceTestControllers = {
         const end = Date.now();
         const duration = end - start;
         res.locals.responseTime = duration;
-        key++;
-        client.set(key.toString(), res.locals.responseTime);
-        client.get(key.toString(), redis.print);
+        // const value = {
+
+        // };
+        
+        // to get newly incremented key
+        client.incr('key', (err, data) => {
+          key = data;
+          console.log('response tiem key', data);
+          // use key to set new key-value pair in cache
+          client.set(data.toString(), res.locals.responseTime);
+          client.get(data.toString(), (err, data) => {
+            console.log('should give us response time data', data);
+          })
+        });
         return next();
       })
       .catch(err => {
@@ -68,7 +105,7 @@ const performanceTestControllers = {
       .then(data => {
         res.locals.responseTimeData = data;
         res.locals.bytes = helpers.bytes(data);
-        client.set(key, res.locals.bytes);
+        client.set(key.toString(), res.locals.bytes);
         return next();
       })
       .catch(err => {
@@ -85,7 +122,7 @@ const performanceTestControllers = {
 
     // create a key by combining query and url into a stringified object
     const key = 'throughput' + JSON.stringify({query, url});
-    console.log('key', key);
+    // console.log('key', key);
     // check if url and query are in cache
     client.get(key, (err, data) => {
       console.log('check cache');
@@ -117,7 +154,7 @@ const performanceTestControllers = {
           }
           res.locals.throughputCounter = counter;
           console.log('store in cache:', res.locals.throughputCounter);
-          client.set(key, counter.toString(), redis.print);
+          // client.set(key, counter.toString(), redis.print);
           return next();
         }
         helper(req, res, next);
@@ -175,6 +212,13 @@ const performanceTestControllers = {
           res.locals.storage = storage;
           const avg = sum / counter;
           res.locals.avg = avg;
+          client.incr('key', (err, data) => {
+            console.log('load test key', data);
+            client.set(data.toString(), res.locals.avg);
+            client.get(data.toString(), (err, data) => {
+              console.log('should give us the load test avg', data);
+            })
+          });
           return next();
         }
         loadHelper(req, res, next);

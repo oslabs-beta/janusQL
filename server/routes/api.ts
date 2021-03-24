@@ -5,10 +5,8 @@ import securityTestController from "../controllers/securityTestControllers";
 const router = express.Router();
 
 // receives API URL and query string from client
-// calculate response time of query and returns the query result and respone time
+// calculate response time of query and returns the query result and response time
 router.post('/responsetime',
-  // middleware to add to db
-  // middleware to fetch from external api
   performanceTestControllers.responseTime,
   performanceTestControllers.bytes,
   performanceTestControllers.throughput,
