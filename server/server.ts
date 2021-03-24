@@ -28,7 +28,7 @@ app.use('/input', apiRouter);
 app.use('/user', userRouter);
 
 // default error handler
-app.use((err: Errback, req: Request, res: Response) => {
+app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
   const defaultError = {
     log: 'default error log',
     status: 500,

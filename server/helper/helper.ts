@@ -5,7 +5,7 @@ export default {
     const stack: any[] = [obj];
     let bytes = 0;
 
-  while ( stack.length ) {
+  while (stack.length) {
       const value = stack.pop();
       if ( typeof value === 'boolean' ) {
           bytes += 8;

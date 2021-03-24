@@ -1,11 +1,5 @@
 import supertest from "supertest";
 
-// import performance test controllers
-import performanceTestControllers from "../server/controllers/performanceTestControllers";
-
-// import express
-import { NextFunction, Request, Response } from "express";
-
 // import our server file
 import app from "../server/server";
 
