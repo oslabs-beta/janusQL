@@ -29,7 +29,7 @@ const performanceTestControllers = {
     // if key exists in cache, push curr responseTime to arrOfResponseTime
     client.get(key, (err, data) => {
       if (data !== null) {
-
+        // arr.push(res.locals.responseTime);
       }
     });
 
@@ -66,6 +66,8 @@ const performanceTestControllers = {
   bytes: (req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
     
+    const key = JSON.stringify({query, url});
+
     fetch(`${url}`, {
       method: 'POST',
       headers: {
@@ -81,6 +83,7 @@ const performanceTestControllers = {
       .then(data => {
         res.locals.responseTimeData = data;
         res.locals.bytes = helpers.bytes(data);
+        client.set(key, res.locals.bytes);
         return next();
       })
       .catch(err => {

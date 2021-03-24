@@ -29,7 +29,7 @@ app.use('/user', userRouter);
 
 // default error handler
 app.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
-  const defaultError = {
+  const defaultError = {T
     log: 'default error log',
     status: 500,
     message: { err: 'default error message' },
