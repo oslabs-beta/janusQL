@@ -16,6 +16,16 @@ const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
 
+    // key for cache
+    const key = JSON.stringify({query, url});
+
+    // store
+    // arr of responseTimeData
+    // bytes
+    // actual responseTime
+
+    // value { arr: responseTimeData }
+
     // start timer
     const start = Date.now();
 
@@ -95,40 +105,60 @@ const performanceTestControllers = {
     });
   },
   // computing avg response time of 50 requests
-  loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  loadTesting: (req: Request, res: Response, next: NextFunction) => {
     const { query, url } = req.body;
 
-    let counter = 0;
-    let sum = 0;
-    const storage = [];
-    
-    // for testing purposes
-    if (isTest) {
-      numOfRequests = 2;
-    } else {
-      numOfRequests = 50;
-    }
+    // create a key by combining query and url into a stringified object
+    const key = JSON.stringify({query, url});
+    console.log('key', key);
 
-    while (counter < numOfRequests) {
-      const start = Date.now();
-      const result = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: query
-        })
-      })
-      const duration = Date.now() - start;
-      storage.push(duration);
-      sum += duration;
-      counter++;
-    }
-    res.locals.storage = storage;
-    const avg = sum / counter;
-    res.locals.avg = avg;
-    return next();
+    // check if url and query are in cache
+    client.get(key, (err, data) => {
+      console.log('check cache');
+      // if data exists in cache, return data
+      if (data !== null) {
+        console.log(data);
+        const num = parseInt(data);
+        res.locals.avg = num;
+        return next();
+      }
+      else {
+        const loadHelper = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+          let counter = 0;
+          let sum = 0;
+          const storage = [];
+          
+          // for testing purposes
+          if (isTest) {
+            numOfRequests = 2;
+          } else {
+            numOfRequests = 50;
+          }
+
+          while (counter < numOfRequests) {
+            const start = Date.now();
+            const result = await fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                query: query
+              })
+            })
+            const duration = Date.now() - start;
+            storage.push(duration);
+            sum += duration;
+            counter++;
+          }
+          res.locals.storage = storage;
+          const avg = sum / counter;
+          res.locals.avg = avg;
+          return next();
+        }
+        loadHelper(req, res, next);
+      }
+    })
   }
 };
 
