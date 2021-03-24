@@ -16,8 +16,6 @@ client.on('error', err => console.log('redis in perf controller', err));
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
 
-client.keys('key', redis.print);
-
 const performanceTestControllers = {
   // testing the response time of a query to an external API request
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
@@ -102,7 +100,7 @@ const performanceTestControllers = {
     res.locals.throughputCounter = counter;
     return next();
   },
-  
+
   // computing avg response time of 50 requests
   loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
