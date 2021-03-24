@@ -10,6 +10,7 @@ router.post('/responsetime',
   // middleware to add to db
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
+  performanceTestControllers.bytes,
   performanceTestControllers.throughput,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals)
@@ -20,16 +21,6 @@ router.get('/dos',
   securityTestController.dos, 
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.dos);
-  }
-)
-
-// calculate num of completed requests in 1 sec
-router.post('/throughput',
-  performanceTestControllers.throughput,
-  (req: Request, res: Response) => {
-    console.log('api throughput');
-    console.log('res locals', res.locals)
-    return res.status(200).json(res.locals)
   }
 );
 

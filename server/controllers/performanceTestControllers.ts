@@ -20,15 +20,52 @@ const performanceTestControllers = {
     const key = JSON.stringify({query, url});
 
     // store
-    // arr of responseTimeData
+    // query result
     // bytes
     // actual responseTime
 
-    // value { arr: responseTimeData }
+    // value { query result: same, bytes: same, arrOfResponseTimes: push curr responseTime }
+
+    // if key exists in cache, push curr responseTime to arrOfResponseTime
+    client.get(key, (err, data) => {
+      if (data !== null) {
+
+      }
+    });
+
+    // else, run responseTime controller,
+    // declare a const value
+    // add to value query result, bytes, and arrOfResponseTime
 
     // start timer
     const start = Date.now();
 
+    fetch(`${url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: query
+      })
+    })
+      .then(() => {
+        const end = Date.now();
+        const duration = end - start;
+        res.locals.responseTime = duration;
+        return next();
+      })
+      .catch(err => {
+        next({
+          log: 'Express error handler caught responseTime middleware error',
+          message: {err: 'Can\'t retrieve response time'}
+        });
+      });
+  }),
+
+  bytes: (req: Request, res: Response, next: NextFunction): void => {
+    const { query, url } = req.body;
+    
     fetch(`${url}`, {
       method: 'POST',
       headers: {
@@ -44,11 +81,6 @@ const performanceTestControllers = {
       .then(data => {
         res.locals.responseTimeData = data;
         res.locals.bytes = helpers.bytes(data);
-      })
-      .then(() => {
-        const end = Date.now();
-        const duration = end - start;
-        res.locals.responseTime = duration;
         return next();
       })
       .catch(err => {
@@ -57,9 +89,10 @@ const performanceTestControllers = {
           message: {err: 'Can\'t retrieve response time'}
         });
       });
-  }),
+  },
+
   // testing number of completed requests in 1 sec
-  throughput: (req: Request, res: Response, next: NextFunction) => {
+  throughput: (req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
 
     // create a key by combining query and url into a stringified object
@@ -105,7 +138,7 @@ const performanceTestControllers = {
     });
   },
   // computing avg response time of 50 requests
-  loadTesting: (req: Request, res: Response, next: NextFunction) => {
+  loadTesting: (req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
 
     // create a key by combining query and url into a stringified object
