@@ -1,8 +1,15 @@
 <h1 align="center">JanusQL</h1>
 
 <p align="center">
+  <img src=https://img.shields.io/badge/React-^16.13.1-yellow>
+  <img src=https://img.shields.io/badge/Electron-^8.2.2-yellow>
+  <img src=https://img.shields.io/badge/node-^12.13.0-yellow>
+  <img src=https://img.shields.io/badge/Redis-^3.0.2-yellow>
+  <img src=https://img.shields.io/badge/Typescript-94%25-yellow>
+</p>
+
+<p align="center">
   <img width="600" src=https://user-images.githubusercontent.com/75049208/112365029-660b5800-8c94-11eb-9836-fe5264d4a0e5.png> <br>
-  insert the tech we used - React Electron Node Typescript Stars
 </p>
 
 # **Description**
@@ -44,7 +51,7 @@ Click on the load button to find out how long it takes to query this query 50 ti
 Enter the URL of the GraphQL API. You don't need to enter a query string. If a query is entered, it won't affect the results. Then click on the 
 
 # Tech Stack
-Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Webpack, Electron, Material UI, Jest, Supertest, Enzyme
+Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Electron, Redis, Material UI, Webpack, Jest, Supertest, Enzyme
 
 # Read More
 Medium article
