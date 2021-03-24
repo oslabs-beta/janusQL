@@ -5,6 +5,9 @@ import helpers from '../helper/helper'
 
 const client  = redis.createClient(6379);
 
+// instantiate the first key in cache
+let key = 0;
+
 client.on('error', err => console.log('redis in perf controller', err));
 
 const isTest = process.env.NODE_ENV === 'test';
@@ -15,27 +18,6 @@ const performanceTestControllers = {
   // testing the response time of a query to an external API request
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
-
-    // key for cache
-    const key = 'responseTime' + JSON.stringify({query, url});
-
-    // store
-    // query result
-    // bytes
-    // actual responseTime
-
-    // value { query result: same, bytes: same, arrOfResponseTimes: push curr responseTime }
-
-    // if key exists in cache, push curr responseTime to arrOfResponseTime
-    client.get(key, (err, data) => {
-      if (data !== null) {
-        // arr.push(res.locals.responseTime);
-      }
-    });
-
-    // else, run responseTime controller,
-    // declare a const value
-    // add to value query result, bytes, and arrOfResponseTime
 
     // start timer
     const start = Date.now();
@@ -53,6 +35,9 @@ const performanceTestControllers = {
         const end = Date.now();
         const duration = end - start;
         res.locals.responseTime = duration;
+        key++;
+        client.set(key.toString(), res.locals.responseTime);
+        client.get(key.toString(), redis.print);
         return next();
       })
       .catch(err => {
