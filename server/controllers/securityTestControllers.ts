@@ -28,14 +28,13 @@ const securityTestController = {
   as algo re-fetch's entire schema when probing an additional nested depth
 
 
-  - For Production level code, the whitespace can be truncated for all query strings.
   - Query strings and helper functions can be modularize in another file and imported
-
+  - this entire file should be modularized into individual middleware. Functions 
+    defined here handle HTTP requests, which is the definition of middleware
   */
   dos: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { url } = req.body;
     
-
     const rootLabelQueryString = `
     {
       __schema {
@@ -77,10 +76,10 @@ const securityTestController = {
       const initialQueryString = `
         fields{
           name
-          type{
-            name
-            kind
-          }
+            type{
+              name
+              kind
+            }
         }`;
 
         const depthHelper = (field?:string | null) => {
@@ -114,11 +113,20 @@ const securityTestController = {
         }
     }
 
-    function filterAndCache (response:any, cache:any, key:number) {
-      cache[key] = response.data.__schema.types.filter((currentValue:any) => {
-        if(currentValue.kind === 'OBJECT' 
-        && currentValue.name[0] !== '_'
+    function filterAndCache (response:any, cache:any, depth:number) {
+
+      cache[depth] = response.data.__schema.types.filter((currentValue:any) => {
+        
+        // this should be refactored, instead of including 'what we don't want' in the conditional,
+        // articulate the positive case.
+
+        //traverse depth and cache
+
+        if(currentValue.name[0] !== '_'
         && currentValue.name[1] !== '_'
+        && currentValue.fields !== null
+        && currentValue.type !== null
+        && currentValue.kind !== 'SCALAR'
         && currentValue.name !== rootQuery) {
           return currentValue;
         }
@@ -126,30 +134,49 @@ const securityTestController = {
 
       return cache;
     }
-    
-    // function findNestableTypes (cache:any) {
-    //   //iterate through keys of cache
-    //   //key 0 is my dictionary
-    //   //any subsequent key is nestable if value is present in dictionary
-    //   //return array of arrays of nestable pairs 
-    // }
-    // const test = {
-    //   0: [
-    //     { name: 'City', kind: {name: 'Country', kind: 'OBJECT'} },
-    //     { name: 'Continent', kind: 'NON_NULL' },
-    //     { name: 'Country', kind: {name: 'City', kind: 'OBJECT'} },
-    //   ],
-    // }
+
+    function findNestableTypes (cache:any) {
       
+      /*
 
-    // console.log(findNestableTypes(test));
+      types : [name && fields[types]]
+      fields -> [types]
 
+      types{
+        name
+        fields{
+          [continent, cities]
+        }
+      }
+      I need to match name with a field
 
+      cache.fields has the queryable labels
 
+      cache.0 has first layer of types
+      */
+     const fields = cache
+     console.log(fields);
 
+      return false;
+    }
 
+    async function depthQuery (depthLevel:any) {
 
+      //Query of schema type depth
+      let queryString = fieldDepthQueryGenerator(depthLevel);
+      queryString = SchemaDepthQueryGenerator(queryString);
 
+      fetchRequest = helpers.makeFetchJSONRequest(url, queryString, 'POST');
+      const result = await fetch(fetchRequest.url, fetchRequest)
+      .then(response => response.json())
+      .then((response) => {
+        return response;
+      })
+      .catch(err => console.log(err))
+      // console.log("==========CACHE=========");
+      // console.log(cacheOfTypes);
+      return result;
+    }
 
     const cacheOfTypes: any = {};
     let depth = 0;
@@ -170,7 +197,6 @@ const securityTestController = {
     .catch(err => {
       next(err);
     });
-    console.log(cacheOfTypes);
 
     // Initial query and filter of schema
     fetchRequest = helpers.makeFetchJSONRequest(url, schemaQueryString, 'POST');
@@ -181,22 +207,21 @@ const securityTestController = {
       depth += 1;
     })
     .catch(err => next(err))
-   
 
-    //Query of schema type depth
-    let queryString = fieldDepthQueryGenerator(2);
-    queryString = SchemaDepthQueryGenerator(queryString);
+    let nestFound = false;
+    while(!nestFound) {
+      const response = await depthQuery(depth);
+      filterAndCache(response, cacheOfTypes, depth);
+      nestFound = findNestableTypes(cacheOfTypes[depth]);
+      depth += 1;
 
-    fetchRequest = helpers.makeFetchJSONRequest(url, queryString, 'POST');
-    await fetch(fetchRequest.url, fetchRequest)
-    .then(response => response.json())
-    .then((response) => {
-      console.log(response.data.__schema.types[1].fields);
-    })
-
+      if(depth === 3) {
+        nestFound = true;
+      }
+    }
 
   },
-
+  
 };
 
 export default securityTestController;
@@ -240,17 +265,4 @@ export default securityTestController;
 }
 
 
-    //query all types
-
-    //filter scalars / built-ins
-
-    //cache result
-
-    //query types of cache
-
-    // check if type has been seen
-
-    //filter
-
-    //cache
 */
