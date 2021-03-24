@@ -1,7 +1,7 @@
 <h1 align="center">JanusQL</h1>
 
 <p align="center">
-  <img width="500" src=https://user-images.githubusercontent.com/75049208/111885551-c002d980-8985-11eb-8fe6-3ef531221527.png> <br>
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112365029-660b5800-8c94-11eb-9836-fe5264d4a0e5.png> <br>
   insert the tech we used - React Electron Node Typescript Stars
 </p>
 
