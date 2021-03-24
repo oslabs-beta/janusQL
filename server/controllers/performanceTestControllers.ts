@@ -20,7 +20,6 @@ const performanceTestControllers = {
   // testing the response time of a query to an external API request
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
-    let status: number;
 
     const start = Date.now();
 
@@ -49,6 +48,7 @@ const performanceTestControllers = {
 
   bytes: (req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
+    let status: number;
     
     const key = 'byte' + JSON.stringify({query, url});
 
