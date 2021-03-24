@@ -23,7 +23,6 @@ const performanceTestControllers = {
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
 
-    // start timer
     const start = Date.now();
 
     fetch(`${url}`, {
@@ -81,118 +80,67 @@ const performanceTestControllers = {
   },
 
   // testing number of completed requests in 1 sec
-  throughput: (req: Request, res: Response, next: NextFunction): void => {
+  throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
 
-    // create a key by combining query and url into a stringified object
-    const key = 'throughput' + JSON.stringify({query, url});
-    // console.log('key', key);
-    // check if url and query are in cache
-    client.get(key, (err, data) => {
-      console.log('check cache');
-      // if data exists in cache, return data
-      if (data !== null) {
-        // parse the data
-        // data.throughput
-        const num = parseInt(data);
-        res.locals.throughputCounter = num;
-        return next();
-      } 
-      else {
-        const helper = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-          console.log('start timer');
-          let counter = 0;
-          const start = Date.now();
+    let counter = 0;
+    const start = Date.now();
 
-          while ((Date.now() - start) < 1000) {
-            const result = await fetch(url, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                query: query
-              })
-            })
-            counter++;
-          }
-          res.locals.throughputCounter = counter;
-          // console.log('store in cache:', res.locals.throughputCounter);
-          // client.set(key, counter.toString(), redis.print);
-          return next();
-        }
-        helper(req, res, next);
-      }
-    
-    });
+    while ((Date.now() - start) < 1000) {
+      const result = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: query
+        })
+      })
+      counter++;
+    }
+
+    res.locals.throughputCounter = counter;
+    return next();
   },
+  
   // computing avg response time of 50 requests
-  loadTesting: (req: Request, res: Response, next: NextFunction): void => {
+  loadTesting: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
 
-    // create a key by combining query and url into a stringified object
-    const key = JSON.stringify({query, url});
-    console.log('key', key);
+    let counter = 0;
+    let sum = 0;
+    const storage = [];
+    
+    // for testing purposes
+    if (isTest) {
+      numOfRequests = 2;
+    } else {
+      numOfRequests = 50;
+    }
 
-    // check if url and query are in cache
-    client.get(key, (err, data) => {
-      console.log('check cache');
-      // if data exists in cache, return data
-      if (data !== null) {
-        console.log(data);
-        const num = parseInt(data);
-        res.locals.avg = num;
-        return next();
-      }
-      else {
-        const loadHelper = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-          let counter = 0;
-          let sum = 0;
-          const storage = [];
-          
-          // for testing purposes
-          if (isTest) {
-            numOfRequests = 2;
-          } else {
-            numOfRequests = 50;
-          }
-
-          while (counter < numOfRequests) {
-            const start = Date.now();
-            const result = await fetch(url, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                query: query
-              })
-            })
-            const duration = Date.now() - start;
-            storage.push(duration);
-            sum += duration;
-            counter++;
-          }
-          res.locals.storage = storage;
-          const avg = sum / counter;
-          res.locals.avg = avg;
-          // client.incr('key', (err, data) => {
-          //   console.log('load test key', data);
-          //   client.set(data.toString(), res.locals.avg);
-          //   client.get(data.toString(), (err, data) => {
-          //     console.log('should give us the load test avg', data);
-          //   })
-          // });
-          return next();
-        }
-        loadHelper(req, res, next);
-      }
-    })
+    while (counter < numOfRequests) {
+      const start = Date.now();
+      const result = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: query
+        })
+      })
+      const duration = Date.now() - start;
+      storage.push(duration);
+      sum += duration;
+      counter++;
+    }
+    res.locals.storage = storage;
+    const avg = sum / counter;
+    res.locals.avg = avg;
+    return next();
   }, 
 
   cacheMetrics: (req: Request, res: Response, next: NextFunction): void => {
-    // get responsetime, btyes, throughput from res.locals
-    // store it in cache
     const { query, url } = req.body;
 
     res.locals.query = query;

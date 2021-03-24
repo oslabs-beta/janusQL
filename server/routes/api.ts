@@ -32,13 +32,4 @@ router.post('/load',
   }
 );
 
-// endpoint to display history of response data
-router.post('/history', 
-  // controller to get metric history and return to client
-  // <insert middleware>
-  (req: Request, res: Response) => {
-    return res.status(200).json(res.locals)
-  }
-)
-
 export default router;
