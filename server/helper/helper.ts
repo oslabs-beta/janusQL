@@ -25,7 +25,7 @@ export default {
       {
           list.push(value);
 
-          for( let key in value ) {
+          for( const key in value ) {
               stack.push(value[key]);
           }
       }
