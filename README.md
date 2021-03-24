@@ -20,8 +20,7 @@ Users can keep track of all analytics ran while exploring the API by sending it 
 Currently in Beta.
 
 # **Installation**
-To get started,
-Download the app from our website, which is available on MacOS, Window, and Linux. (link the website)
+To get started, download the [application](https://www.janusql.com/) from our website, which is available on MacOS, Window, and Linux.
 
 Now, let's generate some tests!
 
