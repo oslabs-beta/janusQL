@@ -15,6 +15,16 @@ const redisControllers = {
     // return next
 
     
+  },
+
+  cacheResponseTime: (req: Request, res: Response: next: NextFunction) => {
+    // get response time from res.locals
+
+    // get url and query from request
+    // make key from url and query
+
+    // check if key exists in cache
+      // if yes, push curr response time to key
   }
 }
 

@@ -17,7 +17,7 @@ const performanceTestControllers = {
     const { query, url } = req.body;
 
     // key for cache
-    const key = JSON.stringify({query, url});
+    const key = 'responseTime' + JSON.stringify({query, url});
 
     // store
     // query result
@@ -66,7 +66,7 @@ const performanceTestControllers = {
   bytes: (req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
     
-    const key = JSON.stringify({query, url});
+    const key = 'byte' + JSON.stringify({query, url});
 
     fetch(`${url}`, {
       method: 'POST',
@@ -99,7 +99,7 @@ const performanceTestControllers = {
     const { query, url } = req.body;
 
     // create a key by combining query and url into a stringified object
-    const key = JSON.stringify({query, url});
+    const key = 'throughput' + JSON.stringify({query, url});
     console.log('key', key);
     // check if url and query are in cache
     client.get(key, (err, data) => {
