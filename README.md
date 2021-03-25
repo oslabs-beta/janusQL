@@ -13,7 +13,7 @@
 </p>
 
 # **Description**
-JanusQL is an easy-to-use Electron powered GUI for GraphQL API security and performance testing. It allows users to test the performance of their GraphQL API by displaying a query's response time, throughput, andd loadcapacity. It can also test if their GraphQL API is protected against DDOS attacks.
+JanusQL is an easy-to-use Electron powered GUI for GraphQL API security and performance testing. It allows users to test the performance of their GraphQL API by displaying a query's response time, status code, overhead, throughput, and load capacity. It also tests if their GraphQL API is protected against DDOS attacks.
 
 Users can keep track of all analytics ran while exploring the API by sending it different kinds of data to see what values are returned.
 
