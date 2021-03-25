@@ -1,8 +1,15 @@
 <h1 align="center">JanusQL</h1>
 
 <p align="center">
-  <img width="500" src=https://user-images.githubusercontent.com/75049208/111885551-c002d980-8985-11eb-8fe6-3ef531221527.png> <br>
-  insert the tech we used - React Electron Node Typescript Stars
+  <img src=https://img.shields.io/badge/React-^16.13.1-yellow>
+  <img src=https://img.shields.io/badge/Electron-^8.2.2-yellow>
+  <img src=https://img.shields.io/badge/node-^12.13.0-yellow>
+  <img src=https://img.shields.io/badge/Redis-^3.0.2-yellow>
+  <img src=https://img.shields.io/badge/Typescript-94%25-yellow>
+</p>
+
+<p align="center">
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112365029-660b5800-8c94-11eb-9836-fe5264d4a0e5.png> <br>
 </p>
 
 # **Description**
@@ -13,8 +20,7 @@ Users can keep track of all analytics ran while exploring the API by sending it 
 Currently in Beta.
 
 # **Installation**
-To get started,
-Download the app from our website, which is available on MacOS, Window, and Linux. (link the website)
+To get started, download the [application](https://www.janusql.com/) from our website, which is available on MacOS, Window, and Linux.
 
 Now, let's generate some tests!
 
@@ -24,27 +30,33 @@ Sign up for an account, or if already registered, log into the application using
 ## **Viewing Analytics Information**
 After logging in, you'll see three sections - an area to input the URI of the GraphQL API along with a code editor, another code editor, and the analytics sections.
 
-### **Testing response time, throughput, or load** <br>
+### **Testing Response Time, Query Overhead, Status, Throughput, or Load** <br>
 Enter the URL of the GraphQL API and type in the query you want to test. <br>
-*insert photo/gif*
 
-### Response Time <br>
-Click on the query button to get the response time plotted on the graph. Click on the query button again to plot more response times on the graph. <br>
-*insert photo of graph*
+### Response Time, Status and Throughput Testing <br>
+Choose from the drop down menu and select, _Response/Data_, then click on the _Submit_ button to get the response time plotted on the graph, the status of the query, and the throughput time. Click on the _Submit_ button again to plot more analytics on the graph. <br>
+<p align="center">
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112411140-a640f980-8cd9-11eb-90f8-967c6539b9f5.gif> <br>
+</p>
 
-### Throughput Testing <br>
-Click on the throughput button to find out how many responses we can get back within a second. <br>
-*insert photo of throughput section and arrow pointing to it*
+### Query Overhead Testing <br>
+Instead of choosing from the drop down menu, click on the _Data_ tab on the right panel to find out the data size in kilobytes a return query response has. Like the reponse test/status/throughput tests above, more data can be retrieved by clicking on the _Submit_ button again. <br>
+<p align="center">
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112411765-ae4d6900-8cda-11eb-9c18-12399f855a29.gif> <br>
+</p>
 
 ### Load Testing <br>
-Click on the load button to find out how long it takes to query this query 50 times. <br>
-*insert photo*
+Similar to the step above, choose from the drop down menu and select, _Load_, then click on the _Submit_ button to find out how the average time it takes to query this query 50 times in milliseconds. <br>
+<p align="center">
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112412233-6b3fc580-8cdb-11eb-8198-eef7f4147ba7.gif> <br>
+</p>
+
 
 ### Testing the security of your GraphQL API <br>
 Enter the URL of the GraphQL API. You don't need to enter a query string. If a query is entered, it won't affect the results. Then click on the 
 
 # Tech Stack
-Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Webpack, Electron, Material UI, Jest, Supertest, Enzyme
+Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Electron, Redis, Material UI, Webpack, Jest, Supertest, Enzyme
 
 # Read More
 Medium article

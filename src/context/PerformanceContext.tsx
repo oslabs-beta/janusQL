@@ -19,8 +19,10 @@ interface PerformanceContextState {
   setDos: Dispatch<SetStateAction<string>>,
   url: string,
   setUrl: Dispatch<SetStateAction<string>>,
-  byte: Array<number>,
-  setByte: Dispatch<SetStateAction<Array<number>>>
+  bytes: Array<number>,
+  setBytes: Dispatch<SetStateAction<Array<number>>>,
+  status: number,
+  setStatus: Dispatch<SetStateAction<number>>
 }
 
 // initialize a Performance Context
@@ -39,6 +41,7 @@ const PerformanceContextProvider: React.FunctionComponent = ({children}: any) =>
   const [dos, setDos] = useState<string>('');
   const [url, setUrl] = useState('');
   const [bytes, setBytes] = useState<Array<number>>([]);
+  const [status, setStatus] = useState<number>(0);
 
   // state declaration
   const PerformanceState: PerformanceContextState = {
@@ -60,6 +63,8 @@ const PerformanceContextProvider: React.FunctionComponent = ({children}: any) =>
     setUrl,
     bytes,
     setBytes,
+    status,
+    setStatus
   };
 
   return (
