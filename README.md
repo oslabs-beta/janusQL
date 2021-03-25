@@ -59,7 +59,7 @@ Enter the URL of the GraphQL API. You don't need to enter a query string. If a q
 Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Electron, Redis, Material UI, Webpack, Jest, Supertest, Enzyme
 
 # Read More
-Please visit our website: [application](https://www.janusql.com/) <br>
+Please visit our [website](https://www.janusql.com/) <br>
 For more info: Medium article
 
 ## Co-Creators: <br>
