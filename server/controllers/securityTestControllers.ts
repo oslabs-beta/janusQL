@@ -34,7 +34,9 @@ const securityTestController = {
         ${root.toLowerCase()} {
           ${type} {
             ${field}{
-              name
+              ${type}{
+                name
+              }
             }
           }
         }`;
@@ -106,7 +108,7 @@ const securityTestController = {
 
     }
 
-    const fetchRequest = helpers.makeFetchJSONRequest(url, rootLabelQueryString, 'POST');
+    let fetchRequest = helpers.makeFetchJSONRequest(url, rootLabelQueryString, 'POST');
     const rootQuery = await fetch(fetchRequest.url, fetchRequest)
     .then(response => response.json())
     .then((response) => {
@@ -121,9 +123,22 @@ const securityTestController = {
     });
 
     await bruteQuery(queryCache, url, rootQuery);
-    const DosQuery = makeNestedQuery(queryCache, rootQuery);
-    console.log(DosQuery);
+    const dosQuery = makeNestedQuery(queryCache, rootQuery);
     
+    fetchRequest = helpers.makeFetchJSONRequest(url, dosQuery, 'POST');
+    res.locals.query = dosQuery;
+    res.locals.test = await fetch(fetchRequest.url, fetchRequest)
+    .then(response => response.json())
+    .then((response) => {
+      if('error' in response || 'errors' in response) {
+        return 'pass';
+      } else {
+        return 'fail';
+      }
+    })
+    .catch(err => console.log(err));
+
+    return next();
   // EOL of method
   },
 }
