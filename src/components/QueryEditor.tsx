@@ -131,6 +131,19 @@ const QueryEditor = () => {
               setAvgLoadTimes(data.avg)
           })
           .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
+    } else if (test === 2) {
+      fetch('http://localhost:3000/input/brutedos', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'Application/JSON',
+          },
+          body: JSON.stringify({url: url}),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+              console.log(data.queryString)
+          })
+          .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
     }
   }
 
