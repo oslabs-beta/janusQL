@@ -16,10 +16,17 @@ router.post('/responsetime',
   }
 )
 
-router.get('/dos', 
-  securityTestController.dos, 
+router.get('/fastdos', 
+  securityTestController.fastDos, 
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.dos);
+  }
+)
+
+router.get('/brutedos', 
+  securityTestController.brutedos, 
+  (req: Request, res: Response) => {
+    return res.status(200).json(res.locals.testResult);
   }
 )
 

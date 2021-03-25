@@ -1,3 +1,4 @@
+
 export default {
 
   bytes: function(obj: any) {
@@ -24,7 +25,7 @@ export default {
       {
           list.push(value);
 
-          for( let key in value ) {
+          for( const key in value ) {
               stack.push(value[key]);
           }
       }
@@ -32,6 +33,20 @@ export default {
 
   return bytes * .001;
 
-  }
+  },
+
+  makeFetchJSONRequest: function(url: string, queryString: string, method: string): any  {
+      const myHeaders = { 'Content-Type': 'application/json' };
+      const myRequest = {
+        url: `${url}`,
+        method: `${method}`,
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default',
+        body: JSON.stringify({ query: queryString })
+      };
+    return myRequest;
+
+  },
 
 }
