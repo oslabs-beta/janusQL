@@ -53,14 +53,16 @@ Similar to the step above, choose from the drop down menu and select, _Load_, th
 
 ### Testing the security of your GraphQL API <br>
 Enter the URL of the GraphQL API. You don't need to enter a query string. If a query is entered, it won't affect the results. Choose from the drop down menu and select, _Security_, click on the _Submit_ button to determine if the query passes or fails the dos test.
-
+<p align="center">
+  <img src=https://user-images.githubusercontent.com/75049208/112505572-24d57f80-8d4a-11eb-8797-a70f4de07b36.gif> <br>
+</p>
 
 # Tech Stack
 Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Electron, Redis, Material UI, Webpack, Jest, Supertest, Enzyme
 
 # Read More
 Please visit our [website](https://www.janusql.com/) <br>
-For more info: Medium article
+For more info: [Medium article](https://lucasmobley.medium.com/janusql-is-a-robust-tool-for-testing-performance-and-security-metrics-for-graphql-apis-d4012d623b65) <br>
 
 ## Co-Creators: <br>
 Adrian Inza-Cruz - [@ainzacruz](https://github.com/ainzacruz) | [LinkedIn](https://www.linkedin.com/in/adrian-inza-cruz/)<br>
