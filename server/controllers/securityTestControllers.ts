@@ -3,16 +3,20 @@ import fetch from "node-fetch";
 import helpers from '../helper/helper';
 
 const securityTestController = {
-  // https://api.everbase.co/graphql?apikey=your_key
   dos: (req: Request, res: Response, next: NextFunction): void =>  {
     return next();
   },
+  
+  // https://api.everbase.co/graphql?apikey=your_key 
+  // Primary API used to test:
   
   brutedos: async (req: Request, res: Response, next: NextFunction): Promise<void> =>  {
     const { url } = req.body;
     const NEST_DEPTH = 6;
     const queryCache:any = {};     
 
+    // queryType is 'Query' by convention only. We query it's label
+    // to increase consistency
     const rootLabelQueryString = `
     {
       __schema {
@@ -64,6 +68,7 @@ const securityTestController = {
           const query = makeQuery(root, type, field);
           const fetchRequest = helpers.makeFetchJSONRequest(url, query, 'POST');
 
+          // Client will include 'error' propery in response if query is invalid
           result = await fetch(fetchRequest.url, fetchRequest)
           .then(response => response.json())
           .then((response) => {
@@ -124,7 +129,6 @@ const securityTestController = {
     });
 
     await bruteQuery(queryCache, url, rootQuery);
-    console.log(queryCache.query);
     const dosQuery = makeNestedQuery(queryCache, rootQuery);
     
     fetchRequest = helpers.makeFetchJSONRequest(url, dosQuery, 'POST');
