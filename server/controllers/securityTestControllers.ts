@@ -12,7 +12,7 @@ const securityTestController = {
   
   brutedos: async (req: Request, res: Response, next: NextFunction): Promise<void> =>  {
     const { url } = req.body;
-    const NEST_DEPTH = 6;
+    const NEST_DEPTH = 14;
     const queryCache:any = {};     
 
     // queryType is 'Query' by convention only. We query it's label
