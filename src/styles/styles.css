@@ -65,11 +65,11 @@ body {
 }
 
 .CodeMirror-wrap {
-  height: 70vh !important;
+  height: 67vh !important;
 }
 
 .CodeMirror {
-  height: 75vh !important;
+  height: 72vh !important;
 }
 
 .CodeMirror-wrap pre {

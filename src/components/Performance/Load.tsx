@@ -7,8 +7,8 @@ const LoadTimes: React.FunctionComponent = () => {
   const { loadTimes } = useContext(PerformanceContext)
 
   const label = [];
-  for (let i=0; i<=50; i+=1) {
-    label.push('query')
+  for (let i=1; i<=50; i+=1) {
+    label.push(`query ${i}`)
   }
   
   const chart = {
@@ -17,8 +17,8 @@ const LoadTimes: React.FunctionComponent = () => {
         {
           label: 'Response Time (ms)',
           data: loadTimes,
-          backgroundColor: 'rgba(75,192,192,0.6)',
-          borderWidth:4
+          backgroundColor: '#ffe1e6',
+          borderWidth: 4
         }
       ]
     }
