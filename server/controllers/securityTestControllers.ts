@@ -138,6 +138,7 @@ const securityTestController = {
     testResult.clientStatus = await fetch(fetchRequest.url, fetchRequest)
     .then(response => response.json())
     .then((response) => {
+      console.log(response);
       if('error' in response || 'errors' in response) {
         return 'pass';
       } else {
@@ -146,6 +147,7 @@ const securityTestController = {
     })
     .catch(err => console.log(err));
 
+    console.log(testResult);
     res.locals.testResult = testResult;
     
     return next();

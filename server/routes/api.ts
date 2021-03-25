@@ -26,7 +26,7 @@ router.get('/fastdos',
 router.get('/brutedos', 
   securityTestController.brutedos, 
   (req: Request, res: Response) => {
-    return res.status(200).json(res.locals.dos);
+    return res.status(200).json(res.locals.testResult);
   }
 )
 
