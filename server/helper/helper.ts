@@ -31,7 +31,7 @@ export default {
       }
   }
 
-  return bytes * .001;
+  return bytes;
 
   },
 

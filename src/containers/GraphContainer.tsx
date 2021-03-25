@@ -3,7 +3,8 @@ import { Box, Paper, Grid, Typography, Tabs, Tab } from '@material-ui/core/';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import ResPanel from '../components/TabPanels/ResPanel';
 import DataSizePanel from '../components/TabPanels/DataSizePanel';
-import LoadPanel from '../components/TabPanels/LoadPanel'
+import LoadPanel from '../components/TabPanels/LoadPanel';
+import SecPanel from '../components/TabPanels/SecPanel';
 
 
 const GraphContainer:React.FunctionComponent = () => {
@@ -52,6 +53,7 @@ const GraphContainer:React.FunctionComponent = () => {
                 <ResPanel value={value} index={0}/>
                 <DataSizePanel value={value} index={1}/>
                 <LoadPanel value={value} index={2}/>
+                <SecPanel value={value} index={3}/>
               </Paper>
             </Grid>
           </Box>

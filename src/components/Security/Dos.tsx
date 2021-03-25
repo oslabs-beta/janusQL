@@ -28,8 +28,7 @@ const Dos: React.FunctionComponent = () => {
             >
               DOS Test
             </Typography>
-            <Typography
-              color="textPrimary"
+            <Typography className={dos === "pass" ? "green" : "red"}
               variant="h3"
             >
               {dos}
