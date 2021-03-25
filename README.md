@@ -32,19 +32,25 @@ After logging in, you'll see three sections - an area to input the URI of the Gr
 
 ### **Testing Response Time, Query Overhead, Status, Throughput, or Load** <br>
 Enter the URL of the GraphQL API and type in the query you want to test. <br>
-*insert photo/gif*
 
-### Response Time, Query Overhead, Status and Throughput Testing <br>
-Choose from the drop down menu and select, _Response/Data_, then click on the _Submit_ button to get the response time plotted on the graph, the status of the query, and the throughput time. Click on the _Submit_ button again to plot more response times on the graph. <br>
-*insert photo of graph*
+### Response Time, Status and Throughput Testing <br>
+Choose from the drop down menu and select, _Response/Data_, then click on the _Submit_ button to get the response time plotted on the graph, the status of the query, and the throughput time. Click on the _Submit_ button again to plot more analytics on the graph. <br>
+<p align="center">
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112411140-a640f980-8cd9-11eb-90f8-967c6539b9f5.gif> <br>
+</p>
 
-### Throughput Testing <br>
-Similar to the step above, choose from the drop down menu and select, _Throughout_, then click on the _Submit_ button to find out how many responses we can get back within a second. <br>
-*insert photo of throughput section and arrow pointing to it*
+### Query Overhead Testing <br>
+Instead of choosing from the drop down menu, click on the _Data_ tab on the right panel to find out the data size in kilobytes a return query response has. Like the reponse test/status/throughput tests above, more data can be retrieved by clicking on the _Submit_ button again. <br>
+<p align="center">
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112411765-ae4d6900-8cda-11eb-9c18-12399f855a29.gif> <br>
+</p>
 
 ### Load Testing <br>
 Similar to the step above, choose from the drop down menu and select, _Load_, then click on the _Submit_ button to find out how the average time it takes to query this query 50 times in milliseconds. <br>
-*insert photo*
+<p align="center">
+  <img width="600" src=https://user-images.githubusercontent.com/75049208/112412233-6b3fc580-8cdb-11eb-8198-eef7f4147ba7.gif> <br>
+</p>
+
 
 ### Testing the security of your GraphQL API <br>
 Enter the URL of the GraphQL API. You don't need to enter a query string. If a query is entered, it won't affect the results. Then click on the 
