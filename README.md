@@ -20,7 +20,7 @@ Users can keep track of all analytics ran while exploring the API by sending it 
 Currently in Beta.
 
 # **Installation**
-To get started, download the [application](https://www.janusql.com/) from our website, which is available on MacOS, Window, and Linux.
+To get started, fork and clone this repo, which is available on MacOS, Window, and Linux.
 
 Now, let's generate some tests!
 
@@ -59,7 +59,8 @@ Enter the URL of the GraphQL API. You don't need to enter a query string. If a q
 Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Electron, Redis, Material UI, Webpack, Jest, Supertest, Enzyme
 
 # Read More
-Medium article
+Please visit our website: [application](https://www.janusql.com/) <br>
+For more info: Medium article
 
 ## Co-Creators: <br>
 Adrian Inza-Cruz - [@ainzacruz](https://github.com/ainzacruz) | [LinkedIn](https://www.linkedin.com/in/adrian-inza-cruz/)<br>
