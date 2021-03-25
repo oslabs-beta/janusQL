@@ -30,20 +30,20 @@ Sign up for an account, or if already registered, log into the application using
 ## **Viewing Analytics Information**
 After logging in, you'll see three sections - an area to input the URI of the GraphQL API along with a code editor, another code editor, and the analytics sections.
 
-### **Testing response time, throughput, or load** <br>
+### **Testing Response Time, Query Overhead, Status, Throughput, or Load** <br>
 Enter the URL of the GraphQL API and type in the query you want to test. <br>
 *insert photo/gif*
 
 ### Response Time, Query Overhead, Status and Throughput Testing <br>
-Choose from the drop down menu, _Response/Data_, and click on the _Submit_ button to get the response time plotted on the graph, the status of the query, and the throughput time. Click on the _Submit_ button again to plot more response times on the graph. <br>
+Choose from the drop down menu and select, _Response/Data_, then click on the _Submit_ button to get the response time plotted on the graph, the status of the query, and the throughput time. Click on the _Submit_ button again to plot more response times on the graph. <br>
 *insert photo of graph*
 
 ### Throughput Testing <br>
-Click on the throughput button to find out how many responses we can get back within a second. <br>
+Similar to the step above, choose from the drop down menu and select, _Throughout_, then click on the _Submit_ button to find out how many responses we can get back within a second. <br>
 *insert photo of throughput section and arrow pointing to it*
 
 ### Load Testing <br>
-Click on the load button to find out how long it takes to query this query 50 times. <br>
+Similar to the step above, choose from the drop down menu and select, _Load_, then click on the _Submit_ button to find out how the average time it takes to query this query 50 times in milliseconds. <br>
 *insert photo*
 
 ### Testing the security of your GraphQL API <br>
