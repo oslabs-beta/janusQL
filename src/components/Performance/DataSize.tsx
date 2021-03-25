@@ -10,10 +10,10 @@ const DataSize: React.FunctionComponent = () => {
     labels: title,
     datasets: [
       {
-        label: 'Data size (kilobytes)',
+        label: 'Data size (bytes)',
         data: bytes,
         backgroundColor: [
-          'rgba(75,192,192,0.6)'
+          'yellow'
         ],
         borderWidth:4,
       }
@@ -23,7 +23,7 @@ const DataSize: React.FunctionComponent = () => {
   const options = {
     title: {
       display: true,
-      text: 'KiloByte Size',
+      text: 'Byte Size',
       responsive: false,
       fontSize: 25,
       scales: {
