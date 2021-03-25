@@ -79,6 +79,8 @@ const QueryEditor = () => {
     setTitle([]);
     setDos('');
     setQueryResponse('');
+    setStatus(0);
+    setBytes([]);
   }
 
   const handleSelectChange = (e:any) => {
