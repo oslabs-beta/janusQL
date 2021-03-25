@@ -70,6 +70,7 @@ const securityTestController = {
             if('error' in response || 'errors' in response) {
               return false;
             } else {
+              console.log(response);
               return true;
             }
           })
@@ -123,6 +124,7 @@ const securityTestController = {
     });
 
     await bruteQuery(queryCache, url, rootQuery);
+    console.log(queryCache.query);
     const dosQuery = makeNestedQuery(queryCache, rootQuery);
     
     fetchRequest = helpers.makeFetchJSONRequest(url, dosQuery, 'POST');
