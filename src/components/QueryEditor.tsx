@@ -141,7 +141,8 @@ const QueryEditor = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-              console.log(data)
+              setQueryResponse(data.queryString);
+              setDos(data.clientStatus);
           })
           .catch((err) => console.log('Failed Send URL/Query to server ERROR: ', err));
     }
