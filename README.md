@@ -28,7 +28,7 @@ Now, let's generate some tests!
 Sign up for an account, or if already registered, log into the application using your credentials. 
 
 ## **Viewing Analytics Information**
-After logging in, you'll see three sections - an area to input the URI of the GraphQL API along with a code editor, another code editor, and the analytics sections.
+After logging in, you'll see three sections - an area to input the URL of the GraphQL API along with a code editor, another code editor, and the analytics sections.
 
 ### **Testing Response Time, Query Overhead, Status, Throughput, or Load** <br>
 Enter the URL of the GraphQL API and type in the query you want to test. <br>
