@@ -62,7 +62,7 @@ Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Ele
 
 # Read More
 Please visit our [website](https://www.janusql.com/) <br>
-For more info: [Medium article](https://lucasmobley.medium.com/janusql-is-a-robust-tool-for-testing-performance-and-security-metrics-for-graphql-apis-d4012d623b65) <br>
+[Read](https://lucasmobley.medium.com/janusql-is-a-robust-tool-for-testing-performance-and-security-metrics-for-graphql-apis-d4012d623b65) about us!! <br>
 
 ## Co-Creators: <br>
 Adrian Inza-Cruz - [@ainzacruz](https://github.com/ainzacruz) | [LinkedIn](https://www.linkedin.com/in/adrian-inza-cruz/)<br>
