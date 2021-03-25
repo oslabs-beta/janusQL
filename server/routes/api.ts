@@ -23,6 +23,13 @@ router.get('/dos',
   }
 )
 
+router.get('/brutedos', 
+  securityTestController.brutedos, 
+  (req: Request, res: Response) => {
+    return res.status(200).json(res.locals.dos);
+  }
+)
+
 // calculate num of completed requests in 1 sec
 router.post('/throughput',
   performanceTestControllers.throughput,
