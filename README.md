@@ -51,9 +51,9 @@ Similar to the step above, choose from the drop down menu and select, _Load_, th
   <img width="600" src=https://user-images.githubusercontent.com/75049208/112412233-6b3fc580-8cdb-11eb-8198-eef7f4147ba7.gif> <br>
 </p>
 
-
 ### Testing the security of your GraphQL API <br>
-Enter the URL of the GraphQL API. You don't need to enter a query string. If a query is entered, it won't affect the results. Then click on the 
+Enter the URL of the GraphQL API. You don't need to enter a query string. If a query is entered, it won't affect the results. Choose from the drop down menu and select, _Security_, click on the _Submit_ button to determine if the query passes or fails the dos test.
+
 
 # Tech Stack
 Javascript, Typescript, React (Hooks, Router, Context API), Express/Node.js, Electron, Redis, Material UI, Webpack, Jest, Supertest, Enzyme
