@@ -54,7 +54,7 @@ Similar to the step above, choose from the drop down menu and select, _Load_, th
 ### Testing the security of your GraphQL API <br>
 Enter the URL of the GraphQL API. You don't need to enter a query string. If a query is entered, it won't affect the results. Choose from the drop down menu and select, _Security_, click on the _Submit_ button to determine if the query passes or fails the dos test.
 <p align="center">
-  <img src=https://user-images.githubusercontent.com/75049208/112505572-24d57f80-8d4a-11eb-8797-a70f4de07b36.gif> <br>
+  <img width="600 "src=https://user-images.githubusercontent.com/75049208/112506998-83e7c400-8d4b-11eb-9e2e-50214de4a5f6.gif> <br>
 </p>
 
 # Tech Stack
