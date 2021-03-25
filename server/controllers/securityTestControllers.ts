@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import helpers from '../helper/helper';
 
 const securityTestController = {
-  dos: (req: Request, res: Response, next: NextFunction): void =>  {
+  fastDos: (req: Request, res: Response, next: NextFunction): void =>  {
     return next();
   },
   
@@ -132,8 +132,10 @@ const securityTestController = {
     const dosQuery = makeNestedQuery(queryCache, rootQuery);
     
     fetchRequest = helpers.makeFetchJSONRequest(url, dosQuery, 'POST');
-    res.locals.query = dosQuery;
-    res.locals.test = await fetch(fetchRequest.url, fetchRequest)
+    
+    const testResult:any = {};
+    testResult.queryString = dosQuery;
+    testResult.clientStatus = await fetch(fetchRequest.url, fetchRequest)
     .then(response => response.json())
     .then((response) => {
       if('error' in response || 'errors' in response) {
@@ -144,8 +146,10 @@ const securityTestController = {
     })
     .catch(err => console.log(err));
 
+    res.locals.testResult = testResult;
+    
     return next();
-  // EOL of method
+    // EOL of method
   },
 }
 export default securityTestController;
