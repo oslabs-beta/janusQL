@@ -76,13 +76,14 @@ const performanceTestControllers = {
     }
     res.locals.throughputCounter = counter;
     // increment key
-    client.incr('key', (err, data) => {
-      console.log('new curr key', data);
+    client.incr('key', (err, incrementedKey) => {
+      const currKey = incrementedKey.toString();
+      console.log('new curr key', currKey);
       // add throughput to cache
-      client.set(data.toString(), JSON.stringify(res.locals.throughputCounter));
+      client.set(currKey, JSON.stringify(res.locals.throughputCounter));
       // confirm cached correctly
-      client.get(data.toString(), (err, data) => {
-        console.log('should be throughput', data);
+      client.get(currKey, (err, value) => {
+        console.log('should be throughput', value);
       })
     })
     return next();
