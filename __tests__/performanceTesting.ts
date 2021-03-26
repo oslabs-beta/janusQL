@@ -33,11 +33,11 @@ describe('response time test block', () => {
       .send({ query: queryTester, url: urlTester })
       .expect('Content-Type', /json/)
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body).toHaveProperty('responseTime');
         done();
       })
-      .catch(err => done(err))
+      .catch((err: any) => done(err))
   });
 
   // is the response time a number?
@@ -46,11 +46,11 @@ describe('response time test block', () => {
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(typeof response.body.responseTime).toBe('number');
         done();
       })
-      .catch(err => done(err))
+      .catch((err: any) => done(err))
   })
 
   // is the response time a positive number?
