@@ -8,10 +8,10 @@ let numOfRequests: number;
 
 const client = redis.createClient(6379);
 
-// initiate key to be 0
+// initialize key to be 0
 client.set('key', '0');
 client.get('key', (err, data) => {
-  console.log('curr key', data);
+  console.log('initial key', data);
 })
 
 const performanceTestControllers = {
@@ -77,7 +77,7 @@ const performanceTestControllers = {
     res.locals.throughputCounter = counter;
     // increment key
     client.incr('key', (err, data) => {
-      console.log('curr key', data);
+      console.log('new curr key', data);
       // add throughput to cache
       client.set(data.toString(), JSON.stringify(res.locals.throughputCounter));
       // confirm cached correctly
