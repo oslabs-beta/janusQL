@@ -1,9 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import fetch from "node-fetch";
 import helpers from '../helper/helper'
+import redis from 'redis';
 
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
+
+const client = redis.createClient(6379);
+
+// initiate key to be 0
+client.set('key', '0');
+client.get('key', (err, data) => {
+  console.log('curr key', data);
+})
 
 const performanceTestControllers = {
 
@@ -66,6 +75,16 @@ const performanceTestControllers = {
       counter++;
     }
     res.locals.throughputCounter = counter;
+    // increment key
+    client.incr('key', (err, data) => {
+      console.log('curr key', data);
+      // add throughput to cache
+      client.set(data.toString(), JSON.stringify(res.locals.throughputCounter));
+      // confirm cached correctly
+      client.get(data.toString(), (err, data) => {
+        console.log('should be throughput', data);
+      })
+    })
     return next();
   },
   // computing avg response time of 50 requests
