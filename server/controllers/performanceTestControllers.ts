@@ -150,6 +150,7 @@ const performanceTestControllers = {
     // increment key and store response locals obj to cache
     client.incr('key', (err, incrementedKey) => {
       const currKey = incrementedKey.toString();
+      console.log('currKey', currKey);
       // add response locals obj to cache
       client.set(currKey, JSON.stringify(res.locals));
       // confirm cached correctly
