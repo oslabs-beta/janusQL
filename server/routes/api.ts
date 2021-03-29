@@ -53,6 +53,7 @@ router.post('/throughput',
 // calculate avg response time of 50 requests
 router.post('/load',
   performanceTestControllers.loadTesting,
+  performanceTestControllers.cacheMetrics,
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals)
   }

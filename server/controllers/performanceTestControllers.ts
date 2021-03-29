@@ -69,10 +69,11 @@ const performanceTestControllers = {
         return res.json();
       })
       .then(data => {
-        console.log('fetch data json\'d', data);
+        // console.log('fetch data json\'d', data);
         res.locals.status = status;
         res.locals.bytes = helpers.bytes(data);
-        console.log('byte size', res.locals.bytes);
+        // console.log('byte size', res.locals.bytes);
+        return next();
       })
       .catch((err: Errback) => {
         next({
@@ -102,6 +103,7 @@ const performanceTestControllers = {
       counter++;
     }
     res.locals.throughputCounter = counter;
+    // console.log('throughput', res.locals.throughputCounter);
     // increment key
     // client.incr('key', (err, incrementedKey) => {
     //   const currKey = incrementedKey.toString();
@@ -162,6 +164,7 @@ const performanceTestControllers = {
     // increment key and store response locals obj to cache
     client.incr('key', (err, incrementedKey) => {
       const currKey = incrementedKey.toString();
+      console.log('res.locals', res.locals);
       console.log('new curr key', currKey);
       // add response locals obj to cache
       client.set(currKey, JSON.stringify(res.locals));
