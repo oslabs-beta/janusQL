@@ -8,7 +8,7 @@ let numOfRequests: number;
 
 const client = redis.createClient(6379);
 
-// // initialize key to be 0
+// initialize key to be 0
 client.set('key', '0');
 client.get('key', (err, data) => {
   console.log('initial key', data);
@@ -69,10 +69,8 @@ const performanceTestControllers = {
         return res.json();
       })
       .then(data => {
-        // console.log('fetch data json\'d', data);
         res.locals.status = status;
         res.locals.bytes = helpers.bytes(data);
-        // console.log('byte size', res.locals.bytes);
         return next();
       })
       .catch((err: Errback) => {
@@ -103,18 +101,6 @@ const performanceTestControllers = {
       counter++;
     }
     res.locals.throughputCounter = counter;
-    // console.log('throughput', res.locals.throughputCounter);
-    // increment key
-    // client.incr('key', (err, incrementedKey) => {
-    //   const currKey = incrementedKey.toString();
-    //   console.log('new curr key', currKey);
-    //   // add throughput to cache
-    //   client.set(currKey, JSON.stringify(res.locals.throughputCounter));
-    //   // confirm cached correctly
-    //   client.get(currKey, (err, value) => {
-    //     console.log('should be throughput', value);
-    //   })
-    // });
     return next();
   },
   // computing avg response time of 50 requests
@@ -164,8 +150,6 @@ const performanceTestControllers = {
     // increment key and store response locals obj to cache
     client.incr('key', (err, incrementedKey) => {
       const currKey = incrementedKey.toString();
-      console.log('res.locals', res.locals);
-      console.log('new curr key', currKey);
       // add response locals obj to cache
       client.set(currKey, JSON.stringify(res.locals));
       // confirm cached correctly
