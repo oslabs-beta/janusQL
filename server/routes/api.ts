@@ -11,6 +11,7 @@ router.post('/responsetime',
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
   performanceTestControllers.throughput,
+  performanceTestControllers.bytes,
   // cache response time and throughput
   performanceTestControllers.cacheMetrics,
   // send response to client
@@ -30,6 +31,14 @@ router.post('/brutedos',
   securityTestController.brutedos, 
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals.testResult);
+  }
+)
+
+// calculate transfer size
+router.post('/bytes',
+  performanceTestControllers.bytes,
+  (req: Request, res: Response) => {
+    return res.status(200).json(res.locals);
   }
 )
 

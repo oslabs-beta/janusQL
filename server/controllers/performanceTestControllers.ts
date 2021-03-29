@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, Errback } from "express";
 import fetch from "node-fetch";
 import helpers from '../helper/helper'
 import redis from 'redis';
@@ -19,10 +19,41 @@ const performanceTestControllers = {
   // testing the response time of a query to an external API request
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
-    let status: number;
 
     // start timer
     const start = Date.now();
+
+    fetch(`${url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: query
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then((data) => {
+        const end = Date.now();
+        const duration = end - start;
+        res.locals.responseTimeData = data;
+        res.locals.responseTime = duration;
+        return next();
+      })
+      .catch((err: Errback) => {
+        next({
+          log: 'Express error handler caught responseTime middleware error',
+          message: {err: 'Can\'t retrieve response time'}
+        });
+      });
+  }),
+
+  // calculate transfer size
+  bytes: (req: Request, res: Response, next: NextFunction): void => {
+    const { query, url } = req.body;
+    let status: number;
 
     fetch(`${url}`, {
       method: 'POST',
@@ -38,23 +69,19 @@ const performanceTestControllers = {
         return res.json();
       })
       .then(data => {
+        console.log('fetch data json\'d', data);
         res.locals.status = status;
-        res.locals.responseTimeData = data;
         res.locals.bytes = helpers.bytes(data);
+        console.log('byte size', res.locals.bytes);
       })
-      .then(() => {
-        const end = Date.now();
-        const duration = end - start;
-        res.locals.responseTime = duration;
-        return next();
-      })
-      .catch(err => {
+      .catch((err: Errback) => {
         next({
-          log: 'Express error handler caught responseTime middleware error',
-          message: {err: 'Can\'t retrieve response time'}
+          log: 'Express error handler caught bytes middleware error',
+          message: {err: 'Can\'t retrieve transfer size'}
         });
       });
-  }),
+  },
+
   // testing number of completed requests in 1 sec
   throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
