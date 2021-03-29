@@ -11,6 +11,9 @@ router.post('/responsetime',
   // middleware to fetch from external api
   performanceTestControllers.responseTime,
   performanceTestControllers.throughput,
+  // cache response time and throughput
+  performanceTestControllers.cacheMetrics,
+  // send response to client
   (req: Request, res: Response) => {
     return res.status(200).json(res.locals)
   }

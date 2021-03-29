@@ -6,13 +6,13 @@ import redis from 'redis';
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
 
-// const client = redis.createClient(6379);
+const client = redis.createClient(6379);
 
 // // initialize key to be 0
-// client.set('key', '0');
-// client.get('key', (err, data) => {
-//   console.log('initial key', data);
-// })
+client.set('key', '0');
+client.get('key', (err, data) => {
+  console.log('initial key', data);
+})
 
 const performanceTestControllers = {
 
@@ -85,7 +85,7 @@ const performanceTestControllers = {
     //   client.get(currKey, (err, value) => {
     //     console.log('should be throughput', value);
     //   })
-    // })
+    // });
     return next();
   },
   // computing avg response time of 50 requests
@@ -122,6 +122,28 @@ const performanceTestControllers = {
     res.locals.storage = storage;
     const avg = sum / counter;
     res.locals.avg = avg;
+    return next();
+  },
+  
+  cacheMetrics: (req: Request, res: Response, next: NextFunction): void => {
+    const { query, url } = req.body;
+
+    // add to response locals obj the query and url to send to client
+    res.locals.query = query;
+    res.locals.url = url;
+
+    // increment key and store response locals obj to cache
+    client.incr('key', (err, incrementedKey) => {
+      const currKey = incrementedKey.toString();
+      console.log('new curr key', currKey);
+      // add response locals obj to cache
+      client.set(currKey, JSON.stringify(res.locals));
+      // confirm cached correctly
+      client.get(currKey, (err, value) => {
+        console.log('should be locals obj', value);
+      })
+    });
+
     return next();
   }
 };
