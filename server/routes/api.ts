@@ -34,22 +34,6 @@ router.post('/brutedos',
   }
 )
 
-// calculate transfer size
-router.post('/bytes',
-  performanceTestControllers.bytes,
-  (req: Request, res: Response) => {
-    return res.status(200).json(res.locals);
-  }
-)
-
-// calculate num of completed requests in 1 sec
-router.post('/throughput',
-  performanceTestControllers.throughput,
-  (req: Request, res: Response) => {
-    return res.status(200).json(res.locals);
-  }
-)
-
 // calculate avg response time of 50 requests
 router.post('/load',
   performanceTestControllers.loadTesting,
