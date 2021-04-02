@@ -1,6 +1,6 @@
 <h1 align="center">JanusQL</h1>
 
-<p align="center">An inclusive dev tool for monitoring GraphQL queries to persist and compare metrics</p>
+<p align="center">An inclusive dev tool for monitoring GraphQL queries to persist and compare metrics.</p>
 
 <p align="center">
   <img src=https://img.shields.io/badge/React-^16.13.1-yellow>
