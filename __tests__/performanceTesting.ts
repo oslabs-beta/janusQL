@@ -1,10 +1,5 @@
 import supertest from "supertest";
-
-// import performance test controllers
-import performanceTestControllers from "../server/controllers/performanceTestControllers";
-
-// import express
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction, Errback } from "express";
 
 // import our server file
 import app from "../server/server";
@@ -39,11 +34,11 @@ describe('response time test block', () => {
       .send({ query: queryTester, url: urlTester })
       .expect('Content-Type', /json/)
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body).toHaveProperty('responseTime');
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   });
 
   // is the response time a number?
@@ -52,11 +47,11 @@ describe('response time test block', () => {
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(typeof response.body.responseTime).toBe('number');
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   })
 
   // is the response time a positive number?
@@ -65,11 +60,11 @@ describe('response time test block', () => {
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body.responseTime).toBeGreaterThan(0);
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   })
 
   // is the response time less than 500ms?
@@ -78,11 +73,11 @@ describe('response time test block', () => {
       .post('/input/responsetime')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body.responseTime).toBeLessThan(500);
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   })
 })
 
@@ -95,11 +90,11 @@ describe('throughput test block', () => {
       .post('/input/throughput')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body).toHaveProperty('throughputCounter');
         done();
       })
-      .catch(err => console.log(err));
+      .catch((err: Errback) => console.log(err));
   });
 
   // expect throughputCounter to be a number
@@ -108,11 +103,11 @@ describe('throughput test block', () => {
       .post('/input/throughput')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
           expect(typeof response.body.throughputCounter).toBe('number');
           done();
         })
-      .catch(err => done(err));
+      .catch((err: Errback) => done(err));
   })
   // expect throughputCounter to be a positive number
   it('thoughputCounter should be a positive number', (done) => {
@@ -120,11 +115,11 @@ describe('throughput test block', () => {
       .post('/input/throughput')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body.throughputCounter).toBeGreaterThan(0);
         done();
       })
-      .catch(err => done(err));
+      .catch((err: Errback) => done(err));
   })
 })
 
@@ -136,11 +131,11 @@ describe('loadtesting test block', () => {
       .post('/input/load')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body).toHaveProperty('storage');
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   });
 
   // does response obj has an avg property?
@@ -149,11 +144,11 @@ describe('loadtesting test block', () => {
       .post('/input/load')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body).toHaveProperty('avg');
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   });
 
   // is avg a number?
@@ -162,11 +157,11 @@ describe('loadtesting test block', () => {
       .post('/input/load')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(typeof response.body.avg).toBe('number');
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   })
 
   // is avg a positive number?
@@ -175,11 +170,11 @@ describe('loadtesting test block', () => {
       .post('/input/load')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body.avg).toBeGreaterThan(0);
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   })
 
   // is the avg less than 500ms?
@@ -188,10 +183,10 @@ describe('loadtesting test block', () => {
       .post('/input/load')
       .send({ query: queryTester, url: urlTester })
       .expect(200)
-      .then(response => {
+      .then((response: any) => {
         expect(response.body.avg).toBeLessThan(500);
         done();
       })
-      .catch(err => done(err))
+      .catch((err: Errback) => done(err))
   })
 })

@@ -1,19 +1,59 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction, Errback } from "express";
 import fetch from "node-fetch";
 import helpers from '../helper/helper'
+import redis from 'redis';
 
 const isTest = process.env.NODE_ENV === 'test';
 let numOfRequests: number;
+
+const client = redis.createClient(6379);
+
+// initialize key to be 0
+client.set('key', '0');
+client.get('key', (err, data) => {
+  console.log('initial key', data);
+})
 
 const performanceTestControllers = {
 
   // testing the response time of a query to an external API request
   responseTime: ((req: Request, res: Response, next: NextFunction): void => {
     const { query, url } = req.body;
-    let status: number;
 
     // start timer
     const start = Date.now();
+
+    fetch(`${url}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: query
+      })
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then((data) => {
+        const end = Date.now();
+        const duration = end - start;
+        res.locals.responseTimeData = data;
+        res.locals.responseTime = duration;
+        return next();
+      })
+      .catch((err: Errback) => {
+        next({
+          log: 'Express error handler caught responseTime middleware error',
+          message: {err: 'Can\'t retrieve response time'}
+        });
+      });
+  }),
+
+  // calculate transfer size
+  bytes: (req: Request, res: Response, next: NextFunction): void => {
+    const { query, url } = req.body;
+    let status: number;
 
     fetch(`${url}`, {
       method: 'POST',
@@ -30,22 +70,17 @@ const performanceTestControllers = {
       })
       .then(data => {
         res.locals.status = status;
-        res.locals.responseTimeData = data;
         res.locals.bytes = helpers.bytes(data);
-      })
-      .then(() => {
-        const end = Date.now();
-        const duration = end - start;
-        res.locals.responseTime = duration;
         return next();
       })
-      .catch(err => {
+      .catch((err: Errback) => {
         next({
-          log: 'Express error handler caught responseTime middleware error',
-          message: {err: 'Can\'t retrieve response time'}
+          log: 'Express error handler caught bytes middleware error',
+          message: {err: 'Can\'t retrieve transfer size'}
         });
       });
-  }),
+  },
+
   // testing number of completed requests in 1 sec
   throughput: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { query, url } = req.body;
@@ -102,6 +137,28 @@ const performanceTestControllers = {
     res.locals.storage = storage;
     const avg = sum / counter;
     res.locals.avg = avg;
+    return next();
+  },
+  
+  cacheMetrics: (req: Request, res: Response, next: NextFunction): void => {
+    const { query, url } = req.body;
+
+    // add to response locals obj the query and url to send to client
+    res.locals.query = query;
+    res.locals.url = url;
+
+    // increment key and store response locals obj to cache
+    client.incr('key', (err, incrementedKey) => {
+      const currKey = incrementedKey.toString();
+      console.log('currKey', currKey);
+      // add response locals obj to cache
+      client.set(currKey, JSON.stringify(res.locals));
+      // confirm cached correctly
+      client.get(currKey, (err, value) => {
+        console.log('should be locals obj', value);
+      })
+    });
+
     return next();
   }
 };
